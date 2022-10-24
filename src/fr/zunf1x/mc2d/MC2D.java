@@ -22,8 +22,8 @@ public class MC2D {
     public MC2D() {
         this.running = false;
         this.scale = 3;
-        this.width = 840 / scale;
-        this.height = 480 / scale;
+        this.width = 840 / this.scale;
+        this.height = 480 / this.scale;
 
         this.game = new Game();
 
