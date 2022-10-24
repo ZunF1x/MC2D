@@ -1,4 +1,4 @@
-package fr.zunf1x.mc2d.game.level;
+package fr.zunf1x.mc2d.game.level.world;
 
 import fr.zunf1x.mc2d.math.Mathf;
 import fr.zunf1x.mc2d.math.vectors.Vector2f;
@@ -7,8 +7,8 @@ import java.util.Random;
 
 public class Noise {
 
-    private final long seed;
-    private final Random rand;
+    public final long seed;
+    public final Random rand;
     private final int octave;
     private final float amplitude;
 
@@ -47,7 +47,7 @@ public class Noise {
     }
 
     private double noise(Vector2f vec) {
-        double var = 10000 * (Math.sin(vec.getX() + Math.cos(vec.getY()) + Math.tan(seed)));
+        double var = 10000 * (vec.getX() + vec.getY() + Math.tan(seed));
         this.rand.setSeed((long) var);
 
         return this.rand.nextDouble();

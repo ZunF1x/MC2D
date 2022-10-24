@@ -21,7 +21,7 @@ public class MC2D {
 
     public MC2D() {
         this.running = false;
-        this.scale = 3;
+        this.scale = 1;
         this.width = 840 / this.scale;
         this.height = 480 / this.scale;
 
@@ -104,7 +104,7 @@ public class MC2D {
     }
 
     public void render() {
-        //glViewport(0, 0, this.width * scale, this.height * scale);
+        glViewport(0, 0, this.width * scale, this.height * scale);
 
         glClear(GL_DEPTH_BUFFER_BIT | GL_COLOR_BUFFER_BIT);
 
@@ -116,7 +116,7 @@ public class MC2D {
             Display.setTitle("MC2D");
             Display.setDisplayMode(new DisplayMode(this.width * this.scale, this.height * this.scale));
             Display.setFullscreen(false);
-            Display.setResizable(false);
+            Display.setResizable(true);
             Display.create();
         } catch (LWJGLException e) {
             e.printStackTrace();
@@ -136,5 +136,9 @@ public class MC2D {
 
     public int getHeight() {
         return height;
+    }
+
+    public Game getGame() {
+        return game;
     }
 }
