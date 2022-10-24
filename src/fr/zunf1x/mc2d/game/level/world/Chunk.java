@@ -17,24 +17,17 @@ public class Chunk {
 
     private Noise noise;
 
-    public Chunk(int x, Noise noise) {
+    private WorldGenerator world;
+
+    public Chunk(int x, WorldGenerator world) {
         this.blocks = new BlockPlacer[WIDTH][HEIGHT];
 
         this.x = x;
 
-        this.noise = new Noise(noise.seed, 20, 10);
+        this.world = world;
+        this.noise = this.world.getWorldProvider().getNoise();
 
         this.generateChunk();
-    }
-
-    public void init(Game game) {
-        for (int x = 0; x < Chunk.WIDTH; x++) {
-            for (int y = 0; y < Chunk.HEIGHT; y++) {
-                BlockPlacer b = getBlock(x, y);
-
-                if (b != null) b.init(game);
-            }
-        }
     }
 
     public void generateChunk() {
@@ -72,7 +65,7 @@ public class Chunk {
 
         int xx = this.x * 16 + x;
 
-        this.blocks[x][y] = new BlockPlacer(new Vector2f(xx, y), b);
+        this.blocks[x][y] = new BlockPlacer(new Vector2f(xx, y), b, this.world);
     }
 
     public BlockPlacer getBlock(int x, int y) {

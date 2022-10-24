@@ -3,6 +3,7 @@ package fr.zunf1x.mc2d.game.level;
 import fr.zunf1x.mc2d.Start;
 import fr.zunf1x.mc2d.game.Game;
 import fr.zunf1x.mc2d.game.level.blocks.Block;
+import fr.zunf1x.mc2d.game.level.world.WorldGenerator;
 import fr.zunf1x.mc2d.math.vectors.Vector2f;
 import fr.zunf1x.mc2d.rendering.Color4f;
 
@@ -15,17 +16,19 @@ public class BlockPlacer {
     private final Vector2f loc;
     private final Block block;
 
-    Color4f color;
+    private Color4f color;
 
-    public BlockPlacer(Vector2f loc, Block block) {
+    private WorldGenerator world;
+
+    public BlockPlacer(Vector2f loc, Block block, WorldGenerator world) {
         this.loc = loc;
         this.block = block;
-    }
 
-    public void init(Game game) {
-        Random rdm = game.getWorld().getWorldProvider().getWorldSeededRandom();
+        this.world = world;
 
-        color = new Color4f(rdm.nextFloat() * 4, rdm.nextFloat() * 2, rdm.nextFloat() * 2);
+        Random rdm = world.getWorldProvider().getWorldSeededRandom();
+
+        this.color = new Color4f(rdm.nextFloat() * 4, rdm.nextFloat() * 2, rdm.nextFloat() * 2);
     }
 
     public void render() {

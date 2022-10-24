@@ -1,14 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="488e2e80-e446-464b-a173-07f4f0889aca" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/uiDesigner.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/fr/zunf1x/mc2d/MC2D.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/fr/zunf1x/mc2d/MC2D.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/fr/zunf1x/mc2d/game/Game.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/fr/zunf1x/mc2d/game/Game.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/fr/zunf1x/mc2d/game/level/Noise.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/fr/zunf1x/mc2d/game/level/world/Noise.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/fr/zunf1x/mc2d/rendering/Tesselator.java" beforeDir="false" />
-    </list>
+    <list default="true" id="488e2e80-e446-464b-a173-07f4f0889aca" name="Changes" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -25,7 +18,6 @@
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
   <component name="HighlightingSettingsPerFile">
-    <setting file="jar://$PROJECT_DIR$/../../../../../Program Files/Java/jdk1.8.0_241/javafx-src.zip!/com/sun/scenario/effect/Color4f.java" root0="SKIP_INSPECTION" />
     <setting file="file://$PROJECT_DIR$/src/fr/zunf1x/mc2d/MC2D.java" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/src/fr/zunf1x/mc2d/Start.java" root0="FORCE_HIGHLIGHTING" />
   </component>
@@ -37,17 +29,17 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
-    "last_opened_file_path": "C:/Users/zunf1/Documents/GitHub/MC2D",
-    "project.structure.last.edited": "Modules",
-    "project.structure.proportion": "0.15",
-    "project.structure.side.proportion": "0.2"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/Users/zunf1/Documents/GitHub/MC2D&quot;,
+    &quot;project.structure.last.edited&quot;: &quot;Modules&quot;,
+    &quot;project.structure.proportion&quot;: &quot;0.15&quot;,
+    &quot;project.structure.side.proportion&quot;: &quot;0.2&quot;
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="C:\Users\zunf1\Documents\GitHub\MC2D\libs" />

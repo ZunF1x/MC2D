@@ -21,13 +21,7 @@ public class World extends WorldGenerator {
 
     public void generate() {
         for (int x = 0; x < 4; x++) {
-            this.chunks[x] = new Chunk(x, this.getWorldProvider().getNoise());
-        }
-    }
-
-    public void init(Game game) {
-        for (int x = 0; x < this.size; x++) {
-            if (getChunk(x) != null) getChunk(x).init(game);
+            this.chunks[x] = new Chunk(x, this);
         }
     }
 
@@ -39,7 +33,7 @@ public class World extends WorldGenerator {
         if (a + 1 >= this.size) return;
 
         if (chunks[a + 1] == null) {
-            chunks[a + 1] = new Chunk(a + 1, this.getWorldProvider().getNoise());
+            chunks[a + 1] = new Chunk(a + 1, this);
             System.out.println(getWorldProvider().getWorldSeededRandom().nextInt(50) + getWorldProvider().getWorldSeededRandom().nextInt(25));
         }
     }

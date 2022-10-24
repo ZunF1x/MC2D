@@ -25,7 +25,7 @@ public class Game {
     }
 
     public void init() {
-        this.world.init(this);
+        
     }
 
     public World getWorld() {
