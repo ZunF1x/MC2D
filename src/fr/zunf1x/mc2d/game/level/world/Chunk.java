@@ -4,7 +4,7 @@ import fr.zunf1x.mc2d.game.level.BlockPlacer;
 import fr.zunf1x.mc2d.game.level.blocks.Block;
 import fr.zunf1x.mc2d.game.level.blocks.Blocks;
 import fr.zunf1x.mc2d.math.Mathf;
-import fr.zunf1x.mc2d.math.vectors.Vector2f;
+import fr.zunf1x.mc2d.math.vectors.Vector2d;
 import fr.zunf1x.mc2d.rendering.Color4f;
 
 import java.util.Random;
@@ -27,13 +27,13 @@ public class Chunk {
     public Chunk(int x, World world) {
         this.blocks = new BlockPlacer[WIDTH][HEIGHT];
 
-        this.x = 0;
+        this.x = x;
 
         this.world = world;
         this.noise = this.world.getWorldProvider().getNoise();
 
         Random rand = this.world.getWorldProvider().getWorldSeededRandom();
-        if (x - 1 >= 0) {
+        if (x - 1 >= 0 && this.world.getChunk(x - 1) != null) {
             Color4f c = this.world.getChunk(x - 1).foliageColor;
 
             boolean flag = rand.nextInt(100) < 75;
@@ -47,11 +47,9 @@ public class Chunk {
         } else {
             this.foliageColor = new Color4f(0, (float) Mathf.clamp(rand.nextFloat(), 0.25F, 0.75F), (float) Mathf.clamp(rand.nextFloat(), 0.0F, 0.15F));
         }
-
-        this.generateChunk();
     }
 
-    public void generateChunk() {
+    public Chunk generateChunk() {
         Random random = this.world.getWorldProvider().getWorldSeededRandom();
 
         for (int x = 0; x < Chunk.WIDTH; x++) {
@@ -59,10 +57,12 @@ public class Chunk {
                 int xx = this.x * 16 + x;
 
                 if (this.noise.getNoise(xx, y - 192) < y - 192) {
-                    this.setBlock(x, y, Blocks.LEAVES);
+                    this.setBlock(x, y, Blocks.GRASS);
                 }
             }
         }
+
+        return this;
     }
 
     public void render() {
@@ -92,7 +92,7 @@ public class Chunk {
 
         int xx = this.x * 16 + x;
 
-        this.blocks[x][y] = new BlockPlacer(new Vector2f(xx, y), b, this.world);
+        this.blocks[x][y] = new BlockPlacer(new Vector2d(xx, y), b, this.world);
     }
 
     public BlockPlacer getBlock(int x, int y) {

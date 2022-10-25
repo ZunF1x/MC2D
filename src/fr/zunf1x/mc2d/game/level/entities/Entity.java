@@ -2,15 +2,15 @@ package fr.zunf1x.mc2d.game.level.entities;
 
 import fr.zunf1x.mc2d.game.Game;
 import fr.zunf1x.mc2d.game.level.world.World;
-import fr.zunf1x.mc2d.math.vectors.Vector2f;
+import fr.zunf1x.mc2d.math.vectors.Vector2d;
 
 public abstract class Entity {
 
-    private Vector2f location;
+    private Vector2d location;
     protected Game game;
     protected World world;
 
-    public Entity(Vector2f location) {
+    public Entity(Vector2d location) {
         this.location = location;
     }
 
@@ -20,26 +20,26 @@ public abstract class Entity {
     }
 
     public boolean isOnGround() {
-        for (int i = 3; i <= 61; i++) {
-            if (this.world.getBlock((int) (this.getLocation().getX() + i) / 64, (int) (this.getLocation().getY() + 125.1F) / 64) != null) return true;
+        for (float i = 0.046875F; i < 0.953125F; i += 0.0625F) {
+            if (this.world.getBlock((int) (this.getLocation().getX() + i), (int) (this.getLocation().getY() + 1.9546875F)) != null) return true;
         }
 
         return false;
     }
 
     public boolean collide(float xa, float ya) {
-        float x = getLocation().getX();
-        float y = getLocation().getY();
+        double x = getLocation().getX();
+        double y = getLocation().getY();
 
-        int x0 = (int) (x + xa + 3) / 64;
-        int x1 = (int) (x + xa + 61) / 64;
-        int y0 = (int) (y + ya + 3) / 64;
-        int y1 = (int) (y + ya + 61) / 64;
+        int x0 = (int) (x + xa + 0.046875F);
+        int x1 = (int) (x + xa + 0.953125F);
+        int y0 = (int) (y + ya + 0.046875F);
+        int y1 = (int) (y + ya + 0.953125F);
 
-        int x2 = (int) (x + xa + 3) / 64;
-        int x3 = (int) (x + xa + 61) / 64;
-        int y2 = (int) (y + ya + 64) / 64;
-        int y3 = (int) (y + ya + 125) / 64;
+        int x2 = (int) (x + xa + 0.046875F);
+        int x3 = (int) (x + xa + 0.953125F);
+        int y2 = (int) (y + ya + 1);
+        int y3 = (int) (y + ya + 1.953125F);
 
         if (world.getBlock(x0, y0) != null) return true;
         if (world.getBlock(x1, y0) != null) return true;
@@ -57,7 +57,7 @@ public abstract class Entity {
 
     public abstract void render();
 
-    public Vector2f getLocation() {
+    public Vector2d getLocation() {
         return location;
     }
 }

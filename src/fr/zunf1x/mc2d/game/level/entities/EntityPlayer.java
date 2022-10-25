@@ -1,22 +1,22 @@
 package fr.zunf1x.mc2d.game.level.entities;
 
-import fr.zunf1x.mc2d.math.vectors.Vector2f;
+import fr.zunf1x.mc2d.math.vectors.Vector2d;
 import org.lwjgl.input.Keyboard;
 
 import static org.lwjgl.opengl.GL11.*;
 
 public class EntityPlayer extends Entity {
 
-    public EntityPlayer(Vector2f loc) {
+    public EntityPlayer(Vector2d loc) {
         super(loc);
     }
 
-    public float speed = 0.162F;
+    public float speed = 0.162F / 64F;
     public float xa, ya;
 
     @Override
     public void update() {
-        ya += 1.8F * 0.62;
+        ya += 1.8F * 0.62F / 64F;
 
         if (Keyboard.isKeyDown(Keyboard.KEY_Z)) {
             ya -= speed;
@@ -36,16 +36,16 @@ public class EntityPlayer extends Entity {
 
         if (Keyboard.isKeyDown(Keyboard.KEY_SPACE)) {
             if (isOnGround()) {
-                ya -= 20F;
+                ya = -20F / 64F;
             }
         }
 
         if (Keyboard.isKeyDown(Keyboard.KEY_LCONTROL)) {
-            if (speed == 0.162F) {
+            if (speed == 0.162F / 64F) {
                 speed *= 2;
             }
         } else {
-            speed = 0.162F;
+            speed = 0.162F / 64F;
         }
 
         int xStep = (int) Math.abs(xa * 1000);
@@ -75,13 +75,13 @@ public class EntityPlayer extends Entity {
         this.drawPlayer(this.getLocation().getX(), this.getLocation().getY());
     }
 
-    private void drawPlayer(float x, float y) {
+    private void drawPlayer(double x, double y) {
         glBegin(GL_QUADS);
         glColor3f(1, 0, 0);
-        glVertex2f(x, y);
-        glVertex2f(x + 64, y);
-        glVertex2f(x + 64, y + 128);
-        glVertex2f(x, y + 128);
+        glVertex2d(x, y);
+        glVertex2d(x + 1, y);
+        glVertex2d(x + 1, y + 2);
+        glVertex2d(x, y + 2);
         glColor3f(1, 1, 1);
         glEnd();
     }

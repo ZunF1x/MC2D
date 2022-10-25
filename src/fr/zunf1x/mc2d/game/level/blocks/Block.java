@@ -1,6 +1,6 @@
 package fr.zunf1x.mc2d.game.level.blocks;
 
-import fr.zunf1x.mc2d.math.vectors.Vector2f;
+import fr.zunf1x.mc2d.math.vectors.Vector2d;
 import fr.zunf1x.mc2d.rendering.Color4f;
 import fr.zunf1x.mc2d.rendering.Renderer;
 
@@ -25,7 +25,7 @@ public abstract class Block {
         return texture;
     }
 
-    public void render(Vector2f loc, Color4f grassColor) {
+    public void render(Vector2d loc, Color4f grassColor) {
         Color4f color = Color4f.WHITE;
 
         if (this instanceof IColorized) {

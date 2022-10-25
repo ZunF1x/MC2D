@@ -4,6 +4,9 @@ import fr.zunf1x.mc2d.Start;
 import fr.zunf1x.mc2d.game.Game;
 import fr.zunf1x.mc2d.game.level.BlockPlacer;
 import fr.zunf1x.mc2d.game.level.blocks.Block;
+import fr.zunf1x.mc2d.game.level.blocks.Blocks;
+import fr.zunf1x.mc2d.math.vectors.Vector2f;
+import fr.zunf1x.mc2d.rendering.Color4f;
 import org.lwjgl.input.Mouse;
 
 import java.util.Random;
@@ -23,31 +26,22 @@ public class World extends WorldGenerator {
     }
 
     public void generate() {
-        for (int x = 0; x < 4; x++) {
-            this.chunks[x] = new Chunk(x, this);
-        }
+        this.chunks[0] = new Chunk(0, this).generateChunk();
     }
 
     public void update() {
         Game game = Start.getInstance().getGame();
-        float xScroll = -(game.getXScroll() / 64) / 16F;
-        int a = (int) xScroll;
+        double x = game.player.getLocation().getX();
+        int playerChunkX = (int) (x / 16F);
+        final int factor = 16;
 
-        if (a + 1 >= this.size) return;
+        for (int i = 0; i <= factor; i++) {
+            int f = i - factor / 2;
+            int chunkToGenerate = playerChunkX + f;
 
-        for (int i = 0; i < 16; i++) {
-            int pPos = a + i / 2;
-            int mPos = a - i / 2;
+            if (chunkToGenerate < 0 || chunkToGenerate >= size) continue;
 
-            if (pPos < 0 || mPos < 0) continue;
-
-            if (chunks[pPos] == null) {
-                chunks[pPos] = new Chunk(pPos, this);
-            }
-
-            if (chunks[mPos] == null) {
-                chunks[mPos] = new Chunk(mPos, this);
-            }
+            if (this.chunks[chunkToGenerate] == null) this.chunks[chunkToGenerate] = new Chunk(chunkToGenerate, this).generateChunk();
         }
     }
 
@@ -55,7 +49,7 @@ public class World extends WorldGenerator {
         Game game = Start.getInstance().getGame();
 
         for (int x = 0; x < this.size; x++) {
-            float xScroll = -(game.getXScroll() / 64);
+            double xScroll = -game.getXScroll();
 
             int xx0 = x * 16 + 16;
             int xx1 = x * 16;
@@ -96,5 +90,9 @@ public class World extends WorldGenerator {
         if (this.getChunk(xx) == null) return null;
 
         return this.getChunk(xx).getBlock(x % 16, y);
+    }
+
+    public int getSize() {
+        return size;
     }
 }

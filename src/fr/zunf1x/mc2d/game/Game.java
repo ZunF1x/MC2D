@@ -4,6 +4,7 @@ import fr.zunf1x.mc2d.Start;
 import fr.zunf1x.mc2d.game.level.blocks.Blocks;
 import fr.zunf1x.mc2d.game.level.world.World;
 import fr.zunf1x.mc2d.game.level.entities.EntityPlayer;
+import fr.zunf1x.mc2d.math.vectors.Vector2d;
 import fr.zunf1x.mc2d.math.vectors.Vector2f;
 import org.lwjgl.input.Mouse;
 import org.lwjgl.opengl.Display;
@@ -19,12 +20,14 @@ public class Game {
 
     public EntityPlayer player;
 
-    private float xScroll, yScroll;
+    private double xScroll, yScroll;
+
+    private double test = 32768 * 2;
 
     public Game() {
-        this.world = new World(100000);
+        this.world = new World(16);
 
-        player = new EntityPlayer(new Vector2f(64 * 16, 192 * 64));
+        player = new EntityPlayer(new Vector2d(0, 150));
     }
 
     public void init() {
@@ -43,13 +46,17 @@ public class Game {
         return height;
     }
 
-    public void translateView(float xa, float ya) {
+    public void translateView(double xa, double ya) {
+        float xScrollFactor = -this.world.getSize() * 16 + this.width / 64F;
+        float yScrollFactor = -256 + this.height / 64F;
+
         xScroll = xa;
         yScroll = ya;
 
         if (xScroll > 0) xScroll = 0;
         if (yScroll > 0) yScroll = 0;
-        if (yScroll < -64 * 256 + this.height) yScroll = -64 * 256 + this.height;
+        if (xScroll < xScrollFactor) xScroll = xScrollFactor;
+        if (yScroll < yScrollFactor) yScroll = yScrollFactor;
     }
 
     public void update() {
@@ -60,40 +67,41 @@ public class Game {
 
         player.update();
 
-        float xa = -player.getLocation().getX() + (float) this.width / 2 - 32;
-        float ya = -player.getLocation().getY() + (float) this.height / 2 - 64;
+        double xa = -player.getLocation().getX() + this.width / 128F - 0.5F;
+        double ya = -player.getLocation().getY() + this.height / 128F - 1;
         translateView(xa, ya);
 
-        boolean flagX = getMouseX(true) / 64F < this.player.getLocation().getX() / 64 + 4 && getMouseX(true) / 64F > this.player.getLocation().getX() / 64 - 3;
-        boolean flagY = getMouseY(true) / 64F < this.player.getLocation().getY() / 64 + 4 && getMouseY(true) / 64F > this.player.getLocation().getY() / 64 - 3;
+        boolean flagX = getMouseX(true) < this.player.getLocation().getX() + 4 && getMouseX(true) > this.player.getLocation().getX() - 3;
+        boolean flagY = getMouseY(true) < this.player.getLocation().getY() + 4 && getMouseY(true) > this.player.getLocation().getY() - 3;
 
         if (Mouse.isButtonDown(0)) {
-            if (flagX && flagY) this.world.removeBlock(getMouseX(true) / 64, getMouseY(true) / 64);
+            this.world.removeBlock(getMouseX(true) / 64, getMouseY(true) / 64);
         }
 
         if (Mouse.isButtonDown(1)) {
-            if (flagX && flagY) this.world.addBlock(getMouseX(true) / 64, getMouseY(true) / 64, Blocks.GRASS);
+            this.world.addBlock(getMouseX(true) / 64, getMouseY(true) / 64, Blocks.GRASS);
         }
     }
 
     public int getMouseX(boolean scrollingDepend) {
         int mouseX = Mouse.getX() / 2;
 
-        if (scrollingDepend) return (int) (mouseX - xScroll);
+        if (scrollingDepend) return (int) (mouseX - xScroll * 64);
         else return mouseX;
     }
 
     public int getMouseY(boolean scrollingDepend) {
         int mouseY = (Display.getHeight() - Mouse.getY()) / 2;
 
-        if (scrollingDepend) return (int) (mouseY - yScroll);
+        if (scrollingDepend) return (int) (mouseY - yScroll * 64);
         else return mouseY;
     }
 
     public void render() {
         viewGame();
 
-        glTranslatef(xScroll, yScroll, 0);
+        glScalef(64, 64, 0);
+        glTranslated(xScroll, yScroll, 0);
 
         world.render();
 
@@ -124,11 +132,11 @@ public class Game {
         glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
     }
 
-    public float getXScroll() {
+    public double getXScroll() {
         return xScroll;
     }
 
-    public float getYScroll() {
+    public double getYScroll() {
         return yScroll;
     }
 }
