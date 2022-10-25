@@ -27,7 +27,7 @@ public class Chunk {
     public Chunk(int x, World world) {
         this.blocks = new BlockPlacer[WIDTH][HEIGHT];
 
-        this.x = x;
+        this.x = 0;
 
         this.world = world;
         this.noise = this.world.getWorldProvider().getNoise();
