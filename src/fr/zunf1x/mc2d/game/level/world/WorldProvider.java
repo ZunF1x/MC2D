@@ -11,8 +11,6 @@ public class WorldProvider {
         this.noise = new Noise(seed, octave, amplitude);
         this.random = new Random();
         this.random.setSeed(seed);
-
-        System.out.println(seed);
     }
 
     public Random getWorldSeededRandom() {

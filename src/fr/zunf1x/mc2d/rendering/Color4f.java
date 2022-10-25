@@ -2,6 +2,8 @@ package fr.zunf1x.mc2d.rendering;
 
 public class Color4f {
 
+    public static final Color4f WHITE = new Color4f(1, 1, 1);
+
     private final float r, g, b, a;
 
     public Color4f(float r, float g, float b) {
@@ -29,5 +31,14 @@ public class Color4f {
 
     public float getA() {
         return this.a;
+    }
+
+    @Override
+    public String toString() {
+        return "R : " + getR() + "; G : " + getG() + "; B : " + getB() + "; A : " + getA();
+    }
+
+    public void print() {
+        System.out.println(this);
     }
 }

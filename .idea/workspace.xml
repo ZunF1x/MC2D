@@ -1,7 +1,43 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="488e2e80-e446-464b-a173-07f4f0889aca" name="Changes" comment="" />
+    <list default="true" id="488e2e80-e446-464b-a173-07f4f0889aca" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/blocks.png" beforeDir="false" afterPath="$PROJECT_DIR$/assets/blocks.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/MC2D/blocks.png" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/MC2D/blocks.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/MC2D/fr/zunf1x/mc2d/MC2D.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/MC2D/fr/zunf1x/mc2d/MC2D.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/MC2D/fr/zunf1x/mc2d/game/Game.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/MC2D/fr/zunf1x/mc2d/game/Game.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/MC2D/fr/zunf1x/mc2d/game/level/BlockPlacer.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/MC2D/fr/zunf1x/mc2d/game/level/BlockPlacer.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/MC2D/fr/zunf1x/mc2d/game/level/blocks/Block.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/MC2D/fr/zunf1x/mc2d/game/level/blocks/Block.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/MC2D/fr/zunf1x/mc2d/game/level/blocks/BlockGrass.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/MC2D/fr/zunf1x/mc2d/game/level/blocks/BlockGrass.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/MC2D/fr/zunf1x/mc2d/game/level/blocks/Blocks.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/MC2D/fr/zunf1x/mc2d/game/level/blocks/Blocks.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/MC2D/fr/zunf1x/mc2d/game/level/entities/Entity.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/MC2D/fr/zunf1x/mc2d/game/level/entities/Entity.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/MC2D/fr/zunf1x/mc2d/game/level/entities/EntityPlayer.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/MC2D/fr/zunf1x/mc2d/game/level/entities/EntityPlayer.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/MC2D/fr/zunf1x/mc2d/game/level/world/Chunk.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/MC2D/fr/zunf1x/mc2d/game/level/world/Chunk.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/MC2D/fr/zunf1x/mc2d/game/level/world/Noise.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/MC2D/fr/zunf1x/mc2d/game/level/world/Noise.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/MC2D/fr/zunf1x/mc2d/game/level/world/World.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/MC2D/fr/zunf1x/mc2d/game/level/world/World.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/MC2D/fr/zunf1x/mc2d/game/level/world/WorldProvider.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/MC2D/fr/zunf1x/mc2d/game/level/world/WorldProvider.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/MC2D/fr/zunf1x/mc2d/math/Mathf.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/MC2D/fr/zunf1x/mc2d/math/Mathf.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/MC2D/fr/zunf1x/mc2d/rendering/Color4f.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/MC2D/fr/zunf1x/mc2d/rendering/Color4f.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/MC2D/fr/zunf1x/mc2d/rendering/Renderer.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/MC2D/fr/zunf1x/mc2d/rendering/Renderer.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/MC2D/fr/zunf1x/mc2d/rendering/Texture.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/MC2D/fr/zunf1x/mc2d/rendering/Texture.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/fr/zunf1x/mc2d/MC2D.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/fr/zunf1x/mc2d/MC2D.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/fr/zunf1x/mc2d/game/Game.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/fr/zunf1x/mc2d/game/Game.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/fr/zunf1x/mc2d/game/level/BlockPlacer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/fr/zunf1x/mc2d/game/level/BlockPlacer.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/fr/zunf1x/mc2d/game/level/blocks/Block.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/fr/zunf1x/mc2d/game/level/blocks/Block.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/fr/zunf1x/mc2d/game/level/blocks/BlockGrass.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/fr/zunf1x/mc2d/game/level/blocks/BlockGrass.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/fr/zunf1x/mc2d/game/level/blocks/Blocks.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/fr/zunf1x/mc2d/game/level/blocks/Blocks.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/fr/zunf1x/mc2d/game/level/entities/Entity.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/fr/zunf1x/mc2d/game/level/entities/Entity.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/fr/zunf1x/mc2d/game/level/entities/EntityPlayer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/fr/zunf1x/mc2d/game/level/entities/EntityPlayer.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/fr/zunf1x/mc2d/game/level/world/Chunk.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/fr/zunf1x/mc2d/game/level/world/Chunk.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/fr/zunf1x/mc2d/game/level/world/Noise.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/fr/zunf1x/mc2d/game/level/world/Noise.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/fr/zunf1x/mc2d/game/level/world/World.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/fr/zunf1x/mc2d/game/level/world/World.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/fr/zunf1x/mc2d/game/level/world/WorldProvider.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/fr/zunf1x/mc2d/game/level/world/WorldProvider.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/fr/zunf1x/mc2d/math/Mathf.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/fr/zunf1x/mc2d/math/Mathf.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/fr/zunf1x/mc2d/rendering/Color4f.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/fr/zunf1x/mc2d/rendering/Color4f.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/fr/zunf1x/mc2d/rendering/Renderer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/fr/zunf1x/mc2d/rendering/Renderer.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/fr/zunf1x/mc2d/rendering/Texture.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/fr/zunf1x/mc2d/rendering/Texture.java" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -10,6 +46,7 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
+        <option value="Interface" />
         <option value="Class" />
       </list>
     </option>
@@ -18,6 +55,8 @@
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
   <component name="HighlightingSettingsPerFile">
+    <setting file="jar://$PROJECT_DIR$/../../../../../Program Files/Java/jdk1.8.0_241/javafx-src.zip!/com/sun/scenario/effect/Color4f.java" root0="SKIP_INSPECTION" />
+    <setting file="jar://$PROJECT_DIR$/libs/lwjgl.jar!/org/lwjgl/opengl/GL11.class" root0="SKIP_INSPECTION" />
     <setting file="file://$PROJECT_DIR$/src/fr/zunf1x/mc2d/MC2D.java" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/src/fr/zunf1x/mc2d/Start.java" root0="FORCE_HIGHLIGHTING" />
   </component>
@@ -46,7 +85,7 @@
     </key>
   </component>
   <component name="RunManager">
-    <configuration name="Start" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+    <configuration name="fr.zunf1x.mc2d.Start" type="Application" factoryName="Application" singleton="false" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="fr.zunf1x.mc2d.Start" />
       <module name="MC2D" />
       <extension name="coverage">
@@ -61,7 +100,7 @@
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="Application.Start" />
+        <item itemvalue="Application.fr.zunf1x.mc2d.Start" />
       </list>
     </recent_temporary>
   </component>

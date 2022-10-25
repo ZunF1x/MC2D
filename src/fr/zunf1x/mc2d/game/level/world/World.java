@@ -2,6 +2,9 @@ package fr.zunf1x.mc2d.game.level.world;
 
 import fr.zunf1x.mc2d.Start;
 import fr.zunf1x.mc2d.game.Game;
+import fr.zunf1x.mc2d.game.level.BlockPlacer;
+import fr.zunf1x.mc2d.game.level.blocks.Block;
+import org.lwjgl.input.Mouse;
 
 import java.util.Random;
 
@@ -11,7 +14,7 @@ public class World extends WorldGenerator {
     private final Chunk[] chunks;
 
     public World(int size) {
-        super(new WorldProvider(-3021263370980223720L, 20, 10));
+        super(new WorldProvider(-4575487547547842124L, 20, 10));
 
         this.size = size;
         this.chunks = new Chunk[size];
@@ -32,9 +35,19 @@ public class World extends WorldGenerator {
 
         if (a + 1 >= this.size) return;
 
-        if (chunks[a + 1] == null) {
-            chunks[a + 1] = new Chunk(a + 1, this);
-            System.out.println(getWorldProvider().getWorldSeededRandom().nextInt(50) + getWorldProvider().getWorldSeededRandom().nextInt(25));
+        for (int i = 0; i < 16; i++) {
+            int pPos = a + i / 2;
+            int mPos = a - i / 2;
+
+            if (pPos < 0 || mPos < 0) continue;
+
+            if (chunks[pPos] == null) {
+                chunks[pPos] = new Chunk(pPos, this);
+            }
+
+            if (chunks[mPos] == null) {
+                chunks[mPos] = new Chunk(mPos, this);
+            }
         }
     }
 
@@ -57,5 +70,31 @@ public class World extends WorldGenerator {
         if (x < 0 || x >= this.size) return null;
 
         return this.chunks[x];
+    }
+
+    public void removeBlock(int x, int y) {
+        int xx = x / 16;
+
+        this.getChunk(xx).removeBlock(x % 16, y);
+    }
+
+    public void addBlock(int x, int y, Block block) {
+        int xx = x / 16;
+
+        this.getChunk(xx).addBlock(x % 16, y, block);
+    }
+
+    public void setBlock(int x, int y, Block block) {
+        int xx = x / 16;
+
+        this.getChunk(xx).setBlock(x % 16, y, block);
+    }
+
+    public BlockPlacer getBlock(int x, int y) {
+        int xx = x / 16;
+
+        if (this.getChunk(xx) == null) return null;
+
+        return this.getChunk(xx).getBlock(x % 16, y);
     }
 }

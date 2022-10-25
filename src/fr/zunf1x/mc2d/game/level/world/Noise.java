@@ -7,8 +7,8 @@ import java.util.Random;
 
 public class Noise {
 
-    public final long seed;
-    public final Random rand;
+    private final long seed;
+    private final Random rand;
     private final int octave;
     private final float amplitude;
 

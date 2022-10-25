@@ -1,9 +1,12 @@
 package fr.zunf1x.mc2d.game;
 
 import fr.zunf1x.mc2d.Start;
+import fr.zunf1x.mc2d.game.level.blocks.Blocks;
 import fr.zunf1x.mc2d.game.level.world.World;
 import fr.zunf1x.mc2d.game.level.entities.EntityPlayer;
 import fr.zunf1x.mc2d.math.vectors.Vector2f;
+import org.lwjgl.input.Mouse;
+import org.lwjgl.opengl.Display;
 import org.lwjgl.util.glu.GLU;
 
 import static org.lwjgl.opengl.GL11.*;
@@ -25,7 +28,7 @@ public class Game {
     }
 
     public void init() {
-        
+        this.player.init(this);
     }
 
     public World getWorld() {
@@ -60,6 +63,31 @@ public class Game {
         float xa = -player.getLocation().getX() + (float) this.width / 2 - 32;
         float ya = -player.getLocation().getY() + (float) this.height / 2 - 64;
         translateView(xa, ya);
+
+        boolean flagX = getMouseX(true) / 64F < this.player.getLocation().getX() / 64 + 4 && getMouseX(true) / 64F > this.player.getLocation().getX() / 64 - 3;
+        boolean flagY = getMouseY(true) / 64F < this.player.getLocation().getY() / 64 + 4 && getMouseY(true) / 64F > this.player.getLocation().getY() / 64 - 3;
+
+        if (Mouse.isButtonDown(0)) {
+            if (flagX && flagY) this.world.removeBlock(getMouseX(true) / 64, getMouseY(true) / 64);
+        }
+
+        if (Mouse.isButtonDown(1)) {
+            if (flagX && flagY) this.world.addBlock(getMouseX(true) / 64, getMouseY(true) / 64, Blocks.GRASS);
+        }
+    }
+
+    public int getMouseX(boolean scrollingDepend) {
+        int mouseX = Mouse.getX() / 2;
+
+        if (scrollingDepend) return (int) (mouseX - xScroll);
+        else return mouseX;
+    }
+
+    public int getMouseY(boolean scrollingDepend) {
+        int mouseY = (Display.getHeight() - Mouse.getY()) / 2;
+
+        if (scrollingDepend) return (int) (mouseY - yScroll);
+        else return mouseY;
     }
 
     public void render() {
@@ -79,6 +107,10 @@ public class Game {
         glLoadIdentity();
         GLU.gluOrtho2D(0, this.width, this.height, 0);
         glEnable(GL_MODELVIEW);
+
+        glEnable(GL_TEXTURE_2D);
+        glEnable(GL_BLEND);
+        glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
     }
 
     public void viewGuiAndOverlay() {
@@ -86,6 +118,10 @@ public class Game {
         glLoadIdentity();
         GLU.gluOrtho2D(0, this.width, this.height, 0);
         glEnable(GL_MODELVIEW);
+
+        glEnable(GL_TEXTURE_2D);
+        glEnable(GL_BLEND);
+        glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
     }
 
     public float getXScroll() {

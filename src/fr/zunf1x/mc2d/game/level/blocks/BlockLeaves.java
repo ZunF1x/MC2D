@@ -5,19 +5,16 @@ import fr.zunf1x.mc2d.rendering.Color4f;
 import fr.zunf1x.mc2d.rendering.Renderer;
 import fr.zunf1x.mc2d.rendering.Texture;
 
-import java.util.Random;
+public class BlockLeaves extends Block {
 
-public class BlockGrass extends Block {
-
-    public BlockGrass() {
+    public BlockLeaves() {
 
     }
 
     @Override
     public void render(Vector2f loc, Color4f grassColor) {
         Texture.BLOCKS.bind();
-        Renderer.directTexturedCube(loc.getX(), loc.getY(), new Color4f(1, 1, 1), 2);
-        Renderer.directTexturedCube(loc.getX(), loc.getY(), grassColor, 3);
+        Renderer.directTexturedCube(loc.getX(), loc.getY(), grassColor, 14);
         Texture.BLOCKS.unbind();
     }
 }

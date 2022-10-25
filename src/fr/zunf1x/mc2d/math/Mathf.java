@@ -8,4 +8,9 @@ public class Mathf {
 
         return a * (1F - f) + b * f;
     }
+
+    public static double clamp(float value, float min, float max) {
+        if (value <= min) return min;
+        else return Math.min(value, max);
+    }
 }

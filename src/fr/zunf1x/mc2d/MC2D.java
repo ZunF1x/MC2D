@@ -21,7 +21,7 @@ public class MC2D {
 
     public MC2D() {
         this.running = false;
-        this.scale = 1;
+        this.scale = 2;
         this.width = 840 / this.scale;
         this.height = 480 / this.scale;
 
@@ -107,6 +107,7 @@ public class MC2D {
         glViewport(0, 0, this.width * scale, this.height * scale);
 
         glClear(GL_DEPTH_BUFFER_BIT | GL_COLOR_BUFFER_BIT);
+        glClearColor(0.3941176470588235F, 0.6529411764705882F, 1F, 1F);
 
         this.game.render();
     }
