@@ -1,7 +1,9 @@
 package fr.zunf1x.mc2d.game.level.entities;
 
+import fr.zunf1x.mc2d.game.level.blocks.Blocks;
 import fr.zunf1x.mc2d.math.vectors.Vector2d;
 import org.lwjgl.input.Keyboard;
+import org.lwjgl.input.Mouse;
 
 import static org.lwjgl.opengl.GL11.*;
 

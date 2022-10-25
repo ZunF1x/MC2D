@@ -71,16 +71,20 @@ public class Game {
         double ya = -player.getLocation().getY() + this.height / 128F - 1;
         translateView(xa, ya);
 
-        boolean flagX = getMouseX(true) < this.player.getLocation().getX() + 4 && getMouseX(true) > this.player.getLocation().getX() - 3;
-        boolean flagY = getMouseY(true) < this.player.getLocation().getY() + 4 && getMouseY(true) > this.player.getLocation().getY() - 3;
+        boolean flagX = getMouseX(true) / 64F < this.player.getLocation().getX() + 4 && getMouseX(true) / 64F > this.player.getLocation().getX() - 3;
+        boolean flagY = getMouseY(true) / 64F < this.player.getLocation().getY() + 5 && getMouseY(true) / 64F > this.player.getLocation().getY() - 3;
 
-        if (Mouse.isButtonDown(0)) {
-            this.world.removeBlock(getMouseX(true) / 64, getMouseY(true) / 64);
+        if (flagX && flagY) {
+            if (Mouse.isButtonDown(0)) {
+                this.world.removeBlock(getMouseX(true) / 64, getMouseY(true) / 64);
+            }
+
+            if (Mouse.isButtonDown(1)) {
+                this.world.addBlock(getMouseX(true) / 64, getMouseY(true) / 64, Blocks.GRASS);
+            }
         }
 
-        if (Mouse.isButtonDown(1)) {
-            this.world.addBlock(getMouseX(true) / 64, getMouseY(true) / 64, Blocks.GRASS);
-        }
+        System.out.println(this.getMouseX(true) / 64F + " " + this.player.getLocation().getX());
     }
 
     public int getMouseX(boolean scrollingDepend) {
