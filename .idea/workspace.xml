@@ -3,10 +3,13 @@
   <component name="ChangeListManager">
     <list default="true" id="488e2e80-e446-464b-a173-07f4f0889aca" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/MC2D/fr/zunf1x/mc2d/game/Game.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/MC2D/fr/zunf1x/mc2d/game/Game.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/MC2D/fr/zunf1x/mc2d/game/level/entities/EntityPlayer.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/MC2D/fr/zunf1x/mc2d/game/level/entities/EntityPlayer.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/MC2D/fr/zunf1x/mc2d/rendering/Renderer.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/MC2D/fr/zunf1x/mc2d/rendering/Renderer.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/MC2D/fr/zunf1x/mc2d/rendering/Texture.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/MC2D/fr/zunf1x/mc2d/rendering/Texture.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/fr/zunf1x/mc2d/game/Game.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/fr/zunf1x/mc2d/game/Game.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/fr/zunf1x/mc2d/game/level/entities/EntityPlayer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/fr/zunf1x/mc2d/game/level/entities/EntityPlayer.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/fr/zunf1x/mc2d/rendering/Renderer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/fr/zunf1x/mc2d/rendering/Renderer.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/fr/zunf1x/mc2d/rendering/Texture.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/fr/zunf1x/mc2d/rendering/Texture.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />

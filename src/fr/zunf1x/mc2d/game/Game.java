@@ -83,8 +83,6 @@ public class Game {
                 this.world.addBlock(getMouseX(true) / 64, getMouseY(true) / 64, Blocks.GRASS);
             }
         }
-
-        System.out.println(this.getMouseX(true) / 64F + " " + this.player.getLocation().getX());
     }
 
     public int getMouseX(boolean scrollingDepend) {

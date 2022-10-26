@@ -2,6 +2,8 @@ package fr.zunf1x.mc2d.game.level.entities;
 
 import fr.zunf1x.mc2d.game.level.blocks.Blocks;
 import fr.zunf1x.mc2d.math.vectors.Vector2d;
+import fr.zunf1x.mc2d.rendering.Renderer;
+import fr.zunf1x.mc2d.rendering.Texture;
 import org.lwjgl.input.Keyboard;
 import org.lwjgl.input.Mouse;
 
@@ -78,13 +80,8 @@ public class EntityPlayer extends Entity {
     }
 
     private void drawPlayer(double x, double y) {
-        glBegin(GL_QUADS);
-        glColor3f(1, 0, 0);
-        glVertex2d(x, y);
-        glVertex2d(x + 1, y);
-        glVertex2d(x + 1, y + 2);
-        glVertex2d(x, y + 2);
-        glColor3f(1, 1, 1);
-        glEnd();
+        Texture.ENTITIES.bind();
+        Renderer.drawEntity(x, y, 0);
+        Texture.ENTITIES.unbind();
     }
 }

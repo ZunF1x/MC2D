@@ -34,4 +34,20 @@ public class Renderer {
         glColor4f(1, 1, 1, 1);
         glEnd();
     }
+
+    public static void drawEntity(double x, double y, int texture) {
+        float width = 1;
+        float height = 2;
+
+        int xo = texture % 16;
+        int yo = texture / 8;
+
+        glBegin(GL_QUADS);
+        glColor4f(1, 1, 1, 1);
+        glTexCoord2f(xo / 16f, yo / 8f); glVertex2d(x, y);
+        glTexCoord2f((xo + 1) / 16f, yo / 8f); glVertex2d(x + width, y);
+        glTexCoord2f((xo + 1) / 16f, (yo + 1) / 8f); glVertex2d(x + width, y + height);
+        glTexCoord2f(xo / 16f, (yo + 1) / 8f); glVertex2d(x, y + height);
+        glEnd();
+    }
 }
