@@ -14,6 +14,7 @@ import static org.lwjgl.opengl.GL12.*;
 public class Texture {
 
     public static final Texture BLOCKS = Texture.loadTexture("blocks");
+    public static final Texture ITEMS = Texture.loadTexture("items");
     public static final Texture ENTITIES = Texture.loadTexture("entities");
 
     private int width, height;

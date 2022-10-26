@@ -1,5 +1,6 @@
 package fr.zunf1x.mc2d.game.level.blocks;
 
+import fr.zunf1x.mc2d.game.level.world.World;
 import fr.zunf1x.mc2d.math.vectors.Vector2d;
 import fr.zunf1x.mc2d.rendering.Color4f;
 import fr.zunf1x.mc2d.rendering.Renderer;
@@ -21,7 +22,7 @@ public abstract class Block {
         return texture;
     }
 
-    public void render(Vector2d loc, Color4f grassColor) {
+    public void render(Vector2d loc, World world, Color4f grassColor, boolean half) {
         Color4f color = Color4f.WHITE;
 
         if (this instanceof IColorized) {
@@ -34,4 +35,6 @@ public abstract class Block {
 
         Texture.BLOCKS.unbind();
     }
+
+    public void onBlockInteract(World world, int x, int y) {}
 }

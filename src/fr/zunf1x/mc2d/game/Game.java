@@ -1,12 +1,17 @@
 package fr.zunf1x.mc2d.game;
 
 import fr.zunf1x.mc2d.Start;
-import fr.zunf1x.mc2d.game.level.blocks.Blocks;
+import fr.zunf1x.mc2d.game.level.BlockPlacer;
+import fr.zunf1x.mc2d.game.level.blocks.*;
 import fr.zunf1x.mc2d.game.level.world.World;
 import fr.zunf1x.mc2d.game.level.entities.EntityPlayer;
 import fr.zunf1x.mc2d.game.level.world.WorldOverworld;
 import fr.zunf1x.mc2d.game.level.world.WorldProvider;
+import fr.zunf1x.mc2d.math.Mathf;
 import fr.zunf1x.mc2d.math.vectors.Vector2d;
+import fr.zunf1x.mc2d.rendering.Color4f;
+import fr.zunf1x.mc2d.rendering.Renderer;
+import fr.zunf1x.mc2d.rendering.Texture;
 import org.lwjgl.input.Keyboard;
 import org.lwjgl.input.Mouse;
 import org.lwjgl.opengl.Display;
@@ -85,7 +90,11 @@ public class Game {
     boolean flagX;
     boolean flagY;
 
+    int activeBlock;
+
     public void update() {
+        activeBlock = (int) Mathf.clamp(activeBlock + Mouse.getDWheel() / 120F, 0, Blocks.blocks.size() - 1);
+
         this.width = Start.getInstance().getWidth();
         this.height = Start.getInstance().getHeight();
         this.scale = Start.getInstance().getScale();
@@ -118,11 +127,42 @@ public class Game {
         if (timer % 15 == 0 || timer == 5) {
             if (flagX && flagY) {
                 if (btn == 0) {
-                    this.world.removeBlock(getMouseX(true) / 64, getMouseY(true) / 64);
+                    int blockX = getMouseX(true) / 64;
+                    int blockY = getMouseY(true) / 64;
+
+                    boolean flag = this.world.getBlock(blockX, blockY) != null && this.world.getBlock(blockX, blockY - 1) != null && this.world.getBlock(blockX, blockY).getBlock() instanceof BlockDoor && this.world.getBlock(blockX, blockY - 1).getBlock() instanceof BlockNull;
+                    boolean flag1 = this.world.getBlock(blockX, blockY) != null && this.world.getBlock(blockX, blockY + 1) != null  && this.world.getBlock(blockX, blockY).getBlock() instanceof BlockNull && this.world.getBlock(blockX, blockY + 1).getBlock() instanceof BlockDoor;
+
+                    if (flag) {
+                        this.world.removeBlock(blockX, blockY - 1);
+                        this.world.removeBlock(blockX, blockY);
+                    } else if (flag1) {
+                        this.world.removeBlock(blockX, blockY + 1);
+                        this.world.removeBlock(blockX, blockY);
+                    } else {
+                        this.world.removeBlock(getMouseX(true) / 64, getMouseY(true) / 64);
+                    }
                 }
 
                 if (btn == 1) {
-                    this.world.addBlock(getMouseX(true) / 64, getMouseY(true) / 64, Blocks.STONE);
+                    int blockX = getMouseX(true) / 64;
+                    float mX = getMouseX(true) / 64F;
+                    float mY = getMouseY(true) / 64F;
+                    System.out.println(mX + " " + mY);
+
+                    this.world.addBlock(getMouseX(true) / 64, getMouseY(true) / 64, Blocks.getBlock(activeBlock), mX > blockX + 0.50F);
+                }
+            }
+        }
+
+        while (Mouse.next()) {
+            if (Mouse.getEventButtonState()) {
+                if (Mouse.getEventButton() == 1) {
+                    BlockPlacer b = this.world.getBlock(getMouseX(true) / 64, getMouseY(true) / 64);
+
+                    if (b != null) {
+                        b.getBlock().onBlockInteract(this.world, getMouseX(true) / 64, getMouseY(true) / 64);
+                    }
                 }
             }
         }
@@ -132,6 +172,75 @@ public class Game {
                 if (Keyboard.getEventKey() == Keyboard.KEY_F3) this.debug = !this.debug;
             }
         }
+    }
+
+    public void drawSelectedBlock(Block b) {
+        float x = 48, y = 48;
+        float w = 16, h = 16;
+        float v = y + h * 4 - h / 2 - h;
+
+        int xo = b.getTexture() % 16;
+        int yo = b.getTexture() / 16;
+
+        if (b instanceof ISpecialRender) {
+            int tex = ((ISpecialRender) b).specialRender();
+
+            xo = tex % 16;
+            yo = tex / 16;
+
+            x -= 32;
+            y -= 32;
+
+            Texture.ITEMS.bind();
+            glBegin(GL_QUADS);
+            glColor3f(1, 1, 1);
+            glTexCoord2f(xo / 16F, yo / 16F);
+            glVertex2f(x, y);
+            glTexCoord2f((xo + 1) / 16F, yo / 16F);
+            glVertex2f(x + 64, y);
+            glTexCoord2f((xo + 1) / 16F, (yo + 1) / 16F);
+            glVertex2f(x + 64, y + 64);
+            glTexCoord2f(xo / 16F, (yo + 1) / 16F);
+            glVertex2f(x, y + 64);
+            glEnd();
+            Texture.ITEMS.unbind();
+        } else {
+            Texture.BLOCKS.bind();
+            glBegin(GL_QUADS);
+            glColor3f(1, 1, 1);
+            glTexCoord2f(xo / 16F, yo / 16F);
+            glVertex2f(x + w * 2, y - h);
+            glTexCoord2f(xo / 16F, (yo + 1) / 16F);
+            glVertex2f(x, y - h * 2);
+            glTexCoord2f((xo + 1) / 16F, (yo + 1) / 16F);
+            glVertex2f(x - w * 2, y - h);
+            glTexCoord2f((xo + 1) / 16F, yo / 16F);
+            glVertex2f(x, y);
+
+            glColor3f(0.69F, 0.69F, 0.69F);
+            glTexCoord2f((xo + 1) / 16F, yo / 16F);
+            glVertex2f(x, y);
+            glTexCoord2f(xo / 16F, yo / 16F);
+            glVertex2f(x - w * 2, y - h);
+            glTexCoord2f(xo / 16F, (yo + 1) / 16F);
+            glVertex2f(x - w * 2, y + h * 2 - h / 2);
+            glTexCoord2f((xo + 1) / 16F, (yo + 1) / 16F);
+            glVertex2f(x, v);
+
+            glColor3f(0.43F, 0.43F, 0.43F);
+            glTexCoord2f(xo / 16F, yo / 16F);
+            glVertex2f(x, y);
+            glTexCoord2f((xo + 1) / 16F, yo / 16F);
+            glVertex2f(x + w * 2, y - h);
+            glTexCoord2f((xo + 1) / 16F, (yo + 1) / 16F);
+            glVertex2f(x + w * 2, y + h * 2 - h / 2);
+            glTexCoord2f(xo / 16F, (yo + 1) / 16F);
+            glVertex2f(x, v);
+            glEnd();
+            Texture.BLOCKS.unbind();
+        }
+
+        glEnd();
     }
 
     public void drawSelection(Vector2d loc) {
@@ -174,15 +283,17 @@ public class Game {
         glScalef(64, 64, 0);
         glTranslated(xScroll, yScroll, 0);
 
-        world.render(isDebug());
-
         this.entityManager.render();
+
+        world.render(isDebug());
 
         if (flagX && flagY) {
             this.drawSelection(new Vector2d(getMouseX(true) / 64D, getMouseY(true) / 64D));
         }
 
         viewGuiAndOverlay();
+
+        this.drawSelectedBlock(Blocks.getBlock(activeBlock));
     }
 
     public void viewGame() {

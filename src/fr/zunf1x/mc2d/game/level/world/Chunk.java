@@ -1,9 +1,7 @@
 package fr.zunf1x.mc2d.game.level.world;
 
 import fr.zunf1x.mc2d.game.level.BlockPlacer;
-import fr.zunf1x.mc2d.game.level.blocks.Block;
-import fr.zunf1x.mc2d.game.level.blocks.BlockGrass;
-import fr.zunf1x.mc2d.game.level.blocks.Blocks;
+import fr.zunf1x.mc2d.game.level.blocks.*;
 import fr.zunf1x.mc2d.game.level.world.features.Tree;
 import fr.zunf1x.mc2d.math.Mathf;
 import fr.zunf1x.mc2d.math.vectors.Vector2d;
@@ -11,7 +9,6 @@ import fr.zunf1x.mc2d.rendering.Color4f;
 import org.lwjgl.BufferUtils;
 
 import static org.lwjgl.opengl.GL11.*;
-import static org.lwjgl.opengl.GL12.*;
 import static org.lwjgl.opengl.GL15.*;
 
 import java.nio.FloatBuffer;
@@ -59,8 +56,6 @@ public class Chunk {
 
             float g = flag ? c.getG() : (float) Mathf.clamp(rand.nextFloat(), c.getG() - 0.15F, c.getG() + 0.15F);
             float b = flag ? c.getB() : (float) Mathf.clamp(rand.nextFloat(), 0.0F, 0.15F);
-
-            c.print();
 
             this.foliageColor = new Color4f(0, g, b);
         } else {
@@ -167,14 +162,41 @@ public class Chunk {
                 if (b != null) b.update();
             }
         }
-    }
 
-    public void render(boolean debug) {
         for (int x = 0; x < Chunk.WIDTH; x++) {
             for (int y = 0; y < Chunk.HEIGHT; y++) {
                 BlockPlacer b = getBlock(x, y);
 
-                if (b != null) b.render(new Color4f(foliageColor.getR(), foliageColor.getG(), foliageColor.getB()));
+                boolean flag = getBlock(x, y - 1) == null || !(getBlock(x, y - 1).getBlock() instanceof BlockDoor);
+                boolean flag1 = getBlock(x, y + 1) == null || !(getBlock(x, y + 1).getBlock() instanceof BlockDoor);
+
+                if (b != null && b.getBlock() instanceof BlockDoor && flag) {
+                    if (getBlock(x, y - 1) == null || !(getBlock(x, y - 1).getBlock() instanceof BlockNull)) {
+                        setBlock(x, y - 1, new BlockNull(), getBlock(x, y).half);
+                    }
+                }
+
+                if (b != null && b.getBlock() instanceof BlockNull && flag1) {
+                    blocks[x][y] = null;
+                }
+
+                if (b != null && b.getBlock() instanceof BlockNull) {
+                    if (getBlock(x, y + 1) != null && getBlock(x, y + 1).getBlock() instanceof BlockDoor) {
+                        if (getBlock(x, y + 1).isCollide() != getBlock(x, y).isCollide()) {
+                            getBlock(x, y).setCollide(getBlock(x, y + 1).isCollide());
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    public void render(boolean debug, World world) {
+        for (int x = 0; x < Chunk.WIDTH; x++) {
+            for (int y = 0; y < Chunk.HEIGHT; y++) {
+                BlockPlacer b = getBlock(x, y);
+
+                if (b != null) b.render(new Color4f(foliageColor.getR(), foliageColor.getG(), foliageColor.getB()), world);
             }
         }
 
@@ -208,8 +230,16 @@ public class Chunk {
         this.blocks[x][y] = null;
     }
 
-    public void addBlock(int x, int y, Block b) {
-        if (getBlock(x, y) == null) this.setBlock(x, y, b);
+    public void addBlock(int x, int y, Block b, boolean half) {
+        if (getBlock(x, y) == null) this.setBlock(x, y, b, half);
+    }
+
+    public void setBlock(int x, int y, Block b, boolean half) {
+        if (x < 0 || y < 0 || x >= WIDTH || y >= HEIGHT) return;
+
+        int xx = this.x * 16 + x;
+
+        this.blocks[x][y] = new BlockPlacer(new Vector2d(xx, y), half, b, this.world, this.world.game);
     }
 
     public void setBlock(int x, int y, Block b) {
@@ -217,7 +247,7 @@ public class Chunk {
 
         int xx = this.x * 16 + x;
 
-        this.blocks[x][y] = new BlockPlacer(new Vector2d(xx, y), b, this.world, this.world.game);
+        this.blocks[x][y] = new BlockPlacer(new Vector2d(xx, y), false, b, this.world, this.world.game);
     }
 
     public BlockPlacer getBlock(int x, int y) {

@@ -23,7 +23,7 @@ public class MC2D {
 
     public MC2D() {
         this.running = false;
-        this.scale = 1;
+        this.scale = 2;
         this.width = 840 / this.scale;
         this.height = 480 / this.scale;
 
@@ -88,7 +88,7 @@ public class MC2D {
             }
 
             if (tick) {
-                System.out.println(ticks + " tps, " + frames + " fps");
+                //System.out.println(ticks + " tps, " + frames + " fps");
                 ticks = 0;
                 frames = 0;
             }
@@ -116,50 +116,7 @@ public class MC2D {
         glClear(GL_DEPTH_BUFFER_BIT | GL_COLOR_BUFFER_BIT);
         glClearColor(0.3941176470588235F, 0.6529411764705882F, 1F, 1F);
 
-        float xo = 4;
-        float yo = 0;
-
         this.game.render();
-
-        Texture.BLOCKS.bind();
-
-        glPushMatrix();
-
-        glBegin(GL_QUADS);
-        glColor3f(1, 1, 1);
-        glTexCoord2f(xo / 16F, yo / 16F);
-        glVertex2f(x + w * 2, y - h);
-        glTexCoord2f(xo / 16F, (yo + 1) / 16F);
-        glVertex2f(x, y - h * 2);
-        glTexCoord2f((xo + 1) / 16F, (yo + 1) / 16F);
-        glVertex2f(x - w * 2, y - h);
-        glTexCoord2f((xo + 1) / 16F, yo / 16F);
-        glVertex2f(x, y);
-
-        glColor3f(0.69F, 0.69F, 0.69F);
-        glTexCoord2f((xo + 1) / 16F, yo / 16F);
-        glVertex2f(x, y);
-        glTexCoord2f(xo / 16F, yo / 16F);
-        glVertex2f(x - w * 2, y - h);
-        glTexCoord2f(xo / 16F, (yo + 1) / 16F);
-        glVertex2f(x - w * 2, y + h * 2 - h / 2);
-        glTexCoord2f((xo + 1) / 16F, (yo + 1) / 16F);
-        glVertex2f(x, y + h * 4 - h / 2 - h);
-
-        glColor3f(0.43F, 0.43F, 0.43F);
-        glTexCoord2f(xo / 16F, yo / 16F);
-        glVertex2f(x, y);
-        glTexCoord2f((xo + 1) / 16F, yo / 16F);
-        glVertex2f(x + w * 2, y - h);
-        glTexCoord2f((xo + 1) / 16F, (yo + 1) / 16F);
-        glVertex2f(x + w * 2, y + h * 2 - h / 2);
-        glTexCoord2f(xo / 16F, (yo + 1) / 16F);
-        glVertex2f(x, y + h * 4 - h / 2 - h);
-
-        glEnd();
-        glPopMatrix();
-
-        Texture.BLOCKS.unbind();
     }
 
     public void createDisplay() {

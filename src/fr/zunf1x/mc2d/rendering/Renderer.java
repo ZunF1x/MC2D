@@ -40,6 +40,42 @@ public class Renderer {
         }
     }
 
+    public static void directTexturedCube(double x, double y, Color4f color, int texture, boolean reversed) {
+        float width = 1;
+        float height = 1;
+
+        int xo = texture % 16;
+        int yo = texture / 16;
+
+        if (texture == 404) {
+            Texture.BLOCKS.unbind();
+            directCube(x, y, 0.5F, 0.5F, new Color4f(1, 0, 1));
+            directCube(x + 0.5F, y + 0.5F, 0.5F, 0.5F, new Color4f(1, 0, 1));
+            directCube(x + 0.5F, y, 0.5F, 0.5F, new Color4f(0, 0, 0));
+            directCube(x, y + 0.5F, 0.5F, 0.5F, new Color4f(0, 0, 0));
+        } else {
+            if (!reversed) {
+                glBegin(GL_QUADS);
+                glColor4f(color.getR(), color.getG(), color.getB(), color.getA());
+                glTexCoord2f(xo / 16F, yo / 16F); glVertex2d(x, y);
+                glTexCoord2f((xo + 1) / 16F, yo / 16F); glVertex2d(x + width, y);
+                glTexCoord2f((xo + 1) / 16F, (yo + 1) / 16F); glVertex2d(x + width, y + height);
+                glTexCoord2f(xo / 16F, (yo + 1) / 16f); glVertex2d(x, y + height);
+                glColor4f(1, 1, 1, 1);
+                glEnd();
+            } else {
+                glBegin(GL_QUADS);
+                glColor4f(color.getR(), color.getG(), color.getB(), color.getA());
+                glTexCoord2f((xo + 1) / 16F, yo / 16F); glVertex2d(x, y);
+                glTexCoord2f(xo / 16F, yo / 16F); glVertex2d(x + width, y);
+                glTexCoord2f(xo / 16F, (yo + 1) / 16f); glVertex2d(x + width, y + height);
+                glTexCoord2f((xo + 1) / 16F, (yo + 1) / 16F); glVertex2d(x, y + height);
+                glColor4f(1, 1, 1, 1);
+                glEnd();
+            }
+        }
+    }
+
     public static void drawEntity(double x, double y, int texture) {
         float width = 1;
         float height = 2;

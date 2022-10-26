@@ -1,6 +1,7 @@
 package fr.zunf1x.mc2d.game.level.entities;
 
 import fr.zunf1x.mc2d.game.Game;
+import fr.zunf1x.mc2d.game.level.BlockPlacer;
 import fr.zunf1x.mc2d.game.level.world.World;
 import fr.zunf1x.mc2d.math.vectors.Vector2d;
 
@@ -21,7 +22,9 @@ public abstract class Entity {
 
     public boolean isOnGround() {
         for (float i = 0.046875F; i < 0.953125F; i += 0.0625F) {
-            if (this.world.getBlock((int) (this.getLocation().getX() + i), (int) (this.getLocation().getY() + 1.9546875F)) != null) return true;
+            BlockPlacer b = this.world.getBlock((int) (this.getLocation().getX() + i), (int) (this.getLocation().getY() + 1.9546875F));
+
+            if (b != null && b.isCollide()) return true;
         }
 
         return false;
@@ -29,7 +32,9 @@ public abstract class Entity {
 
     public boolean blockOnGround() {
         for (float i = 0.046875F; i < 0.953125F; i += 0.0625F) {
-            if (this.world.getBlock((int) (this.getLocation().getX() + i), (int) (this.getLocation().getY() + 0.9546875F)) != null) return true;
+            BlockPlacer b = this.world.getBlock((int) (this.getLocation().getX() + i), (int) (this.getLocation().getY() + 0.9546875F));
+
+            if (b != null && b.isCollide()) return true;
         }
 
         return false;
@@ -49,16 +54,16 @@ public abstract class Entity {
         int y2 = (int) (y + ya + 1);
         int y3 = (int) (y + ya + 1.953125F);
 
-        if (world.getBlock(x0, y0) != null) return true;
-        if (world.getBlock(x1, y0) != null) return true;
-        if (world.getBlock(x1, y1) != null) return true;
-        if (world.getBlock(x0, y1) != null) return true;
+        if (world.getBlock(x0, y0) != null && world.getBlock(x0, y0).isCollide()) return true;
+        if (world.getBlock(x1, y0) != null && world.getBlock(x1, y0).isCollide()) return true;
+        if (world.getBlock(x1, y1) != null && world.getBlock(x1, y1).isCollide()) return true;
+        if (world.getBlock(x0, y1) != null && world.getBlock(x0, y1).isCollide()) return true;
 
-        if (world.getBlock(x2, y2) != null) return true;
-        if (world.getBlock(x3, y2) != null) return true;
-        if (world.getBlock(x3, y3) != null) return true;
+        if (world.getBlock(x2, y2) != null && world.getBlock(x2, y2).isCollide()) return true;
+        if (world.getBlock(x3, y2) != null && world.getBlock(x3, y2).isCollide()) return true;
+        if (world.getBlock(x3, y3) != null && world.getBlock(x3, y3).isCollide()) return true;
 
-        return world.getBlock(x2, y3) != null;
+        return world.getBlock(x2, y3) != null && world.getBlock(x2, y3).isCollide();
     }
 
     public boolean collideBlock(float xa, float ya) {

@@ -13,20 +13,27 @@ import java.util.Random;
 
 public class BlockPlacer {
 
-    private final Vector2d loc;
+    final Vector2d loc;
     private final Block block;
+
+    private boolean collide = true;
+    private boolean open = false;
 
     private Color4f color;
 
     private World world;
     private Game game;
 
-    public BlockPlacer(Vector2d loc, Block block, World world, Game game) {
+    public boolean half;
+
+    public BlockPlacer(Vector2d loc, boolean half, Block block, World world, Game game) {
         this.loc = loc;
         this.block = block;
 
         this.game = game;
         this.world = world;
+
+        this.half = half;
 
         Random rdm = world.getWorldProvider().getWorldSeededRandom();
 
@@ -42,7 +49,7 @@ public class BlockPlacer {
         }
     }
 
-    public void render(Color4f grassColor) {
+    public void render(Color4f grassColor, World world) {
         double x = this.getLocation().getX();
         double y = this.getLocation().getY();
 
@@ -56,7 +63,7 @@ public class BlockPlacer {
 
         if (x1 < 0 || y1 < 0 || x0 > game.getWidth() / 64F || y0 > game.getHeight() / 64F) return;
 
-        this.block.render(this.loc, grassColor);
+        this.block.render(this.loc, world, grassColor, half);
     }
 
     public Vector2d getLocation() {
@@ -65,5 +72,17 @@ public class BlockPlacer {
 
     public Block getBlock() {
         return block;
+    }
+
+    public boolean isCollide() {
+        return collide;
+    }
+
+    public void setCollide(boolean collide) {
+        this.collide = collide;
+    }
+
+    public boolean isOpen() {
+        return open;
     }
 }

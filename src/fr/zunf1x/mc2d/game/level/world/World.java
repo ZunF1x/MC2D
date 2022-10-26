@@ -67,7 +67,7 @@ public abstract class World {
 
             if (xScroll > xx0 || xScroll + game.getWidth() / 64F < xx1) continue;
 
-            if (getChunk(x) != null) getChunk(x).render(debug);
+            if (getChunk(x) != null) getChunk(x).render(debug, this);
         }
     }
 
@@ -87,10 +87,10 @@ public abstract class World {
         this.getChunk(xx).removeBlock(x % 16, y);
     }
 
-    public void addBlock(int x, int y, Block block) {
+    public void addBlock(int x, int y, Block block, boolean half) {
         int xx = x / 16;
 
-        this.getChunk(xx).addBlock(x % 16, y, block);
+        this.getChunk(xx).addBlock(x % 16, y, block, half);
     }
 
     public void setBlock(int x, int y, Block block) {
