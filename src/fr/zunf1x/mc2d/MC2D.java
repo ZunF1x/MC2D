@@ -1,9 +1,11 @@
 package fr.zunf1x.mc2d;
 
 import fr.zunf1x.mc2d.game.Game;
+import fr.zunf1x.mc2d.rendering.Texture;
 import org.lwjgl.LWJGLException;
 import org.lwjgl.opengl.Display;
 import org.lwjgl.opengl.DisplayMode;
+import org.lwjgl.util.glu.GLU;
 
 import static org.lwjgl.opengl.GL11.*;
 
@@ -103,13 +105,61 @@ public class MC2D {
         this.game.update();
     }
 
+    float x = 128;
+    float y = 128;
+    float w = 12;
+    float h = 12;
+
     public void render() {
         glViewport(0, 0, this.width * scale, this.height * scale);
 
         glClear(GL_DEPTH_BUFFER_BIT | GL_COLOR_BUFFER_BIT);
         glClearColor(0.3941176470588235F, 0.6529411764705882F, 1F, 1F);
 
+        float xo = 4;
+        float yo = 0;
+
         this.game.render();
+
+        Texture.BLOCKS.bind();
+
+        glPushMatrix();
+
+        glBegin(GL_QUADS);
+        glColor3f(1, 1, 1);
+        glTexCoord2f(xo / 16F, yo / 16F);
+        glVertex2f(x + w * 2, y - h);
+        glTexCoord2f(xo / 16F, (yo + 1) / 16F);
+        glVertex2f(x, y - h * 2);
+        glTexCoord2f((xo + 1) / 16F, (yo + 1) / 16F);
+        glVertex2f(x - w * 2, y - h);
+        glTexCoord2f((xo + 1) / 16F, yo / 16F);
+        glVertex2f(x, y);
+
+        glColor3f(0.69F, 0.69F, 0.69F);
+        glTexCoord2f((xo + 1) / 16F, yo / 16F);
+        glVertex2f(x, y);
+        glTexCoord2f(xo / 16F, yo / 16F);
+        glVertex2f(x - w * 2, y - h);
+        glTexCoord2f(xo / 16F, (yo + 1) / 16F);
+        glVertex2f(x - w * 2, y + h * 2 - h / 2);
+        glTexCoord2f((xo + 1) / 16F, (yo + 1) / 16F);
+        glVertex2f(x, y + h * 4 - h / 2 - h);
+
+        glColor3f(0.43F, 0.43F, 0.43F);
+        glTexCoord2f(xo / 16F, yo / 16F);
+        glVertex2f(x, y);
+        glTexCoord2f((xo + 1) / 16F, yo / 16F);
+        glVertex2f(x + w * 2, y - h);
+        glTexCoord2f((xo + 1) / 16F, (yo + 1) / 16F);
+        glVertex2f(x + w * 2, y + h * 2 - h / 2);
+        glTexCoord2f(xo / 16F, (yo + 1) / 16F);
+        glVertex2f(x, y + h * 4 - h / 2 - h);
+
+        glEnd();
+        glPopMatrix();
+
+        Texture.BLOCKS.unbind();
     }
 
     public void createDisplay() {

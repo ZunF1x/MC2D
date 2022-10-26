@@ -4,29 +4,28 @@
     <list default="true" id="488e2e80-e446-464b-a173-07f4f0889aca" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/assets/blocks.png" beforeDir="false" afterPath="$PROJECT_DIR$/assets/blocks.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/hs_err_pid13608.log" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/hs_err_pid31416.log" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/hs_err_pid45760.log" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/MC2D/blocks.png" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/MC2D/blocks.png" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/MC2D/fr/zunf1x/mc2d/MC2D.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/MC2D/fr/zunf1x/mc2d/MC2D.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/MC2D/fr/zunf1x/mc2d/game/Game.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/MC2D/fr/zunf1x/mc2d/game/Game.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/MC2D/fr/zunf1x/mc2d/game/level/BlockPlacer.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/MC2D/fr/zunf1x/mc2d/game/level/BlockPlacer.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/MC2D/fr/zunf1x/mc2d/game/level/blocks/Block.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/MC2D/fr/zunf1x/mc2d/game/level/blocks/Block.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/MC2D/fr/zunf1x/mc2d/game/level/blocks/BlockStone.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/MC2D/fr/zunf1x/mc2d/game/level/blocks/BlockStone.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/MC2D/fr/zunf1x/mc2d/game/level/blocks/Blocks.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/MC2D/fr/zunf1x/mc2d/game/level/blocks/Blocks.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/MC2D/fr/zunf1x/mc2d/game/level/entities/Entity.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/MC2D/fr/zunf1x/mc2d/game/level/entities/Entity.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/MC2D/fr/zunf1x/mc2d/game/level/entities/EntityPlayer.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/MC2D/fr/zunf1x/mc2d/game/level/entities/EntityPlayer.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/MC2D/fr/zunf1x/mc2d/game/level/world/Chunk.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/MC2D/fr/zunf1x/mc2d/game/level/world/Chunk.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/MC2D/fr/zunf1x/mc2d/game/level/world/World.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/MC2D/fr/zunf1x/mc2d/game/level/world/World.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/MC2D/fr/zunf1x/mc2d/math/Mathf.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/MC2D/fr/zunf1x/mc2d/math/Mathf.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/MC2D/fr/zunf1x/mc2d/game/level/world/WorldGenerator.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/MC2D/fr/zunf1x/mc2d/game/level/world/features/Tree.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/MC2D/fr/zunf1x/mc2d/game/level/world/features/Tree.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/fr/zunf1x/mc2d/MC2D.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/fr/zunf1x/mc2d/MC2D.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/fr/zunf1x/mc2d/game/Game.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/fr/zunf1x/mc2d/game/Game.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/fr/zunf1x/mc2d/game/level/BlockPlacer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/fr/zunf1x/mc2d/game/level/BlockPlacer.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/fr/zunf1x/mc2d/game/level/blocks/Block.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/fr/zunf1x/mc2d/game/level/blocks/Block.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/fr/zunf1x/mc2d/game/level/blocks/BlockGrass.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/fr/zunf1x/mc2d/game/level/blocks/BlockGrass.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/fr/zunf1x/mc2d/game/level/blocks/Blocks.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/fr/zunf1x/mc2d/game/level/blocks/Blocks.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/fr/zunf1x/mc2d/game/level/entities/Entity.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/fr/zunf1x/mc2d/game/level/entities/Entity.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/fr/zunf1x/mc2d/game/level/entities/EntityPlayer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/fr/zunf1x/mc2d/game/level/entities/EntityPlayer.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/fr/zunf1x/mc2d/game/level/world/Chunk.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/fr/zunf1x/mc2d/game/level/world/Chunk.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/fr/zunf1x/mc2d/game/level/world/World.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/fr/zunf1x/mc2d/game/level/world/World.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/fr/zunf1x/mc2d/math/Mathf.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/fr/zunf1x/mc2d/math/Mathf.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/fr/zunf1x/mc2d/rendering/Renderer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/fr/zunf1x/mc2d/rendering/Renderer.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/fr/zunf1x/mc2d/game/level/world/WorldGenerator.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/fr/zunf1x/mc2d/game/level/world/features/Tree.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/fr/zunf1x/mc2d/game/level/world/features/Tree.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/Test.java" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -36,8 +35,8 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
-        <option value="Class" />
         <option value="Interface" />
+        <option value="Class" />
       </list>
     </option>
   </component>
@@ -74,6 +73,7 @@
       <recent name="C:\Users\zunf1\Documents\GitHub\MC2D\libs" />
     </key>
     <key name="CopyClassDialog.RECENTS_KEY">
+      <recent name="fr.zunf1x.mc2d.game.level.blocks" />
       <recent name="fr.zunf1x.mc2d.math.vectors" />
     </key>
   </component>

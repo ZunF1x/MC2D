@@ -6,7 +6,6 @@ import fr.zunf1x.mc2d.game.level.blocks.Block;
 import fr.zunf1x.mc2d.game.level.blocks.IGravity;
 import fr.zunf1x.mc2d.game.level.entities.EntityBlock;
 import fr.zunf1x.mc2d.game.level.world.World;
-import fr.zunf1x.mc2d.game.level.world.WorldGenerator;
 import fr.zunf1x.mc2d.math.vectors.Vector2d;
 import fr.zunf1x.mc2d.rendering.Color4f;
 

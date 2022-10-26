@@ -7,7 +7,7 @@ public class Tree {
 
     public static void addTree(Chunk chunk, int xp, int yp) {
         for (int y = 1; y < 3; y++) {
-            chunk.setBlock(xp, yp - y, Blocks.STONE);
+            chunk.setBlock(xp, yp - y, Blocks.LOG);
         }
 
         for (int x = 0; x < 5; x++) {

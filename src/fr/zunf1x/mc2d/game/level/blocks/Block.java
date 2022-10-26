@@ -5,11 +5,6 @@ import fr.zunf1x.mc2d.rendering.Color4f;
 import fr.zunf1x.mc2d.rendering.Renderer;
 import fr.zunf1x.mc2d.rendering.Texture;
 
-import java.awt.*;
-import java.util.Random;
-
-import static org.lwjgl.opengl.GL11.*;
-
 public abstract class Block {
 
     private int texture;

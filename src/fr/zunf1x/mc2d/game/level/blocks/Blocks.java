@@ -6,4 +6,6 @@ public class Blocks {
     public static final Block LEAVES = new BlockLeaves();
     public static final Block STONE = new BlockStone();
     public static final Block SAND = new BlockSand();
+    public static final Block GRAVEL = new BlockGravel();
+    public static final Block LOG = new BlockLog();
 }

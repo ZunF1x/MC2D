@@ -5,18 +5,16 @@ import fr.zunf1x.mc2d.game.Game;
 import fr.zunf1x.mc2d.game.level.BlockPlacer;
 import fr.zunf1x.mc2d.game.level.blocks.Block;
 
-import java.util.Random;
-
-public class World extends WorldGenerator {
+public abstract class World {
 
     private final int size;
     private final Chunk[] chunks;
 
     public final Game game;
+    private final WorldProvider worldProvider;
 
-    public World(int size, Game game) {
-        super(new WorldProvider(new Random().nextLong(), 20, 10));
-
+    public World(int size, Game game, WorldProvider worldProvider) {
+        this.worldProvider = worldProvider;
         this.size = size;
         this.chunks = new Chunk[size];
 
@@ -52,6 +50,10 @@ public class World extends WorldGenerator {
 
             if (getChunk(x) != null) getChunk(x).update();
         }
+    }
+
+    public WorldProvider getWorldProvider() {
+        return worldProvider;
     }
 
     public void render(boolean debug) {

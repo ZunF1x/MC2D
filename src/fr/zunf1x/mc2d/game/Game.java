@@ -2,16 +2,17 @@ package fr.zunf1x.mc2d.game;
 
 import fr.zunf1x.mc2d.Start;
 import fr.zunf1x.mc2d.game.level.blocks.Blocks;
-import fr.zunf1x.mc2d.game.level.entities.EntityBlock;
 import fr.zunf1x.mc2d.game.level.world.World;
 import fr.zunf1x.mc2d.game.level.entities.EntityPlayer;
+import fr.zunf1x.mc2d.game.level.world.WorldOverworld;
+import fr.zunf1x.mc2d.game.level.world.WorldProvider;
 import fr.zunf1x.mc2d.math.vectors.Vector2d;
-import fr.zunf1x.mc2d.math.vectors.Vector2f;
-import fr.zunf1x.mc2d.rendering.Color4f;
 import org.lwjgl.input.Keyboard;
 import org.lwjgl.input.Mouse;
 import org.lwjgl.opengl.Display;
 import org.lwjgl.util.glu.GLU;
+
+import java.util.Random;
 
 import static org.lwjgl.opengl.GL11.*;
 
@@ -19,7 +20,7 @@ public class Game {
 
     private int width, height, scale = 2;
 
-    private World world;
+    private final World world;
 
     public EntityPlayer player;
 
@@ -30,7 +31,7 @@ public class Game {
     private boolean debug = false;
 
     public Game() {
-        this.world = new World(4, this);
+        this.world = new WorldOverworld(32768, this, new WorldProvider(new Random().nextLong(), 20, 10));
 
         this.entityManager = new EntityManager(this);
 
@@ -121,7 +122,7 @@ public class Game {
                 }
 
                 if (btn == 1) {
-                    this.world.addBlock(getMouseX(true) / 64, getMouseY(true) / 64, Blocks.GRASS);
+                    this.world.addBlock(getMouseX(true) / 64, getMouseY(true) / 64, Blocks.STONE);
                 }
             }
         }
