@@ -3,13 +3,30 @@
   <component name="ChangeListManager">
     <list default="true" id="488e2e80-e446-464b-a173-07f4f0889aca" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/blocks.png" beforeDir="false" afterPath="$PROJECT_DIR$/assets/blocks.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/MC2D/blocks.png" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/MC2D/blocks.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/MC2D/fr/zunf1x/mc2d/MC2D.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/MC2D/fr/zunf1x/mc2d/MC2D.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/MC2D/fr/zunf1x/mc2d/game/Game.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/MC2D/fr/zunf1x/mc2d/game/Game.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/MC2D/fr/zunf1x/mc2d/game/level/BlockPlacer.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/MC2D/fr/zunf1x/mc2d/game/level/BlockPlacer.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/MC2D/fr/zunf1x/mc2d/game/level/blocks/Block.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/MC2D/fr/zunf1x/mc2d/game/level/blocks/Block.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/MC2D/fr/zunf1x/mc2d/game/level/blocks/Blocks.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/MC2D/fr/zunf1x/mc2d/game/level/blocks/Blocks.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/MC2D/fr/zunf1x/mc2d/game/level/entities/Entity.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/MC2D/fr/zunf1x/mc2d/game/level/entities/Entity.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/MC2D/fr/zunf1x/mc2d/game/level/entities/EntityPlayer.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/MC2D/fr/zunf1x/mc2d/game/level/entities/EntityPlayer.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/MC2D/fr/zunf1x/mc2d/rendering/Renderer.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/MC2D/fr/zunf1x/mc2d/rendering/Renderer.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/MC2D/fr/zunf1x/mc2d/rendering/Texture.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/MC2D/fr/zunf1x/mc2d/rendering/Texture.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/MC2D/fr/zunf1x/mc2d/game/level/world/Chunk.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/MC2D/fr/zunf1x/mc2d/game/level/world/Chunk.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/MC2D/fr/zunf1x/mc2d/game/level/world/World.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/MC2D/fr/zunf1x/mc2d/game/level/world/World.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/MC2D/fr/zunf1x/mc2d/math/Mathf.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/MC2D/fr/zunf1x/mc2d/math/Mathf.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/fr/zunf1x/mc2d/MC2D.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/fr/zunf1x/mc2d/MC2D.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/fr/zunf1x/mc2d/game/Game.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/fr/zunf1x/mc2d/game/Game.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/fr/zunf1x/mc2d/game/level/BlockPlacer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/fr/zunf1x/mc2d/game/level/BlockPlacer.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/fr/zunf1x/mc2d/game/level/blocks/Block.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/fr/zunf1x/mc2d/game/level/blocks/Block.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/fr/zunf1x/mc2d/game/level/blocks/BlockGrass.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/fr/zunf1x/mc2d/game/level/blocks/BlockGrass.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/fr/zunf1x/mc2d/game/level/blocks/Blocks.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/fr/zunf1x/mc2d/game/level/blocks/Blocks.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/fr/zunf1x/mc2d/game/level/entities/Entity.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/fr/zunf1x/mc2d/game/level/entities/Entity.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/fr/zunf1x/mc2d/game/level/entities/EntityPlayer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/fr/zunf1x/mc2d/game/level/entities/EntityPlayer.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/fr/zunf1x/mc2d/game/level/world/Chunk.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/fr/zunf1x/mc2d/game/level/world/Chunk.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/fr/zunf1x/mc2d/game/level/world/World.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/fr/zunf1x/mc2d/game/level/world/World.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/fr/zunf1x/mc2d/math/Mathf.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/fr/zunf1x/mc2d/math/Mathf.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/fr/zunf1x/mc2d/rendering/Renderer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/fr/zunf1x/mc2d/rendering/Renderer.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/fr/zunf1x/mc2d/rendering/Texture.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/fr/zunf1x/mc2d/rendering/Texture.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -19,8 +36,8 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
-        <option value="Interface" />
         <option value="Class" />
+        <option value="Interface" />
       </list>
     </option>
   </component>

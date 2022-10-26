@@ -3,14 +3,14 @@ package fr.zunf1x.mc2d.game.level;
 import fr.zunf1x.mc2d.Start;
 import fr.zunf1x.mc2d.game.Game;
 import fr.zunf1x.mc2d.game.level.blocks.Block;
+import fr.zunf1x.mc2d.game.level.blocks.IGravity;
+import fr.zunf1x.mc2d.game.level.entities.EntityBlock;
+import fr.zunf1x.mc2d.game.level.world.World;
 import fr.zunf1x.mc2d.game.level.world.WorldGenerator;
 import fr.zunf1x.mc2d.math.vectors.Vector2d;
 import fr.zunf1x.mc2d.rendering.Color4f;
 
-import java.awt.*;
 import java.util.Random;
-
-import static org.lwjgl.opengl.GL11.*;
 
 public class BlockPlacer {
 
@@ -19,17 +19,28 @@ public class BlockPlacer {
 
     private Color4f color;
 
-    private WorldGenerator world;
+    private World world;
+    private Game game;
 
-    public BlockPlacer(Vector2d loc, Block block, WorldGenerator world) {
+    public BlockPlacer(Vector2d loc, Block block, World world, Game game) {
         this.loc = loc;
         this.block = block;
 
+        this.game = game;
         this.world = world;
 
         Random rdm = world.getWorldProvider().getWorldSeededRandom();
 
         this.color = new Color4f(rdm.nextFloat() * 4, rdm.nextFloat() * 2, rdm.nextFloat() * 2);
+    }
+
+    public void update() {
+        if (getBlock() instanceof IGravity) {
+            if (this.world.getBlock((int) Math.ceil(getLocation().getX()), (int) Math.floor(getLocation().getY() + 1)) == null) {
+                this.game.entityManager.addEntity(new EntityBlock(new Vector2d((int) Math.ceil(getLocation().getX()), (int) Math.floor(getLocation().getY())), this.block));
+                this.world.removeBlock((int) Math.ceil(getLocation().getX()), (int) Math.floor(getLocation().getY()));
+            }
+        }
     }
 
     public void render(Color4f grassColor) {

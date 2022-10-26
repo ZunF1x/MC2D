@@ -3,6 +3,7 @@ package fr.zunf1x.mc2d.game.level.blocks;
 import fr.zunf1x.mc2d.math.vectors.Vector2d;
 import fr.zunf1x.mc2d.rendering.Color4f;
 import fr.zunf1x.mc2d.rendering.Renderer;
+import fr.zunf1x.mc2d.rendering.Texture;
 
 import java.awt.*;
 import java.util.Random;
@@ -32,6 +33,10 @@ public abstract class Block {
             color = ((IColorized) this).getColor();
         }
 
-        Renderer.directCube(loc.getX(), loc.getY(), color);
+        Texture.BLOCKS.bind();
+
+        Renderer.directTexturedCube(loc.getX(), loc.getY(), color, this.texture);
+
+        Texture.BLOCKS.unbind();
     }
 }

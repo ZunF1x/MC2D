@@ -4,10 +4,7 @@ import static org.lwjgl.opengl.GL11.*;
 
 public class Renderer {
 
-    public static void directCube(double x, double y, Color4f color) {
-        float width = 1;
-        float height = 1;
-
+    public static void directCube(double x, double y, double width, double height, Color4f color) {
         glBegin(GL_QUADS);
         glColor4f(color.getR(), color.getG(), color.getB(), color.getA());
         glVertex2d(x, y);
@@ -25,14 +22,22 @@ public class Renderer {
         int xo = texture % 16;
         int yo = texture / 16;
 
-        glBegin(GL_QUADS);
-        glColor4f(color.getR(), color.getG(), color.getB(), color.getA());
-        glTexCoord2f(xo / 16F, yo / 16F); glVertex2d(x, y);
-        glTexCoord2f((xo + 1) / 16F, yo / 16F); glVertex2d(x + width, y);
-        glTexCoord2f((xo + 1) / 16F, (yo + 1) / 16F); glVertex2d(x + width, y + height);
-        glTexCoord2f(xo / 16F, (yo + 1) / 16f); glVertex2d(x, y + height);
-        glColor4f(1, 1, 1, 1);
-        glEnd();
+        if (texture == 404) {
+            Texture.BLOCKS.unbind();
+            directCube(x, y, 0.5F, 0.5F, new Color4f(1, 0, 1));
+            directCube(x + 0.5F, y + 0.5F, 0.5F, 0.5F, new Color4f(1, 0, 1));
+            directCube(x + 0.5F, y, 0.5F, 0.5F, new Color4f(0, 0, 0));
+            directCube(x, y + 0.5F, 0.5F, 0.5F, new Color4f(0, 0, 0));
+        } else {
+            glBegin(GL_QUADS);
+            glColor4f(color.getR(), color.getG(), color.getB(), color.getA());
+            glTexCoord2f(xo / 16F, yo / 16F); glVertex2d(x, y);
+            glTexCoord2f((xo + 1) / 16F, yo / 16F); glVertex2d(x + width, y);
+            glTexCoord2f((xo + 1) / 16F, (yo + 1) / 16F); glVertex2d(x + width, y + height);
+            glTexCoord2f(xo / 16F, (yo + 1) / 16f); glVertex2d(x, y + height);
+            glColor4f(1, 1, 1, 1);
+            glEnd();
+        }
     }
 
     public static void drawEntity(double x, double y, int texture) {

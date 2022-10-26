@@ -21,7 +21,7 @@ public class MC2D {
 
     public MC2D() {
         this.running = false;
-        this.scale = 2;
+        this.scale = 1;
         this.width = 840 / this.scale;
         this.height = 480 / this.scale;
 
@@ -137,6 +137,10 @@ public class MC2D {
 
     public int getHeight() {
         return height;
+    }
+
+    public int getScale() {
+        return scale;
     }
 
     public Game getGame() {

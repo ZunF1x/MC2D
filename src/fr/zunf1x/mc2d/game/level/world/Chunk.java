@@ -2,11 +2,21 @@ package fr.zunf1x.mc2d.game.level.world;
 
 import fr.zunf1x.mc2d.game.level.BlockPlacer;
 import fr.zunf1x.mc2d.game.level.blocks.Block;
+import fr.zunf1x.mc2d.game.level.blocks.BlockGrass;
 import fr.zunf1x.mc2d.game.level.blocks.Blocks;
+import fr.zunf1x.mc2d.game.level.world.features.Tree;
 import fr.zunf1x.mc2d.math.Mathf;
 import fr.zunf1x.mc2d.math.vectors.Vector2d;
 import fr.zunf1x.mc2d.rendering.Color4f;
+import org.lwjgl.BufferUtils;
 
+import static org.lwjgl.opengl.GL11.*;
+import static org.lwjgl.opengl.GL12.*;
+import static org.lwjgl.opengl.GL15.*;
+
+import java.nio.FloatBuffer;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Random;
 
 public class Chunk {
@@ -24,8 +34,17 @@ public class Chunk {
 
     public Color4f foliageColor;
 
+    private List<Integer> trees;
+
+    private int vbo, cbo;
+    private int vertices;
+    private FloatBuffer vertexBuffer;
+    private FloatBuffer colorBuffer;
+
     public Chunk(int x, World world) {
         this.blocks = new BlockPlacer[WIDTH][HEIGHT];
+
+        this.trees = new ArrayList<>();
 
         this.x = x;
 
@@ -57,7 +76,24 @@ public class Chunk {
                 int xx = this.x * 16 + x;
 
                 if (this.noise.getNoise(xx, y - 192) < y - 192) {
+                    this.setBlock(x, y, Blocks.STONE);
+                }
+
+                if (grounded(x, y)) {
                     this.setBlock(x, y, Blocks.GRASS);
+                }
+            }
+        }
+
+        for (int x = 0; x < Chunk.WIDTH; x++) {
+            for (int y = 0; y < Chunk.HEIGHT; y++) {
+                if (x - 2 < 0 || x + 2 >= Chunk.WIDTH) continue;
+
+                if (grounded(x, y) && getBlock(x, y).getBlock() instanceof BlockGrass && !trees.contains(x - 1) && !trees.contains(x) && !trees.contains(x + 1)) {
+                    if (random.nextInt(100) < 15) {
+                        Tree.addTree(this, x, y);
+                        trees.add(x);
+                    }
                 }
             }
         }
@@ -65,7 +101,75 @@ public class Chunk {
         return this;
     }
 
-    public void render() {
+    public void putInBuffer(FloatBuffer buffer, float... values) {
+        buffer.put(values);
+    }
+
+    public void generateGrid() {
+        this.vertices = WIDTH * HEIGHT * 8 + 8;
+
+        this.vertexBuffer = BufferUtils.createFloatBuffer(vertices * 2);
+        this.colorBuffer = BufferUtils.createFloatBuffer(vertices * 4);
+
+        for (int x = 0; x < WIDTH; x++) {
+            for (int y = 0; y < HEIGHT; y++) {
+                putInBuffer(colorBuffer, 1, 0, 0, 1);
+                putInBuffer(vertexBuffer, this.x * 16 + x, y);
+
+                putInBuffer(colorBuffer, 1, 0, 0, 1);
+                putInBuffer(vertexBuffer, this.x * 16 + x + 1, y);
+
+                putInBuffer(colorBuffer, 1, 0, 0, 1);
+                putInBuffer(vertexBuffer, this.x * 16 + x + 1, y + 1);
+
+                putInBuffer(colorBuffer, 1, 0, 0, 1);
+                putInBuffer(vertexBuffer, this.x * 16 + x, y + 1);
+            }
+        }
+
+        putInBuffer(colorBuffer, 0, 1, 0, 1);
+        putInBuffer(vertexBuffer, this.x * 16, 0);
+
+        putInBuffer(colorBuffer, 0, 1, 0, 1);
+        putInBuffer(vertexBuffer, this.x * 16 + 16, 0);
+
+        putInBuffer(colorBuffer, 0, 1, 0, 1);
+        putInBuffer(vertexBuffer, this.x * 16 + 16, 256);
+
+        putInBuffer(colorBuffer, 0, 1, 0, 1);
+        putInBuffer(vertexBuffer, this.x * 16, 256);
+
+        vertexBuffer.flip();
+        colorBuffer.flip();
+
+        this.vbo = glGenBuffers();
+        this.cbo = glGenBuffers();
+
+        glBindBuffer(GL_ARRAY_BUFFER, this.vbo);
+        glBufferData(GL_ARRAY_BUFFER, this.vertexBuffer, GL_STATIC_DRAW);
+
+        glBindBuffer(GL_ARRAY_BUFFER, this.cbo);
+        glBufferData(GL_ARRAY_BUFFER, this.colorBuffer, GL_STATIC_DRAW);
+
+        vertexBuffer.clear();
+        colorBuffer.clear();
+    }
+
+    public boolean grounded(int x, int y) {
+        return getBlock(x, y) != null && getBlock(x, y - 1) == null;
+    }
+
+    public void update() {
+        for (int x = 0; x < Chunk.WIDTH; x++) {
+            for (int y = 0; y < Chunk.HEIGHT; y++) {
+                BlockPlacer b = getBlock(x, y);
+
+                if (b != null) b.update();
+            }
+        }
+    }
+
+    public void render(boolean debug) {
         for (int x = 0; x < Chunk.WIDTH; x++) {
             for (int y = 0; y < Chunk.HEIGHT; y++) {
                 BlockPlacer b = getBlock(x, y);
@@ -73,6 +177,27 @@ public class Chunk {
                 if (b != null) b.render(new Color4f(foliageColor.getR(), foliageColor.getG(), foliageColor.getB()));
             }
         }
+
+        glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
+        glLineWidth(1);
+
+        if (debug) {
+            glEnableClientState(GL_VERTEX_ARRAY);
+            glEnableClientState(GL_COLOR_ARRAY);
+
+            glBindBuffer(GL_ARRAY_BUFFER, this.vbo);
+            glVertexPointer(2, GL_FLOAT, 0, 0L);
+
+            glBindBuffer(GL_ARRAY_BUFFER, this.cbo);
+            glColorPointer(4, GL_FLOAT, 0, 0L);
+
+            glDrawArrays(GL_QUADS, 0, vertices);
+
+            glDisableClientState(GL_COLOR_ARRAY);
+            glDisableClientState(GL_VERTEX_ARRAY);
+        }
+
+        glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
     }
 
     public void removeBlock(int x, int y) {
@@ -92,7 +217,7 @@ public class Chunk {
 
         int xx = this.x * 16 + x;
 
-        this.blocks[x][y] = new BlockPlacer(new Vector2d(xx, y), b, this.world);
+        this.blocks[x][y] = new BlockPlacer(new Vector2d(xx, y), b, this.world, this.world.game);
     }
 
     public BlockPlacer getBlock(int x, int y) {
