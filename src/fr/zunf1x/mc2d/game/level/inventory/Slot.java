@@ -93,6 +93,10 @@ public class Slot {
         return this.inventory.decrStackSize(this.slotIndex, amount);
     }
 
+    public ItemStack incrStackSize(int amount) {
+        return this.inventory.incrStackSize(this.slotIndex, amount);
+    }
+
     public boolean isHere(IInventory inv, int slotIn)
     {
         return inv == this.inventory && slotIn == this.slotIndex;

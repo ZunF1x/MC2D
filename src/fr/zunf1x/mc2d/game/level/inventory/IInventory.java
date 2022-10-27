@@ -10,6 +10,8 @@ public interface IInventory {
 
     ItemStack decrStackSize(int index, int count);
 
+    ItemStack incrStackSize(int index, int count);
+
     ItemStack removeStackFromSlot(int index);
 
     void setInventorySlotContents(int index, ItemStack stack);

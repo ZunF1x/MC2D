@@ -1,14 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="488e2e80-e446-464b-a173-07f4f0889aca" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/fr/zunf1x/mc2d/game/Game.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/fr/zunf1x/mc2d/game/Game.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/fr/zunf1x/mc2d/game/level/entities/EntityPlayer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/fr/zunf1x/mc2d/game/level/entities/EntityPlayer.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/fr/zunf1x/mc2d/game/level/inventory/Container.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/fr/zunf1x/mc2d/game/level/inventory/Container.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/fr/zunf1x/mc2d/game/level/inventory/GuiContainer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/fr/zunf1x/mc2d/game/level/inventory/GuiContainer.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/fr/zunf1x/mc2d/game/level/inventory/inventories/InventoryTestContainer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/fr/zunf1x/mc2d/game/level/inventory/inventories/InventoryTestContainer.java" afterDir="false" />
-    </list>
+    <list default="true" id="488e2e80-e446-464b-a173-07f4f0889aca" name="Changes" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -26,7 +19,6 @@
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
   <component name="HighlightingSettingsPerFile">
-    <setting file="jar://$PROJECT_DIR$/../../../../../Program Files/Java/jdk1.8.0_241/javafx-src.zip!/com/sun/scenario/effect/Color4f.java" root0="SKIP_INSPECTION" />
     <setting file="jar://$PROJECT_DIR$/libs/lwjgl.jar!/org/lwjgl/opengl/GL11.class" root0="SKIP_INSPECTION" />
     <setting file="file://$PROJECT_DIR$/src/fr/zunf1x/mc2d/MC2D.java" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/src/fr/zunf1x/mc2d/Start.java" root0="FORCE_HIGHLIGHTING" />

@@ -41,6 +41,14 @@ public class InventoryPlayer implements IInventory {
     }
 
     @Override
+    public ItemStack incrStackSize(int index, int count) {
+        ItemStack s = getStackInSlot(index);
+        s.setCount(s.getCount() - count);
+
+        return s;
+    }
+
+    @Override
     public void setInventorySlotContents(int index, ItemStack stack) {
         this.stacks.set(index, stack);
 

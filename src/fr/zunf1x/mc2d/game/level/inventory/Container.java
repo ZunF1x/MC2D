@@ -55,19 +55,13 @@ public abstract class Container {
     }
 
     public void updateSlots() {
-        for (Slot s : containerSlots) {
-            float x = s.getX();
-            float y = s.getY();
+        for (Slot slot : containerSlots) {
+            float x = slot.getX();
+            float y = slot.getY();
 
             if (mouseHover(x, y)) {
                 if (Mouse.getEventButton() == 0) {
-                    if (currentStack.isEmpty()) {
-                        this.currentStack = s.getStack().copy();
-                        this.inventory.setInventorySlotContents(s.getIndex(), ItemStack.EMPTY);
-                    } else {
-                        this.inventory.setInventorySlotContents(s.getIndex(), this.currentStack.copy());
-                        this.currentStack = ItemStack.EMPTY;
-                    }
+                    
                 }
             }
         }

@@ -94,6 +94,9 @@ public class Game {
 
     int activeBlock;
 
+    Item i = new Item(13) {
+    };
+
     public void update() {
         activeBlock = (int) Mathf.clamp(activeBlock + Mouse.getDWheel() / 120F, 0, Blocks.blocks.size() - 1);
 
@@ -152,6 +155,10 @@ public class Game {
                     int blockY = getMouseY(true) / 64;
                     float mX = getMouseX(true) / 64F;
                     float mY = getMouseY(true) / 64F;
+
+                    Random r = new Random();
+
+                    this.player.inv.setInventorySlotContents(r.nextInt(36), new ItemStack(i));
 
                     this.world.addBlock(getMouseX(true) / 64, getMouseY(true) / 64, Blocks.getBlock(activeBlock), mX > blockX + 0.50F, mY <= blockY + 0.50F);
                 }
