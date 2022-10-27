@@ -3,6 +3,8 @@ package fr.zunf1x.mc2d.game.level.world;
 import fr.zunf1x.mc2d.game.level.BlockPlacer;
 import fr.zunf1x.mc2d.game.level.blocks.*;
 import fr.zunf1x.mc2d.game.level.world.features.Tree;
+import fr.zunf1x.mc2d.game.level.world.features.WorldGenerator;
+import fr.zunf1x.mc2d.game.level.world.features.WorldGeneratorOres;
 import fr.zunf1x.mc2d.math.Mathf;
 import fr.zunf1x.mc2d.math.vectors.Vector2d;
 import fr.zunf1x.mc2d.rendering.Color4f;
@@ -172,7 +174,7 @@ public class Chunk {
 
                 if (b != null && b.getBlock() instanceof BlockDoor && flag) {
                     if (getBlock(x, y - 1) == null || !(getBlock(x, y - 1).getBlock() instanceof BlockNull)) {
-                        setBlock(x, y - 1, new BlockNull(), getBlock(x, y).half);
+                        setBlock(x, y - 1, new BlockNull(), getBlock(x, y).halfSide, getBlock(x, y).halfTop);
                     }
                 }
 
@@ -230,16 +232,16 @@ public class Chunk {
         this.blocks[x][y] = null;
     }
 
-    public void addBlock(int x, int y, Block b, boolean half) {
-        if (getBlock(x, y) == null) this.setBlock(x, y, b, half);
+    public void addBlock(int x, int y, Block b, boolean halfSide, boolean halfTop) {
+        if (getBlock(x, y) == null) this.setBlock(x, y, b, halfSide, halfTop);
     }
 
-    public void setBlock(int x, int y, Block b, boolean half) {
+    public void setBlock(int x, int y, Block b, boolean halfSide, boolean halfTop) {
         if (x < 0 || y < 0 || x >= WIDTH || y >= HEIGHT) return;
 
         int xx = this.x * 16 + x;
 
-        this.blocks[x][y] = new BlockPlacer(new Vector2d(xx, y), half, b, this.world, this.world.game);
+        this.blocks[x][y] = new BlockPlacer(new Vector2d(xx, y), b, this.world, this.world.game, halfSide, halfTop);
     }
 
     public void setBlock(int x, int y, Block b) {
@@ -247,7 +249,7 @@ public class Chunk {
 
         int xx = this.x * 16 + x;
 
-        this.blocks[x][y] = new BlockPlacer(new Vector2d(xx, y), false, b, this.world, this.world.game);
+        this.blocks[x][y] = new BlockPlacer(new Vector2d(xx, y), b, this.world, this.world.game, false, false);
     }
 
     public BlockPlacer getBlock(int x, int y) {

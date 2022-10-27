@@ -4,6 +4,8 @@ import fr.zunf1x.mc2d.Start;
 import fr.zunf1x.mc2d.game.Game;
 import fr.zunf1x.mc2d.game.level.BlockPlacer;
 import fr.zunf1x.mc2d.game.level.blocks.Block;
+import fr.zunf1x.mc2d.game.level.world.features.WorldGenerator;
+import fr.zunf1x.mc2d.game.level.world.features.WorldGeneratorOres;
 
 public abstract class World {
 
@@ -13,10 +15,14 @@ public abstract class World {
     public final Game game;
     private final WorldProvider worldProvider;
 
+    private final WorldGenerator gen;
+
     public World(int size, Game game, WorldProvider worldProvider) {
         this.worldProvider = worldProvider;
         this.size = size;
         this.chunks = new Chunk[size];
+
+        gen = new WorldGeneratorOres();
 
         this.game = game;
     }
@@ -37,6 +43,7 @@ public abstract class World {
                 Chunk c = new Chunk(chunkToGenerate, this).generateChunk();
                 c.generateGrid();
                 this.chunks[chunkToGenerate] = c;
+                gen.generate(this.getWorldProvider().getWorldSeededRandom(), chunkToGenerate, this);
             }
         }
 
@@ -87,16 +94,28 @@ public abstract class World {
         this.getChunk(xx).removeBlock(x % 16, y);
     }
 
-    public void addBlock(int x, int y, Block block, boolean half) {
+    public void addBlock(int x, int y, Block block, boolean halfSide, boolean halfTop) {
         int xx = x / 16;
 
-        this.getChunk(xx).addBlock(x % 16, y, block, half);
+        this.getChunk(xx).addBlock(x % 16, y, block, halfSide, halfTop);
     }
 
     public void setBlock(int x, int y, Block block) {
         int xx = x / 16;
 
+        if (getChunk(xx) == null) return;
+
         this.getChunk(xx).setBlock(x % 16, y, block);
+    }
+
+    public void setBlock(int x, int y, Block block, Block toReplace) {
+        int xx = x / 16;
+
+        if (getChunk(xx) == null) return;
+
+        if (getBlock(x, y) != null && getBlock(x, y).getBlock() == toReplace) {
+            this.getChunk(xx).setBlock(x % 16, y, block);
+        }
     }
 
     public BlockPlacer getBlock(int x, int y) {

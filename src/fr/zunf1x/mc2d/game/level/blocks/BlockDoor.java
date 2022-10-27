@@ -12,15 +12,15 @@ public class BlockDoor extends Block implements ISpecialRender {
         setTexture(19);
     }
 
-    public void render(Vector2d loc, World world, Color4f grassColor, boolean half) {
+    public void render(Vector2d loc, World world, Color4f grassColor, boolean halfSide, boolean halfTop) {
         boolean open = !world.getBlock((int) loc.getX(), (int) loc.getY()).isCollide();
 
         Texture.BLOCKS.bind();
 
         if (!open) {
-            Renderer.directTexturedCube(loc.getX(), loc.getY(), new Color4f(1, 1, 1), 19, half);
+            Renderer.directTexturedCube(loc.getX(), loc.getY(), new Color4f(1, 1, 1), 19, halfSide, false);
         } else {
-            Renderer.directTexturedCube(loc.getX(), loc.getY(), new Color4f(1, 1, 1), 21, half);
+            Renderer.directTexturedCube(loc.getX(), loc.getY(), new Color4f(1, 1, 1), 21, halfSide, false);
         }
 
         Texture.BLOCKS.unbind();

@@ -13,7 +13,7 @@ public class BlockGrass extends Block {
     }
 
     @Override
-    public void render(Vector2d loc, World world, Color4f grassColor, boolean half) {
+    public void render(Vector2d loc, World world, Color4f grassColor, boolean half, boolean halfTop) {
         Texture.BLOCKS.bind();
         Renderer.directTexturedCube(loc.getX(), loc.getY(), new Color4f(1, 1, 1), 2);
         Renderer.directTexturedCube(loc.getX(), loc.getY(), grassColor, 3);

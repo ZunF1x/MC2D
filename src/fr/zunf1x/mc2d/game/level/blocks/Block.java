@@ -22,7 +22,7 @@ public abstract class Block {
         return texture;
     }
 
-    public void render(Vector2d loc, World world, Color4f grassColor, boolean half) {
+    public void render(Vector2d loc, World world, Color4f grassColor, boolean halfSide, boolean halfTop) {
         Color4f color = Color4f.WHITE;
 
         if (this instanceof IColorized) {

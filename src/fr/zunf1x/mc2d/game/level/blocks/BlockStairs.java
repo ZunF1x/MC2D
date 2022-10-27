@@ -6,16 +6,17 @@ import fr.zunf1x.mc2d.rendering.Color4f;
 import fr.zunf1x.mc2d.rendering.Renderer;
 import fr.zunf1x.mc2d.rendering.Texture;
 
-public class BlockLeaves extends Block {
+public class BlockStairs extends Block {
 
-    public BlockLeaves() {
-        setTexture(18);
+    public BlockStairs() {
+        setTexture(23);
     }
 
-    @Override
-    public void render(Vector2d loc, World world, Color4f grassColor, boolean half, boolean halfTop) {
+    public void render(Vector2d loc, World world, Color4f grassColor, boolean halfSide, boolean halfTop) {
         Texture.BLOCKS.bind();
-        Renderer.directTexturedCube(loc.getX(), loc.getY(), grassColor, 14);
+
+        Renderer.directTexturedCube(loc.getX(), loc.getY(), new Color4f(1, 1, 1), 23, halfSide, halfTop);
+
         Texture.BLOCKS.unbind();
     }
 }

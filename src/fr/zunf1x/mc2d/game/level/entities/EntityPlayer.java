@@ -1,17 +1,10 @@
 package fr.zunf1x.mc2d.game.level.entities;
 
-import fr.zunf1x.mc2d.game.level.blocks.Blocks;
 import fr.zunf1x.mc2d.math.Mathf;
 import fr.zunf1x.mc2d.math.vectors.Vector2d;
 import fr.zunf1x.mc2d.rendering.Renderer;
 import fr.zunf1x.mc2d.rendering.Texture;
 import org.lwjgl.input.Keyboard;
-import org.lwjgl.input.Mouse;
-
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-
-import static org.lwjgl.opengl.GL11.*;
 
 public class EntityPlayer extends Entity {
 

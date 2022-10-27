@@ -24,16 +24,17 @@ public class BlockPlacer {
     private World world;
     private Game game;
 
-    public boolean half;
+    public boolean halfSide, halfTop;
 
-    public BlockPlacer(Vector2d loc, boolean half, Block block, World world, Game game) {
+    public BlockPlacer(Vector2d loc, Block block, World world, Game game, boolean halfSide, boolean halfTop) {
         this.loc = loc;
         this.block = block;
 
         this.game = game;
         this.world = world;
 
-        this.half = half;
+        this.halfSide = halfSide;
+        this.halfTop = halfTop;
 
         Random rdm = world.getWorldProvider().getWorldSeededRandom();
 
@@ -63,7 +64,7 @@ public class BlockPlacer {
 
         if (x1 < 0 || y1 < 0 || x0 > game.getWidth() / 64F || y0 > game.getHeight() / 64F) return;
 
-        this.block.render(this.loc, world, grassColor, half);
+        this.block.render(this.loc, world, grassColor, halfSide, halfTop);
     }
 
     public Vector2d getLocation() {

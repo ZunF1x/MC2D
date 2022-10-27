@@ -19,7 +19,7 @@ public class EntityBlock extends Entity {
         ya += 1.8F * 0.24F / 64F;
 
         if (this.blockOnGround()) {
-            this.game.getWorld().addBlock((int) Math.ceil(getLocation().getX()), (int) Math.floor(getLocation().getY()), this.block, false);
+            this.game.getWorld().addBlock((int) Math.ceil(getLocation().getX()), (int) Math.floor(getLocation().getY()), this.block, false, false);
             this.game.entityManager.removeEntity(this);
         }
 
@@ -47,6 +47,6 @@ public class EntityBlock extends Entity {
 
     @Override
     public void render() {
-        this.block.render(this.getLocation(), this.game.getWorld(), this.game.getWorld().getChunk((int) (this.getLocation().getX() / 16D)).foliageColor, false);
+        this.block.render(this.getLocation(), this.game.getWorld(), this.game.getWorld().getChunk((int) (this.getLocation().getX() / 16D)).foliageColor, false, false);
     }
 }

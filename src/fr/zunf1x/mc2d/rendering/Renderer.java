@@ -40,7 +40,7 @@ public class Renderer {
         }
     }
 
-    public static void directTexturedCube(double x, double y, Color4f color, int texture, boolean reversed) {
+    public static void directTexturedCube(double x, double y, Color4f color, int texture, boolean reversedSide, boolean reversedTop) {
         float width = 1;
         float height = 1;
 
@@ -54,24 +54,46 @@ public class Renderer {
             directCube(x + 0.5F, y, 0.5F, 0.5F, new Color4f(0, 0, 0));
             directCube(x, y + 0.5F, 0.5F, 0.5F, new Color4f(0, 0, 0));
         } else {
-            if (!reversed) {
-                glBegin(GL_QUADS);
-                glColor4f(color.getR(), color.getG(), color.getB(), color.getA());
-                glTexCoord2f(xo / 16F, yo / 16F); glVertex2d(x, y);
-                glTexCoord2f((xo + 1) / 16F, yo / 16F); glVertex2d(x + width, y);
-                glTexCoord2f((xo + 1) / 16F, (yo + 1) / 16F); glVertex2d(x + width, y + height);
-                glTexCoord2f(xo / 16F, (yo + 1) / 16f); glVertex2d(x, y + height);
-                glColor4f(1, 1, 1, 1);
-                glEnd();
+            if (!reversedSide) {
+                if (!reversedTop) {
+                    glBegin(GL_QUADS);
+                    glColor4f(color.getR(), color.getG(), color.getB(), color.getA());
+                    glTexCoord2f(xo / 16F, yo / 16F); glVertex2d(x, y);
+                    glTexCoord2f((xo + 1) / 16F, yo / 16F); glVertex2d(x + width, y);
+                    glTexCoord2f((xo + 1) / 16F, (yo + 1) / 16F); glVertex2d(x + width, y + height);
+                    glTexCoord2f(xo / 16F, (yo + 1) / 16f); glVertex2d(x, y + height);
+                    glColor4f(1, 1, 1, 1);
+                    glEnd();
+                } else {
+                    glBegin(GL_QUADS);
+                    glColor4f(color.getR(), color.getG(), color.getB(), color.getA());
+                    glTexCoord2f(xo / 16F, (yo + 1) / 16f); glVertex2d(x, y);
+                    glTexCoord2f((xo + 1) / 16F, (yo + 1) / 16F); glVertex2d(x + width, y);
+                    glTexCoord2f((xo + 1) / 16F, yo / 16F); glVertex2d(x + width, y + height);
+                    glTexCoord2f(xo / 16F, yo / 16F); glVertex2d(x, y + height);
+                    glColor4f(1, 1, 1, 1);
+                    glEnd();
+                }
             } else {
-                glBegin(GL_QUADS);
-                glColor4f(color.getR(), color.getG(), color.getB(), color.getA());
-                glTexCoord2f((xo + 1) / 16F, yo / 16F); glVertex2d(x, y);
-                glTexCoord2f(xo / 16F, yo / 16F); glVertex2d(x + width, y);
-                glTexCoord2f(xo / 16F, (yo + 1) / 16f); glVertex2d(x + width, y + height);
-                glTexCoord2f((xo + 1) / 16F, (yo + 1) / 16F); glVertex2d(x, y + height);
-                glColor4f(1, 1, 1, 1);
-                glEnd();
+                if (!reversedTop) {
+                    glBegin(GL_QUADS);
+                    glColor4f(color.getR(), color.getG(), color.getB(), color.getA());
+                    glTexCoord2f((xo + 1) / 16F, yo / 16F); glVertex2d(x, y);
+                    glTexCoord2f(xo / 16F, yo / 16F); glVertex2d(x + width, y);
+                    glTexCoord2f(xo / 16F, (yo + 1) / 16f); glVertex2d(x + width, y + height);
+                    glTexCoord2f((xo + 1) / 16F, (yo + 1) / 16F); glVertex2d(x, y + height);
+                    glColor4f(1, 1, 1, 1);
+                    glEnd();
+                } else {
+                    glBegin(GL_QUADS);
+                    glColor4f(color.getR(), color.getG(), color.getB(), color.getA());
+                    glTexCoord2f((xo + 1) / 16F, (yo + 1) / 16F); glVertex2d(x, y);
+                    glTexCoord2f(xo / 16F, (yo + 1) / 16f); glVertex2d(x + width, y);
+                    glTexCoord2f(xo / 16F, yo / 16F); glVertex2d(x + width, y + height);
+                    glTexCoord2f((xo + 1) / 16F, yo / 16F); glVertex2d(x, y + height);
+                    glColor4f(1, 1, 1, 1);
+                    glEnd();
+                }
             }
         }
     }

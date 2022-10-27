@@ -40,7 +40,7 @@ public class Game {
 
         this.entityManager = new EntityManager(this);
 
-        player = new EntityPlayer(new Vector2d(0, 150));
+        player = new EntityPlayer(new Vector2d(5480, 150));
         this.entityManager.addEntity(player);
     }
 
@@ -146,11 +146,11 @@ public class Game {
 
                 if (btn == 1) {
                     int blockX = getMouseX(true) / 64;
+                    int blockY = getMouseY(true) / 64;
                     float mX = getMouseX(true) / 64F;
                     float mY = getMouseY(true) / 64F;
-                    System.out.println(mX + " " + mY);
 
-                    this.world.addBlock(getMouseX(true) / 64, getMouseY(true) / 64, Blocks.getBlock(activeBlock), mX > blockX + 0.50F);
+                    this.world.addBlock(getMouseX(true) / 64, getMouseY(true) / 64, Blocks.getBlock(activeBlock), mX > blockX + 0.50F, mY <= blockY + 0.50F);
                 }
             }
         }
