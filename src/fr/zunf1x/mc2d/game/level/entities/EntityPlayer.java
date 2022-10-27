@@ -1,5 +1,8 @@
 package fr.zunf1x.mc2d.game.level.entities;
 
+import fr.zunf1x.mc2d.game.Game;
+import fr.zunf1x.mc2d.game.level.inventory.inventories.InventoryPlayer;
+import fr.zunf1x.mc2d.game.level.inventory.inventories.InventoryTestGui;
 import fr.zunf1x.mc2d.math.Mathf;
 import fr.zunf1x.mc2d.math.vectors.Vector2d;
 import fr.zunf1x.mc2d.rendering.Renderer;
@@ -8,8 +11,19 @@ import org.lwjgl.input.Keyboard;
 
 public class EntityPlayer extends Entity {
 
+    private InventoryPlayer inv;
+    private InventoryTestGui g;
+
     public EntityPlayer(Vector2d loc) {
         super(loc);
+    }
+
+    @Override
+    public void init(Game game) {
+        this.inv = new InventoryPlayer();
+        this.g = new InventoryTestGui(this.inv);
+
+        super.init(game);
     }
 
     public float speed = 0.162F / 64F;
@@ -18,6 +32,8 @@ public class EntityPlayer extends Entity {
     @Override
     public void update() {
         ya += 1.8F * 0.62F / 64F;
+
+        this.g.update();
 
         if (Keyboard.isKeyDown(Keyboard.KEY_Z)) {
             ya -= speed;
@@ -80,5 +96,13 @@ public class EntityPlayer extends Entity {
         Texture.ENTITIES.bind();
         Renderer.drawEntity(x, y, 0);
         Texture.ENTITIES.unbind();
+    }
+
+    public void updateSlots() {
+        this.g.updateSlots();
+    }
+
+    public void renderGui() {
+        g.render();
     }
 }

@@ -9,8 +9,6 @@ import fr.zunf1x.mc2d.game.level.world.WorldOverworld;
 import fr.zunf1x.mc2d.game.level.world.WorldProvider;
 import fr.zunf1x.mc2d.math.Mathf;
 import fr.zunf1x.mc2d.math.vectors.Vector2d;
-import fr.zunf1x.mc2d.rendering.Color4f;
-import fr.zunf1x.mc2d.rendering.Renderer;
 import fr.zunf1x.mc2d.rendering.Texture;
 import org.lwjgl.input.Keyboard;
 import org.lwjgl.input.Mouse;
@@ -39,13 +37,11 @@ public class Game {
         this.world = new WorldOverworld(32768, this, new WorldProvider(new Random().nextLong(), 20, 10));
 
         this.entityManager = new EntityManager(this);
-
-        player = new EntityPlayer(new Vector2d(5480, 150));
-        this.entityManager.addEntity(player);
     }
 
     public void init() {
-
+        player = new EntityPlayer(new Vector2d(5480, 150));
+        this.entityManager.addEntity(player);
     }
 
     public boolean isDebug() {
@@ -164,6 +160,8 @@ public class Game {
                         b.getBlock().onBlockInteract(this.world, getMouseX(true) / 64, getMouseY(true) / 64);
                     }
                 }
+
+                this.player.updateSlots();
             }
         }
 
@@ -294,6 +292,8 @@ public class Game {
         viewGuiAndOverlay();
 
         this.drawSelectedBlock(Blocks.getBlock(activeBlock));
+
+        this.player.renderGui();
     }
 
     public void viewGame() {

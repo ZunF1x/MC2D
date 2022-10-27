@@ -16,9 +16,10 @@ public class Renderer {
     }
 
     public static void directTexturedCube(double x, double y, Color4f color, int texture) {
-        float width = 1;
-        float height = 1;
+        directTexturedCube(x, y, 1, 1, color, texture);
+    }
 
+    public static void directTexturedCube(double x, double y, double width, double height, Color4f color, int texture) {
         int xo = texture % 16;
         int yo = texture / 16;
 
@@ -41,9 +42,10 @@ public class Renderer {
     }
 
     public static void directTexturedCube(double x, double y, Color4f color, int texture, boolean reversedSide, boolean reversedTop) {
-        float width = 1;
-        float height = 1;
+        directTexturedCube(x, y, 1, 1, color, texture, reversedSide, reversedTop);
+    }
 
+    public static void directTexturedCube(double x, double y, double width, double height, Color4f color, int texture, boolean reversedSide, boolean reversedTop) {
         int xo = texture % 16;
         int yo = texture / 16;
 
@@ -111,6 +113,16 @@ public class Renderer {
         glTexCoord2f((xo + 1) / 16f, yo / 8f); glVertex2d(x + width, y);
         glTexCoord2f((xo + 1) / 16f, (yo + 1) / 8f); glVertex2d(x + width, y + height);
         glTexCoord2f(xo / 16f, (yo + 1) / 8f); glVertex2d(x, y + height);
+        glEnd();
+    }
+
+    public static void drawGuiInventory(double x, double y, double u, double v, double width, double height) {
+        glBegin(GL_QUADS);
+        glColor4f(1, 1, 1, 1);
+        glTexCoord2d(u / 256F, v / 256F); glVertex2d(x, y);
+        glTexCoord2d((u + width) / 256F, v / 256F); glVertex2d(x + width, y);
+        glTexCoord2d((u + width) / 256F, (v + height) / 256F); glVertex2d(x + width, y + height);
+        glTexCoord2d(u / 256F, (v + height) / 256F); glVertex2d(x, y + height);
         glEnd();
     }
 }
