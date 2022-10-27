@@ -33,6 +33,8 @@ public abstract class Container {
         this.guiTop = (Display.getHeight() / 2 / 2) - (ySize / 2);
 
         currentStack = ItemStack.EMPTY;
+
+        this.init();
     }
 
     public void init() {}

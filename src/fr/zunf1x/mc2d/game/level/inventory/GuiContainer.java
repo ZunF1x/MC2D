@@ -1,6 +1,6 @@
 package fr.zunf1x.mc2d.game.level.inventory;
 
-public class GuiContainer {
+public class GuiContainer extends Gui {
 
     protected Container container;
 

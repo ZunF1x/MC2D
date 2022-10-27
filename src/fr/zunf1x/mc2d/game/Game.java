@@ -3,6 +3,10 @@ package fr.zunf1x.mc2d.game;
 import fr.zunf1x.mc2d.Start;
 import fr.zunf1x.mc2d.game.level.BlockPlacer;
 import fr.zunf1x.mc2d.game.level.blocks.*;
+import fr.zunf1x.mc2d.game.level.inventory.Gui;
+import fr.zunf1x.mc2d.game.level.inventory.GuiContainer;
+import fr.zunf1x.mc2d.game.level.inventory.ItemStack;
+import fr.zunf1x.mc2d.game.level.inventory.items.Item;
 import fr.zunf1x.mc2d.game.level.world.World;
 import fr.zunf1x.mc2d.game.level.entities.EntityPlayer;
 import fr.zunf1x.mc2d.game.level.world.WorldOverworld;
@@ -32,6 +36,8 @@ public class Game {
     public EntityManager entityManager;
 
     private boolean debug = false;
+
+    private Gui currentScreen;
 
     public Game() {
         this.world = new WorldOverworld(32768, this, new WorldProvider(new Random().nextLong(), 20, 10));
@@ -97,7 +103,8 @@ public class Game {
 
         world.update();
 
-        this.entityManager.update();
+        if (this.currentScreen != null) this.currentScreen.update();
+        if (this.currentScreen == null) this.entityManager.update();
 
         double xa = -player.getLocation().getX() + this.width / 128F - 0.5F;
         double ya = -player.getLocation().getY() + this.height / 128F - 1;
@@ -121,7 +128,7 @@ public class Game {
         }
 
         if (timer % 15 == 0 || timer == 5) {
-            if (flagX && flagY) {
+            if (flagX && flagY && this.currentScreen == null) {
                 if (btn == 0) {
                     int blockX = getMouseX(true) / 64;
                     int blockY = getMouseY(true) / 64;
@@ -161,13 +168,17 @@ public class Game {
                     }
                 }
 
-                this.player.updateSlots();
+                if (currentScreen != null && currentScreen instanceof GuiContainer) ((GuiContainer) this.currentScreen).updateSlots();
             }
         }
 
         while (Keyboard.next()) {
             if (Keyboard.getEventKeyState()) {
                 if (Keyboard.getEventKey() == Keyboard.KEY_F3) this.debug = !this.debug;
+                if (Keyboard.getEventKey() == Keyboard.KEY_E){
+                    if (this.currentScreen != null) this.currentScreen = null;
+                    else this.currentScreen = this.player.g;
+                }
             }
         }
     }
@@ -293,7 +304,7 @@ public class Game {
 
         this.drawSelectedBlock(Blocks.getBlock(activeBlock));
 
-        this.player.renderGui();
+        if (currentScreen != null) this.currentScreen.render();
     }
 
     public void viewGame() {

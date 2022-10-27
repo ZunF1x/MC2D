@@ -5,7 +5,9 @@
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/fr/zunf1x/mc2d/game/Game.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/fr/zunf1x/mc2d/game/Game.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/fr/zunf1x/mc2d/game/level/entities/EntityPlayer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/fr/zunf1x/mc2d/game/level/entities/EntityPlayer.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/fr/zunf1x/mc2d/rendering/Renderer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/fr/zunf1x/mc2d/rendering/Renderer.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/fr/zunf1x/mc2d/game/level/inventory/Container.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/fr/zunf1x/mc2d/game/level/inventory/Container.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/fr/zunf1x/mc2d/game/level/inventory/GuiContainer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/fr/zunf1x/mc2d/game/level/inventory/GuiContainer.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/fr/zunf1x/mc2d/game/level/inventory/inventories/InventoryTestContainer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/fr/zunf1x/mc2d/game/level/inventory/inventories/InventoryTestContainer.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />

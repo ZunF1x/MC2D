@@ -11,8 +11,8 @@ import org.lwjgl.input.Keyboard;
 
 public class EntityPlayer extends Entity {
 
-    private InventoryPlayer inv;
-    private InventoryTestGui g;
+    public InventoryPlayer inv;
+    public InventoryTestGui g;
 
     public EntityPlayer(Vector2d loc) {
         super(loc);
@@ -32,8 +32,6 @@ public class EntityPlayer extends Entity {
     @Override
     public void update() {
         ya += 1.8F * 0.62F / 64F;
-
-        this.g.update();
 
         if (Keyboard.isKeyDown(Keyboard.KEY_Z)) {
             ya -= speed;

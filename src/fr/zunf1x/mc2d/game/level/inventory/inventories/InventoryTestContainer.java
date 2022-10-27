@@ -8,8 +8,6 @@ public class InventoryTestContainer extends Container {
     
     public InventoryTestContainer(IInventory inventory) {
         super(inventory);
-
-        init();
     }
 
     @Override
