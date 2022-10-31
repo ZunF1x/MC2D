@@ -1,5 +1,7 @@
 package fr.zunf1x.mc2d.game.level.inventory;
 
+import fr.zunf1x.mc2d.game.Game;
+
 public interface IInventory {
 
     int getSizeInventory();
@@ -10,8 +12,6 @@ public interface IInventory {
 
     ItemStack decrStackSize(int index, int count);
 
-    ItemStack incrStackSize(int index, int count);
-
     ItemStack removeStackFromSlot(int index);
 
     void setInventorySlotContents(int index, ItemStack stack);
@@ -19,6 +19,10 @@ public interface IInventory {
     int getInventoryStackLimit();
 
     void markDirty();
+
+    void openInventory();
+
+    void closeInventory();
 
     boolean isItemValidForSlot(int index, ItemStack stack);
 

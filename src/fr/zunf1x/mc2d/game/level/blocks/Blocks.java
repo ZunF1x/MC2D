@@ -1,6 +1,11 @@
 package fr.zunf1x.mc2d.game.level.blocks;
 
+import fr.zunf1x.mc2d.game.level.inventory.items.Item;
+import fr.zunf1x.mc2d.game.level.inventory.items.ItemBlock;
+import fr.zunf1x.mc2d.game.level.inventory.items.Items;
+
 import java.util.HashMap;
+import java.util.Map;
 
 public class Blocks {
 
@@ -19,6 +24,7 @@ public class Blocks {
     public static Block ORE_DIAMOND;
     public static Block ORE_REDSTONE;
     public static Block ORE_LAPIS;
+    public static Block CRAFTING_TABLE;
 
     public static HashMap<Integer, Block> blocks;
 
@@ -40,15 +46,35 @@ public class Blocks {
         ORE_DIAMOND = registerBlock(12, new BlockOreDiamond());
         ORE_REDSTONE = registerBlock(13, new BlockOreRedstone());
         ORE_LAPIS = registerBlock(14, new BlockOreLapis());
+        CRAFTING_TABLE = registerBlock(15, new BlockCraftingTable());
     }
 
     private static Block registerBlock(int id, Block b) {
         blocks.put(id, b);
+        Items.items.put(256 + id, new ItemBlock(b));
 
         return blocks.get(id);
     }
 
     public static Block getBlock(int id) {
         return blocks.get(id);
+    }
+
+    public static Item getItemBlock(int id) {
+        return Items.items.get(256 + id);
+    }
+
+    public static Item getItemBlock(Block b) {
+        int id = 0;
+
+        for (Map.Entry<Integer, Block> entry : blocks.entrySet()) {
+            if (entry.getValue() == b) {
+                if (getBlock(entry.getKey()) != null) {
+                    id = entry.getKey();
+                }
+            }
+        }
+
+        return getItemBlock(id);
     }
 }

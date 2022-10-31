@@ -1,8 +1,8 @@
 package fr.zunf1x.mc2d.game.level.entities;
 
 import fr.zunf1x.mc2d.game.Game;
-import fr.zunf1x.mc2d.game.level.inventory.inventories.InventoryPlayer;
-import fr.zunf1x.mc2d.game.level.inventory.inventories.InventoryTestGui;
+import fr.zunf1x.mc2d.game.level.inventory.inventories.player.InventoryPlayer;
+import fr.zunf1x.mc2d.game.level.inventory.inventories.player.InventoryPlayerGui;
 import fr.zunf1x.mc2d.math.Mathf;
 import fr.zunf1x.mc2d.math.vectors.Vector2d;
 import fr.zunf1x.mc2d.rendering.Renderer;
@@ -12,7 +12,7 @@ import org.lwjgl.input.Keyboard;
 public class EntityPlayer extends Entity {
 
     public InventoryPlayer inv;
-    public InventoryTestGui g;
+    public InventoryPlayerGui g;
 
     public EntityPlayer(Vector2d loc) {
         super(loc);
@@ -20,8 +20,8 @@ public class EntityPlayer extends Entity {
 
     @Override
     public void init(Game game) {
-        this.inv = new InventoryPlayer();
-        this.g = new InventoryTestGui(this.inv);
+        this.inv = new InventoryPlayer(game);
+        this.g = new InventoryPlayerGui(this.inv);
 
         super.init(game);
     }

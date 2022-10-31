@@ -1,6 +1,7 @@
 package fr.zunf1x.mc2d;
 
 import fr.zunf1x.mc2d.game.Game;
+import fr.zunf1x.mc2d.rendering.Font;
 import fr.zunf1x.mc2d.rendering.Texture;
 import org.lwjgl.LWJGLException;
 import org.lwjgl.opengl.Display;
@@ -18,6 +19,8 @@ public class MC2D {
     private int width;
     private int height;
     private final Game game;
+    private final Font font;
+    private int fps;
 
     // ---- Variables and Constants affectation ----
 
@@ -32,6 +35,8 @@ public class MC2D {
         this.createDisplay();
 
         this.init();
+
+        this.font = new Font();
     }
 
     public void start() {
@@ -89,6 +94,7 @@ public class MC2D {
 
             if (tick) {
                 //System.out.println(ticks + " tps, " + frames + " fps");
+                this.fps = frames;
                 ticks = 0;
                 frames = 0;
             }
@@ -152,5 +158,13 @@ public class MC2D {
 
     public Game getGame() {
         return game;
+    }
+
+    public Font getFont() {
+        return font;
+    }
+
+    public int getFps() {
+        return fps;
     }
 }

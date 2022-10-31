@@ -16,6 +16,7 @@ public class Texture {
     public static final Texture BLOCKS = Texture.loadTexture("blocks");
     public static final Texture ITEMS = Texture.loadTexture("items");
     public static final Texture ENTITIES = Texture.loadTexture("entities");
+    public static final Texture WIDGETS = Texture.loadTexture("widgets");
 
     private int width, height;
     private int id;

@@ -46,6 +46,10 @@ public class Slot {
     {
     }
 
+    protected boolean deleteStack() {
+        return true;
+    }
+
     /**
      * the itemStack passed in is the output - ie, iron ingots, and pickaxes, not ore and wood.
      */
@@ -91,10 +95,6 @@ public class Slot {
     public ItemStack decrStackSize(int amount)
     {
         return this.inventory.decrStackSize(this.slotIndex, amount);
-    }
-
-    public ItemStack incrStackSize(int amount) {
-        return this.inventory.incrStackSize(this.slotIndex, amount);
     }
 
     public boolean isHere(IInventory inv, int slotIn)

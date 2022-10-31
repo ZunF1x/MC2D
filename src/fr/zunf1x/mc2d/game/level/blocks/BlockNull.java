@@ -1,5 +1,6 @@
 package fr.zunf1x.mc2d.game.level.blocks;
 
+import fr.zunf1x.mc2d.game.Game;
 import fr.zunf1x.mc2d.game.level.world.World;
 import fr.zunf1x.mc2d.math.vectors.Vector2d;
 import fr.zunf1x.mc2d.rendering.Color4f;
@@ -27,7 +28,9 @@ public class BlockNull extends Block {
     }
 
     @Override
-    public void onBlockInteract(World world, int x, int y) {
+    public void onBlockInteract(Game game, int x, int y) {
+        World world = game.getWorld();
+
         world.getBlock(x, y).setCollide(!world.getBlock(x, y).isCollide());
         world.getBlock(x, y + 1).setCollide(world.getBlock(x, y).isCollide());
     }

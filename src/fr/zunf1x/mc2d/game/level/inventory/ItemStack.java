@@ -31,7 +31,7 @@ public class ItemStack {
 
     public void grow(int quantity)
     {
-        this.setCount(this.stackCount + quantity);
+        this.setCount((int) Mathf.clamp(this.stackCount + quantity, 0, getItem() != null ? 64 : 0));
     }
 
     public void shrink(int quantity)

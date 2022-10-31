@@ -1,6 +1,11 @@
 package fr.zunf1x.mc2d.game.level.inventory.items;
 
-public abstract class Item {
+import fr.zunf1x.mc2d.math.vectors.Vector2d;
+import fr.zunf1x.mc2d.rendering.Color4f;
+import fr.zunf1x.mc2d.rendering.Renderer;
+import fr.zunf1x.mc2d.rendering.Texture;
+
+public class Item {
 
     private final int texture;
 
@@ -10,5 +15,13 @@ public abstract class Item {
 
     public int getTexture() {
         return texture;
+    }
+
+    public void render(Vector2d loc) {
+        Texture.ITEMS.bind();
+
+        Renderer.directTexturedCube(loc.getX(), loc.getY(), 16, 16, new Color4f(1, 1, 1), this.getTexture());
+
+        Texture.ITEMS.unbind();
     }
 }

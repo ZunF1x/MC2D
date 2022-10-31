@@ -3,16 +3,18 @@ package fr.zunf1x.mc2d.game;
 import fr.zunf1x.mc2d.Start;
 import fr.zunf1x.mc2d.game.level.BlockPlacer;
 import fr.zunf1x.mc2d.game.level.blocks.*;
-import fr.zunf1x.mc2d.game.level.inventory.Gui;
-import fr.zunf1x.mc2d.game.level.inventory.GuiContainer;
-import fr.zunf1x.mc2d.game.level.inventory.ItemStack;
+import fr.zunf1x.mc2d.game.level.inventory.*;
+import fr.zunf1x.mc2d.game.level.inventory.inventories.crafting.RecipeRegistry;
 import fr.zunf1x.mc2d.game.level.inventory.items.Item;
+import fr.zunf1x.mc2d.game.level.inventory.items.ItemBlock;
+import fr.zunf1x.mc2d.game.level.inventory.items.Items;
 import fr.zunf1x.mc2d.game.level.world.World;
 import fr.zunf1x.mc2d.game.level.entities.EntityPlayer;
 import fr.zunf1x.mc2d.game.level.world.WorldOverworld;
 import fr.zunf1x.mc2d.game.level.world.WorldProvider;
 import fr.zunf1x.mc2d.math.Mathf;
 import fr.zunf1x.mc2d.math.vectors.Vector2d;
+import fr.zunf1x.mc2d.rendering.Renderer;
 import fr.zunf1x.mc2d.rendering.Texture;
 import org.lwjgl.input.Keyboard;
 import org.lwjgl.input.Mouse;
@@ -39,6 +41,8 @@ public class Game {
 
     private Gui currentScreen;
 
+    public RecipeRegistry recipeRegistry;
+
     public Game() {
         this.world = new WorldOverworld(32768, this, new WorldProvider(new Random().nextLong(), 20, 10));
 
@@ -48,6 +52,9 @@ public class Game {
     public void init() {
         player = new EntityPlayer(new Vector2d(5480, 150));
         this.entityManager.addEntity(player);
+
+        this.recipeRegistry = new RecipeRegistry();
+        this.recipeRegistry.addRecipes();
     }
 
     public boolean isDebug() {
@@ -94,11 +101,8 @@ public class Game {
 
     int activeBlock;
 
-    Item i = new Item(13) {
-    };
-
     public void update() {
-        activeBlock = (int) Mathf.clamp(activeBlock + Mouse.getDWheel() / 120F, 0, Blocks.blocks.size() - 1);
+        activeBlock = (int) Mathf.clamp(activeBlock - Mouse.getDWheel() / 120F, 0, 8);
 
         this.width = Start.getInstance().getWidth();
         this.height = Start.getInstance().getHeight();
@@ -106,7 +110,9 @@ public class Game {
 
         world.update();
 
-        if (this.currentScreen != null) this.currentScreen.update();
+        if (this.currentScreen != null) {
+            this.currentScreen.update();
+        }
         if (this.currentScreen == null) this.entityManager.update();
 
         double xa = -player.getLocation().getX() + this.width / 128F - 0.5F;
@@ -156,11 +162,17 @@ public class Game {
                     float mX = getMouseX(true) / 64F;
                     float mY = getMouseY(true) / 64F;
 
-                    Random r = new Random();
-
-                    this.player.inv.setInventorySlotContents(r.nextInt(36), new ItemStack(i));
-
-                    this.world.addBlock(getMouseX(true) / 64, getMouseY(true) / 64, Blocks.getBlock(activeBlock), mX > blockX + 0.50F, mY <= blockY + 0.50F);
+                    if (this.player.inv.getStackInSlot(this.activeBlock).getItem() instanceof ItemBlock) {
+                        if (this.world.getBlock(getMouseX(true) / 64, getMouseY(true) / 64) == null) {
+                            ItemBlock ib = ((ItemBlock) this.player.inv.getStackInSlot(this.activeBlock).getItem());
+                            this.world.addBlock(getMouseX(true) / 64, getMouseY(true) / 64, ib.block, mX > blockX + 0.50F, mY <= blockY + 0.50F);
+                            if (this.player.inv.getStackInSlot(this.activeBlock).getCount() > 1) {
+                                this.player.inv.getStackInSlot(this.activeBlock).shrink(1);
+                            } else {
+                                this.player.inv.setInventorySlotContents(this.activeBlock, ItemStack.EMPTY);
+                            }
+                        }
+                    }
                 }
             }
         }
@@ -171,7 +183,7 @@ public class Game {
                     BlockPlacer b = this.world.getBlock(getMouseX(true) / 64, getMouseY(true) / 64);
 
                     if (b != null) {
-                        b.getBlock().onBlockInteract(this.world, getMouseX(true) / 64, getMouseY(true) / 64);
+                        b.getBlock().onBlockInteract(this, getMouseX(true) / 64, getMouseY(true) / 64);
                     }
                 }
 
@@ -183,16 +195,21 @@ public class Game {
             if (Keyboard.getEventKeyState()) {
                 if (Keyboard.getEventKey() == Keyboard.KEY_F3) this.debug = !this.debug;
                 if (Keyboard.getEventKey() == Keyboard.KEY_E){
-                    if (this.currentScreen != null) this.currentScreen = null;
-                    else this.currentScreen = this.player.g;
+                    if (isInventoryOpened()) {
+                        this.closeInventory();
+                        return;
+                    }
+
+                    if (!isInventoryOpened()) {
+                        this.openInventory(0);
+                    }
                 }
             }
         }
     }
 
-    public void drawSelectedBlock(Block b) {
-        float x = 48, y = 48;
-        float w = 16, h = 16;
+    public void drawSelectedBlock(Block b, float x, float y) {
+        float w = 3.5F, h = 3.5F;
         float v = y + h * 4 - h / 2 - h;
 
         int xo = b.getTexture() % 16;
@@ -309,9 +326,23 @@ public class Game {
 
         viewGuiAndOverlay();
 
-        this.drawSelectedBlock(Blocks.getBlock(activeBlock));
-
         if (currentScreen != null) this.currentScreen.render();
+
+        if (isDebug()) Start.getInstance().getFont().drawStringWithShadow("FPS : " + Start.getInstance().getFps(), 2, 2, 1, 1);
+
+        Texture.WIDGETS.bind();
+
+        Renderer.drawGuiInventory(this.width / 2f - 91, this.height - 25, 0, 0, 182, 22);
+        Renderer.drawGuiInventory(this.width / 2f - 92 + (this.activeBlock * 20), this.height - 26, 0, 22, 24, 24);
+
+        Texture.WIDGETS.unbind();
+
+        for (int i = 0; i < 9; i++) {
+            if (this.player.inv.getStackInSlot(i).getItem() != null) {
+                this.player.inv.getStackInSlot(i).getItem().render(new Vector2d(this.width / 2f - 91 + 3 + i * 20, this.height - 25 + 3));
+                if (this.player.inv.getStackInSlot(i).getCount() > 1) Start.getInstance().getFont().drawCenteredStringWithShadow("" + this.player.inv.getStackInSlot(i).getCount(), this.width / 2f - 91 + 13 + i * 20, this.height - 25 + 15, 1, 1);
+            }
+        }
     }
 
     public void viewGame() {
@@ -334,6 +365,28 @@ public class Game {
         glEnable(GL_TEXTURE_2D);
         glEnable(GL_BLEND);
         glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+    }
+
+    public void openInventory(int id) {
+        Gui g = RegisteredInventories.gui(id, this, this.player);
+
+        if (g instanceof GuiContainer) ((GuiContainer) g).container.inventory.openInventory();
+        this.currentScreen = g;
+    }
+
+    public void closeInventory(int id) {
+        if (this.currentScreen == RegisteredInventories.gui(id, this, this.player)) {
+            this.closeInventory();
+        }
+    }
+
+    public boolean isInventoryOpened() {
+        return this.currentScreen != null;
+    }
+
+    public void closeInventory() {
+        if (this.currentScreen instanceof GuiContainer) ((GuiContainer) this.currentScreen).container.inventory.closeInventory();
+        this.currentScreen = null;
     }
 
     public double getXScroll() {

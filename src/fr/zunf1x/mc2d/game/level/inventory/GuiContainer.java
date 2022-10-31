@@ -2,7 +2,7 @@ package fr.zunf1x.mc2d.game.level.inventory;
 
 public class GuiContainer extends Gui {
 
-    protected Container container;
+    public Container container;
 
     public GuiContainer(Container container) {
         this.container = container;
