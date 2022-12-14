@@ -1,8 +1,12 @@
 package fr.zunf1x.mc2d.game.level.entities;
 
 import fr.zunf1x.mc2d.game.Game;
+import fr.zunf1x.mc2d.game.level.blocks.Blocks;
+import fr.zunf1x.mc2d.game.level.inventory.ItemStack;
 import fr.zunf1x.mc2d.game.level.inventory.inventories.player.InventoryPlayer;
 import fr.zunf1x.mc2d.game.level.inventory.inventories.player.InventoryPlayerGui;
+import fr.zunf1x.mc2d.game.level.inventory.items.ItemBlock;
+import fr.zunf1x.mc2d.game.level.inventory.items.Items;
 import fr.zunf1x.mc2d.math.Mathf;
 import fr.zunf1x.mc2d.math.vectors.Vector2d;
 import fr.zunf1x.mc2d.rendering.Renderer;
@@ -22,6 +26,8 @@ public class EntityPlayer extends Entity {
     public void init(Game game) {
         this.inv = new InventoryPlayer(game);
         this.g = new InventoryPlayerGui(this.inv);
+
+        this.inv.setInventorySlotContents(0, new ItemStack(Blocks.getItemBlock(Blocks.STAIRS), 32));
 
         super.init(game);
     }
