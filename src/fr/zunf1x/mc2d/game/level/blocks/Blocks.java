@@ -10,6 +10,8 @@ import java.util.Map;
 public class Blocks {
 
     public static Block GRASS;
+
+    public static Block DIRT;
     public static Block LEAVES;
     public static Block STONE;
     public static Block SAND;
@@ -26,27 +28,31 @@ public class Blocks {
     public static Block ORE_LAPIS;
     public static Block CRAFTING_TABLE;
 
+    public static Block SANDSTONE;
+
     public static HashMap<Integer, Block> blocks;
 
     static {
         blocks = new HashMap<>();
 
         GRASS = registerBlock(0, new BlockGrass());
-        LEAVES = registerBlock(1, new BlockLeaves());
-        STONE = registerBlock(2, new BlockStone());
-        SAND = registerBlock(3, new BlockSand());
-        GRAVEL = registerBlock(4, new BlockGravel());
-        LOG = registerBlock(5, new BlockLog());
-        PLANKS = registerBlock(6, new BlockPlanks());
-        DOOR = registerBlock(7, new BlockDoor());
-        STAIRS = registerBlock(8, new BlockStairs());
-        ORE_COAL = registerBlock(9, new BlockOreCoal());
-        ORE_IRON = registerBlock(10, new BlockOreIron());
-        ORE_GOLD = registerBlock(11, new BlockOreGold());
-        ORE_DIAMOND = registerBlock(12, new BlockOreDiamond());
-        ORE_REDSTONE = registerBlock(13, new BlockOreRedstone());
-        ORE_LAPIS = registerBlock(14, new BlockOreLapis());
-        CRAFTING_TABLE = registerBlock(15, new BlockCraftingTable());
+        DIRT = registerBlock(1, new BlockDirt());
+        LEAVES = registerBlock(2, new BlockLeaves());
+        STONE = registerBlock(3, new BlockStone());
+        SAND = registerBlock(4, new BlockSand());
+        GRAVEL = registerBlock(5, new BlockGravel());
+        LOG = registerBlock(6, new BlockLog());
+        PLANKS = registerBlock(7, new BlockPlanks());
+        DOOR = registerBlock(8, new BlockDoor());
+        STAIRS = registerBlock(9, new BlockStairs());
+        ORE_COAL = registerBlock(10, new BlockOreCoal());
+        ORE_IRON = registerBlock(11, new BlockOreIron());
+        ORE_GOLD = registerBlock(12, new BlockOreGold());
+        ORE_DIAMOND = registerBlock(13, new BlockOreDiamond());
+        ORE_REDSTONE = registerBlock(14, new BlockOreRedstone());
+        ORE_LAPIS = registerBlock(15, new BlockOreLapis());
+        CRAFTING_TABLE = registerBlock(16, new BlockCraftingTable());
+        SANDSTONE = registerBlock(17, new BlockSandstone());
     }
 
     private static Block registerBlock(int id, Block b) {

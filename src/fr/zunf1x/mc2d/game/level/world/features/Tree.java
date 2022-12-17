@@ -20,4 +20,10 @@ public class Tree {
             chunk.setBlock(xp + x - 1, yp - 5, Blocks.LEAVES);
         }
     }
+
+    public static void addCacty(Chunk chunk, int xp, int yp) {
+        for (int y = 1; y < chunk.world.getWorldProvider().getWorldSeededRandom().nextInt(3) + 2; y++) {
+            chunk.setBlock(xp, yp - y, Blocks.LEAVES);
+        }
+    }
 }

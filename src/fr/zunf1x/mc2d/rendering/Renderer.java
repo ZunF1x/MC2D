@@ -15,6 +15,20 @@ public class Renderer {
         glEnd();
     }
 
+    public static void directParticle(double x, double y, double width, double height, Color4f color, int texture) {
+        int xo = texture % 16;
+        int yo = texture / 16;
+
+        glBegin(GL_QUADS);
+        glColor4f(color.getR(), color.getG(), color.getB(), color.getA());
+        glTexCoord2f(xo / 16F, yo / 16F); glVertex2d(x, y);
+        glTexCoord2f((xo + 1) / 16F, yo / 16F); glVertex2d(x + width, y);
+        glTexCoord2f((xo + 1) / 16F, (yo + 1) / 16F); glVertex2d(x + width, y + height);
+        glTexCoord2f(xo / 16F, (yo + 1) / 16F); glVertex2d(x, y + height);
+        glColor4f(1, 1, 1, 1);
+        glEnd();
+    }
+
     public static void directTexturedCube(double x, double y, Color4f color, int texture) {
         directTexturedCube(x, y, 1, 1, color, texture);
     }

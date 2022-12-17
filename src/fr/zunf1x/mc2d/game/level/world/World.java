@@ -71,14 +71,17 @@ public abstract class World {
         for (int x = 0; x < this.size; x++) {
             double xScroll = -game.getXScroll();
 
-            int xx0 = x * 16 + 16;
-            int xx1 = x * 16;
+            int xx0 = x * 16 + 16 + (simulationDistance * 16);
+            int xx1 = x * 16 - (simulationDistance * 16);
 
             if (xScroll > xx0 || xScroll + game.getWidth() / 64F < xx1) continue;
 
             if (getChunk(x) != null) getChunk(x).update(this.rain);
         }
     }
+
+    private int simulationDistance = 4;
+    private int renderDistance = 0;
 
     public WorldProvider getWorldProvider() {
         return worldProvider;
@@ -90,8 +93,8 @@ public abstract class World {
         for (int x = 0; x < this.size; x++) {
             double xScroll = -game.getXScroll();
 
-            int xx0 = x * 16 + 16;
-            int xx1 = x * 16;
+            int xx0 = x * 16 + 16 + (renderDistance * 16);
+            int xx1 = x * 16 - (renderDistance * 16);
 
             if (xScroll > xx0 || xScroll + game.getWidth() / 64F < xx1) continue;
 

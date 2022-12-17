@@ -4,12 +4,10 @@ import fr.zunf1x.mc2d.Start;
 import fr.zunf1x.mc2d.game.level.BlockPlacer;
 import fr.zunf1x.mc2d.game.level.blocks.*;
 import fr.zunf1x.mc2d.game.level.entities.particles.Particle;
-import fr.zunf1x.mc2d.game.level.entities.particles.ParticleSystem;
 import fr.zunf1x.mc2d.game.level.inventory.*;
 import fr.zunf1x.mc2d.game.level.inventory.inventories.crafting.RecipeRegistry;
-import fr.zunf1x.mc2d.game.level.inventory.items.Item;
 import fr.zunf1x.mc2d.game.level.inventory.items.ItemBlock;
-import fr.zunf1x.mc2d.game.level.inventory.items.Items;
+import fr.zunf1x.mc2d.game.level.world.Chunk;
 import fr.zunf1x.mc2d.game.level.world.World;
 import fr.zunf1x.mc2d.game.level.entities.EntityPlayer;
 import fr.zunf1x.mc2d.game.level.world.WorldOverworld;
@@ -23,8 +21,6 @@ import org.lwjgl.input.Mouse;
 import org.lwjgl.opengl.Display;
 import org.lwjgl.util.glu.GLU;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Random;
 
 import static org.lwjgl.opengl.GL11.*;
@@ -54,7 +50,7 @@ public class Game {
     }
 
     public void init() {
-        player = new EntityPlayer(new Vector2d(1, 150));
+        player = new EntityPlayer(new Vector2d(0, 150));
         this.entityManager.addEntity(player);
 
         this.recipeRegistry = new RecipeRegistry();
@@ -335,7 +331,15 @@ public class Game {
 
         if (currentScreen != null) this.currentScreen.render();
 
-        if (isDebug()) Start.getInstance().getFont().drawStringWithShadow("FPS : " + Start.getInstance().getFps(), 2, 2, 1, 1);
+        if (isDebug()) {
+            Start.getInstance().getFont().drawStringWithShadow("FPS : " + Start.getInstance().getFps(), 2, 2, 1, 1);
+
+            int chunkX = (int) ((this.player.getLocation().getX() + 0.5F) / 16f);
+            Chunk c = this.world.getChunk(chunkX);
+
+            Start.getInstance().getFont().drawStringWithShadow("Biome : " + c.chunkBiome.getBiomeName(), 2, 12, 1, 1);
+            Start.getInstance().getFont().drawStringWithShadow("Biome Length : " + c.biomeLength, 2, 22, 1, 1);
+        }
 
         Texture.WIDGETS.bind();
 

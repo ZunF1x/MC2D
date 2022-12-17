@@ -28,7 +28,11 @@ public class EntityPlayer extends Entity {
         this.inv = new InventoryPlayer(game);
         this.g = new InventoryPlayerGui(this.inv);
 
-        this.inv.setInventorySlotContents(4, new ItemStack(Item.getItemFromBlock(Blocks.DOOR), 64));
+        this.inv.setInventorySlotContents(4, new ItemStack(Item.getItemFromBlock(Blocks.DIRT), 64));
+        this.inv.setInventorySlotContents(5, new ItemStack(Item.getItemFromBlock(Blocks.DIRT), 64));
+        this.inv.setInventorySlotContents(6, new ItemStack(Item.getItemFromBlock(Blocks.DIRT), 64));
+        this.inv.setInventorySlotContents(7, new ItemStack(Item.getItemFromBlock(Blocks.DIRT), 64));
+
 
         super.init(game);
     }

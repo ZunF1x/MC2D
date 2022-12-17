@@ -3,13 +3,14 @@ package fr.zunf1x.mc2d.game.level.world;
 import fr.zunf1x.mc2d.game.Game;
 import fr.zunf1x.mc2d.game.level.BlockPlacer;
 import fr.zunf1x.mc2d.game.level.blocks.*;
+import fr.zunf1x.mc2d.game.level.entities.particles.Particle;
 import fr.zunf1x.mc2d.game.level.entities.particles.ParticleSystem;
+import fr.zunf1x.mc2d.game.level.world.biomes.*;
 import fr.zunf1x.mc2d.game.level.world.features.Tree;
-import fr.zunf1x.mc2d.game.level.world.features.WorldGenerator;
-import fr.zunf1x.mc2d.game.level.world.features.WorldGeneratorOres;
 import fr.zunf1x.mc2d.math.Mathf;
 import fr.zunf1x.mc2d.math.vectors.Vector2d;
 import fr.zunf1x.mc2d.rendering.Color4f;
+import fr.zunf1x.mc2d.rendering.Texture;
 import org.lwjgl.BufferUtils;
 
 import static org.lwjgl.opengl.GL11.*;
@@ -32,7 +33,7 @@ public class Chunk {
     private Noise noise;
 
     private Game game;
-    private World world;
+    public World world;
 
     public Color4f foliageColor;
 
@@ -46,6 +47,10 @@ public class Chunk {
     private List<ParticleSystem> p;
 
     private boolean rain;
+
+    public Biome chunkBiome;
+
+    public int biomeLength = 0;
 
     public Chunk(int x, Game game, World world) {
         this.blocks = new BlockPlacer[WIDTH][HEIGHT];
@@ -64,6 +69,22 @@ public class Chunk {
 
         this.rain = false;
 
+        if (world.getChunk(x - 1) != null) {
+            this.biomeLength = world.getChunk(x - 1).biomeLength + 1;
+        }
+
+        this.chunkBiome = RegisteredBiomes.getBiome(rand.nextInt(RegisteredBiomes.biomes.size()));
+
+        if (world.getChunk(x - 1) != null) {
+            this.biomeLength = world.getChunk(x - 1).biomeLength + 1;
+
+            if (this.biomeLength <= this.chunkBiome.getBiomeLength()) {
+                this.chunkBiome = world.getChunk(x - 1).chunkBiome;
+            } else {
+                this.biomeLength = 0;
+            }
+        }
+
         if (x - 1 >= 0 && this.world.getChunk(x - 1) != null) {
             Color4f c = this.world.getChunk(x - 1).foliageColor;
 
@@ -78,9 +99,16 @@ public class Chunk {
         }
     }
 
-    public void addParticle() {
+    public void addParticle(boolean snowy) {
+        Random rand = world.getWorldProvider().getWorldSeededRandom();
+
+        int rainTexture = 208 + rand.nextInt(5);
+        int snowTexture = 192 + rand.nextInt(3);
+
+        Particle particle = new Particle(Color4f.WHITE, snowy ? snowTexture : rainTexture, new Vector2d(0, 5), snowy ? 1F : 1.3F, 0);
+
         for (int i = 0; i < 16; i++) {
-            ParticleSystem ps = new ParticleSystem((x * 64 * 16) + (i * 64), 128 * 64, 3, null);
+            ParticleSystem ps = new ParticleSystem((x * 64 * 16) + (i * 64), 154 * 64, 4, particle);
             ps.init(game);
             this.p.add(ps);
         }
@@ -98,7 +126,13 @@ public class Chunk {
                 }
 
                 if (grounded(x, y)) {
-                    this.setBlock(x, y, Blocks.GRASS);
+                    for (int i = 0; i < 3; i++) {
+                        Block[] subBlocks = this.chunkBiome.getSubBlocks();
+
+                        this.setBlock(x, y - i, subBlocks[random.nextInt(subBlocks.length)]);
+                    }
+
+                    this.setBlock(x, y - 3, this.chunkBiome.getTopBlock());
                 }
             }
         }
@@ -107,9 +141,11 @@ public class Chunk {
             for (int y = 0; y < Chunk.HEIGHT; y++) {
                 if (x - 2 < 0 || x + 2 >= Chunk.WIDTH) continue;
 
-                if (grounded(x, y) && getBlock(x, y).getBlock() instanceof BlockGrass && !trees.contains(x - 1) && !trees.contains(x) && !trees.contains(x + 1)) {
-                    if (random.nextInt(100) < 15) {
-                        Tree.addTree(this, x, y);
+                if (grounded(x, y) && (getBlock(x, y).getBlock() instanceof BlockGrass || getBlock(x, y).getBlock() instanceof BlockSand) && !trees.contains(x - 1) && !trees.contains(x) && !trees.contains(x + 1)) {
+                    if (random.nextInt(100) < this.chunkBiome.getTreeProbability()) {
+                        if (!this.chunkBiome.isCacty()) Tree.addTree(this, x, y);
+                        else Tree.addCacty(this, x, y);
+
                         trees.add(x);
                     }
                 }
@@ -182,17 +218,26 @@ public class Chunk {
     public void update(boolean worldRaining) {
         i++;
 
-        this.rain = worldRaining;
+        if (this.chunkBiome.getBiomeClimat() == BiomeClimat.HOT) this.rain = false;
+        else this.rain = worldRaining;
+
+        boolean fl = this.chunkBiome.getBiomeClimat() == BiomeClimat.NONE;
 
         if (rain) {
-            if (i % 3 == 0) {
-                addParticle();
+            if (i % 12 == 0) {
+                addParticle(!fl);
             }
         }
 
         for (int i = 0; i < p.size(); i++) {
             ParticleSystem pa = this.p.get(i);
             pa.update();
+
+            for (int j = 0; j < pa.particles.size(); j++) {
+                Particle p = pa.particles.get(j);
+
+                if (getBlock((int) p.x - (x * 16), (int) p.y) != null) p.removed = true;
+            }
 
             if (pa.particles.size() <= 0) {
                 this.p.remove(pa);
@@ -236,10 +281,12 @@ public class Chunk {
     }
 
     public void render(boolean debug, World world) {
+        Texture.PARTICLES.bind();
         for (int i = 0; i < p.size(); i++) {
             ParticleSystem pa = this.p.get(i);
             pa.render();
         }
+        Texture.PARTICLES.unbind();
 
         for (int x = 0; x < Chunk.WIDTH; x++) {
             for (int y = 0; y < Chunk.HEIGHT; y++) {

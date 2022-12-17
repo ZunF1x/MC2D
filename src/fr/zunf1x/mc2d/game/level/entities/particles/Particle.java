@@ -1,47 +1,70 @@
 package fr.zunf1x.mc2d.game.level.entities.particles;
 
-import fr.zunf1x.mc2d.game.level.world.World;
+import fr.zunf1x.mc2d.game.Game;
+import fr.zunf1x.mc2d.math.vectors.Vector2d;
 import fr.zunf1x.mc2d.rendering.Color4f;
 import fr.zunf1x.mc2d.rendering.Renderer;
 import fr.zunf1x.mc2d.rendering.Texture;
 
-import java.awt.*;
 import java.util.Random;
 
 public class Particle {
 
-    public double x, y;
-    public double rx, ry;
-
     public boolean removed = false;
 
-    public Random rand;
+    public double x;
+    public double y;
+    private double rx, ry;
+    private Random rand;
 
-    public Particle() {
+    private Color4f color;
+    private float speed;
+    private int lifeTime;
 
+    private Vector2d direction;
+
+    private int texture;
+
+    public Particle(Color4f color, int texture, Vector2d direction, float speed, int lifeTime) {
+        this.color = color;
+        this.texture = texture;
+        this.direction = direction;
+        this.speed = speed;
+        this.lifeTime = lifeTime;
     }
 
-    public Particle(Particle p, World world, double x, double y) {
-        this.x = x / 64f;
-        this.y = y / 64f;
-        this.rand = world.getWorldProvider().getWorldSeededRandom();
-        this.rx = this.rand.nextGaussian() / 64f;
-        this.ry = this.rand.nextGaussian() / 64F;
+    public Particle(Particle p, double x, double y) {
+        this.x = x / 64F;
+        this.y = y / 64F;
+
+        this.color = p.color;
+        this.texture = p.texture;
+        this.direction = p.direction;
+        this.speed = p.speed;
+        this.lifeTime = p.lifeTime;
     }
 
-    public Particle(Color4f color, int size, float speed, int lifeTime, int[] randomness) {}
+    public Particle(Color4f color, float speed, int lifeTime, int[] randomness) {}
 
-    public Particle(Texture texture, int size, float speed, int lifeTime, int[] randomness) {}
+    public Particle(Texture texture, float speed, int lifeTime, int[] randomness) {}
+
+    public void init(Game game) {
+        this.rand = game.getWorld().getWorldProvider().getWorldSeededRandom();
+        this.rx = this.rand.nextGaussian();
+        this.ry = this.rand.nextGaussian();
+    }
+
+    private int time = 0;
 
     public void update() {
-        this.y += 0.55F;
+        time++;
 
-        if (y >= 255) {
-            removed = true;
-        }
+        y += ((ry / 64F) + (direction.getY() / 64F)) * speed;
+
+        if (y >= 255) this.removed = true;
     }
 
     public void render() {
-        Renderer.directCube(this.x, this.y, 2 / 64F, 5 / 64F, new Color4f(50 / 255F, 70 / 255F, 255 / 255F));
+        Renderer.directParticle(x, y, 16 / 64F, 16 / 64F, this.color, this.texture);
     }
 }

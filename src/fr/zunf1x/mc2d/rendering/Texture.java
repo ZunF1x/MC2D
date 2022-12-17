@@ -17,6 +17,7 @@ public class Texture {
     public static final Texture ITEMS = Texture.loadTexture("items");
     public static final Texture ENTITIES = Texture.loadTexture("entities");
     public static final Texture WIDGETS = Texture.loadTexture("widgets");
+    public static final Texture PARTICLES = Texture.loadTexture("particles");
 
     private int width, height;
     private int id;
