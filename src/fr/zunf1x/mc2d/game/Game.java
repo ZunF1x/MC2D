@@ -50,7 +50,7 @@ public class Game {
     }
 
     public void init() {
-        player = new EntityPlayer(new Vector2d(0, 150));
+        player = new EntityPlayer(new Vector2d(8138, 192));
         this.entityManager.addEntity(player);
 
         this.recipeRegistry = new RecipeRegistry();
@@ -332,26 +332,30 @@ public class Game {
         if (currentScreen != null) this.currentScreen.render();
 
         if (isDebug()) {
-            Start.getInstance().getFont().drawStringWithShadow("FPS : " + Start.getInstance().getFps(), 2, 2, 1, 1);
+            Start.getInstance().getFont().drawStringWithShadow("FPS : " + Start.getInstance().getFps(), 4, 4, 2, 1);
 
             int chunkX = (int) ((this.player.getLocation().getX() + 0.5F) / 16f);
             Chunk c = this.world.getChunk(chunkX);
 
-            Start.getInstance().getFont().drawStringWithShadow("Biome : " + c.chunkBiome.getBiomeName(), 2, 12, 1, 1);
-            Start.getInstance().getFont().drawStringWithShadow("Biome Length : " + c.biomeLength, 2, 22, 1, 1);
+            Start.getInstance().getFont().drawStringWithShadow("Biome : " + c.chunkBiome.getBiomeName(), 4, 24, 2, 1);
+            Start.getInstance().getFont().drawStringWithShadow("Biome Length : " + c.biomeLength, 4, 44, 2, 1);
+
+            int rainStageSecond = this.world.rainTimer / 60;
+
+            Start.getInstance().getFont().drawStringWithShadow("Weather Stage : " + rainStageSecond + "seconds", 4, 84, 2, 1);
         }
 
         Texture.WIDGETS.bind();
 
-        Renderer.drawGuiInventory(this.width / 2f - 91, this.height - 25, 0, 0, 182, 22);
-        Renderer.drawGuiInventory(this.width / 2f - 92 + (this.activeBlock * 20), this.height - 26, 0, 22, 24, 24);
+        Renderer.drawGuiInventory(this.width / 2f - 182, this.height - 50, 0, 0, 364, 44, 182, 22);
+        Renderer.drawGuiInventory(this.width / 2f - 184 + (this.activeBlock * 40), this.height - 52, 0, 22, 48, 48, 24, 24);
 
         Texture.WIDGETS.unbind();
 
         for (int i = 0; i < 9; i++) {
             if (this.player.inv.getStackInSlot(i).getItem() != null) {
-                this.player.inv.getStackInSlot(i).getItem().render(new Vector2d(this.width / 2f - 91 + 3 + i * 20, this.height - 25 + 3));
-                if (this.player.inv.getStackInSlot(i).getCount() > 1) Start.getInstance().getFont().drawCenteredStringWithShadow("" + this.player.inv.getStackInSlot(i).getCount(), this.width / 2f - 91 + 13 + i * 20, this.height - 25 + 15, 1, 1);
+                this.player.inv.getStackInSlot(i).getItem().render(new Vector2d(this.width / 2f - 182 + 6 + i * 40, this.height - 50 + 6));
+                if (this.player.inv.getStackInSlot(i).getCount() > 1) Start.getInstance().getFont().drawCenteredStringWithShadow("" + this.player.inv.getStackInSlot(i).getCount(), this.width / 2f - 180 + 26 + i * 40, this.height - 50 + 30, 2, 1);
             }
         }
     }

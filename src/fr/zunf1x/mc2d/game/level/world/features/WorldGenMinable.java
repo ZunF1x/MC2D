@@ -48,7 +48,8 @@ public class WorldGenMinable {
                         double d13 = ((double)i2 + 0.5D - d7) / (d11 / 2.0D);
 
                         if (d12 * d12 + d13 * d13 < 1.0D) {
-                            world.setBlock(l1, i2, this.ore, this.toReplace);
+                            if (this.ore != null) world.setBlock(l1, i2, this.ore, this.toReplace);
+                            else world.removeBlock(l1, i2, this.toReplace);
                         }
                     }
                 }

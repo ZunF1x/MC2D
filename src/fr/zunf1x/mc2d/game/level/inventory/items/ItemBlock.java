@@ -25,18 +25,18 @@ public class ItemBlock extends Item {
         if (this.block instanceof ISpecialRender) {
             Texture.ITEMS.bind();
 
-            Renderer.directTexturedCube(loc.getX(), loc.getY(), 16, 16, new Color4f(1, 1, 1), ((ISpecialRender) block).specialRender());
+            Renderer.directTexturedCube(loc.getX(), loc.getY(), 32, 32, new Color4f(1, 1, 1), ((ISpecialRender) block).specialRender());
 
             Texture.ITEMS.unbind();
         } else {
             int xo = getTexture() % 16;
             int yo = getTexture() / 16;
 
-            float x = (float) loc.getX() + 8;
-            float y = (float) loc.getY() + 7;
+            float x = (float) loc.getX() + 16;
+            float y = (float) loc.getY() + 14;
 
-            float w = 3.5F;
-            float h = 3.5F;
+            float w = 7F;
+            float h = 7F;
 
             float v = y + h * 4 - h / 2f - h;
 

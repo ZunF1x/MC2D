@@ -32,8 +32,8 @@ public abstract class Container {
 
         this.xSize = 176;
         this.ySize = 166;
-        this.guiLeft = (Display.getWidth() / 2 / 2) - (xSize / 2);
-        this.guiTop = (Display.getHeight() / 2 / 2) - (ySize / 2);
+        this.guiLeft = (Display.getWidth() / 2) - xSize;
+        this.guiTop = (Display.getHeight() / 2) - ySize;
 
         this.currentStack = ItemStack.EMPTY;
 
@@ -54,8 +54,8 @@ public abstract class Container {
             ((ITickable) this.inventory).update();
         }
 
-        this.guiLeft = ((Display.getWidth() / Start.getInstance().getGame().getScale()) / 2) - (xSize / 2);
-        this.guiTop = ((Display.getHeight() / Start.getInstance().getGame().getScale()) / 2) - (ySize / 2);
+        this.guiLeft = (Display.getWidth() / 2) - xSize;
+        this.guiTop = (Display.getHeight() / 2) - ySize;
 
         if (Keyboard.isKeyDown(Keyboard.KEY_K)) this.inventory.setInventorySlotContents(0, new ItemStack(Blocks.getItemBlock(Blocks.CRAFTING_TABLE), 1));
 
@@ -185,17 +185,17 @@ public abstract class Container {
 
             if (s.getHasStack()) s.getStack().getItem().render(new Vector2d(x, y));
 
-            if (mouseHover(x, y)) Renderer.directCube(x, y, 16, 16, new Color4f(1, 1, 1, 0.5F));
+            if (mouseHover(x, y)) Renderer.directCube(x, y, 32, 32, new Color4f(1, 1, 1, 0.5F));
 
-            if (s.getHasStack() && s.getStack().getCount() > 1) Start.getInstance().getFont().drawCenteredStringWithShadow("" + s.getStack().getCount(), x + 10, y + 12, 1, 1);
+            if (s.getHasStack() && s.getStack().getCount() > 1) Start.getInstance().getFont().drawCenteredStringWithShadow("" + s.getStack().getCount(), x + 20, y + 24, 2, 1);
         }
 
-        float mouseX = Start.getInstance().getGame().getMouseX(false) - 8;
-        float mouseY = Start.getInstance().getGame().getMouseY(false) - 8;
+        float mouseX = Start.getInstance().getGame().getMouseX(false) - 16;
+        float mouseY = Start.getInstance().getGame().getMouseY(false) - 16;
 
         if (!currentStack.isEmpty()) {
             currentStack.getItem().render(new Vector2d(mouseX, mouseY));
-            if (currentStack.getCount() > 1) Start.getInstance().getFont().drawCenteredStringWithShadow("" + currentStack.getCount(), mouseX + 10, mouseY + 12, 1, 1);
+            if (currentStack.getCount() > 1) Start.getInstance().getFont().drawCenteredStringWithShadow("" + currentStack.getCount(), mouseX + 20, mouseY + 24, 2, 1);
         }
     }
 
@@ -203,6 +203,6 @@ public abstract class Container {
         float mouseX = Start.getInstance().getGame().getMouseX(false);
         float mouseY = Start.getInstance().getGame().getMouseY(false);
 
-        return mouseX >= slotX && mouseX <= slotX + 16 && mouseY >= slotY && mouseY <= slotY + 16;
+        return mouseX >= slotX && mouseX <= slotX + 32 && mouseY >= slotY && mouseY <= slotY + 32;
     }
 }

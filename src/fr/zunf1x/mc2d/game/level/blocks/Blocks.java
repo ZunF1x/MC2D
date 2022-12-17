@@ -30,6 +30,10 @@ public class Blocks {
 
     public static Block SANDSTONE;
 
+    public static Block COBBLESTONE;
+
+    public static Block BEDROCK;
+
     public static HashMap<Integer, Block> blocks;
 
     static {
@@ -53,6 +57,8 @@ public class Blocks {
         ORE_LAPIS = registerBlock(15, new BlockOreLapis());
         CRAFTING_TABLE = registerBlock(16, new BlockCraftingTable());
         SANDSTONE = registerBlock(17, new BlockSandstone());
+        COBBLESTONE = registerBlock(18, new BlockCobblestone());
+        BEDROCK = registerBlock(19, new BlockBedrock());
     }
 
     private static Block registerBlock(int id, Block b) {

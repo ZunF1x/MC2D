@@ -18,12 +18,12 @@ public class InventoryCraftingTableGui extends GuiContainer {
     public void render() {
         INVENTORY.bind();
 
-        Renderer.drawGuiInventory(this.container.guiLeft, this.container.guiTop, 0, 0, this.container.xSize, this.container.ySize);
+        Renderer.drawGuiInventory(this.container.guiLeft, this.container.guiTop, 0, 0, this.container.xSize * 2, this.container.ySize * 2, this.container.xSize, this.container.ySize);
 
         INVENTORY.unbind();
 
-        Start.getInstance().getFont().drawStringWithShadow("Crafting", this.container.guiLeft + 28, this.container.guiTop + 6, 1, 1, 4210752);
-        Start.getInstance().getFont().drawStringWithShadow("Inventory", this.container.guiLeft + 8, this.container.guiTop + this.container.ySize - 96 + 2, 1, 1, 4210752);
+        Start.getInstance().getFont().drawStringWithShadow("Crafting", this.container.guiLeft + 56, this.container.guiTop + 12, 2, 1, 4210752);
+        Start.getInstance().getFont().drawStringWithShadow("Inventory", this.container.guiLeft + 16, this.container.guiTop + this.container.ySize - 188, 2, 1, 4210752);
 
         super.render();
     }

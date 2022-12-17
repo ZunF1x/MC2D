@@ -28,11 +28,9 @@ public class EntityPlayer extends Entity {
         this.inv = new InventoryPlayer(game);
         this.g = new InventoryPlayerGui(this.inv);
 
-        this.inv.setInventorySlotContents(4, new ItemStack(Item.getItemFromBlock(Blocks.DIRT), 64));
-        this.inv.setInventorySlotContents(5, new ItemStack(Item.getItemFromBlock(Blocks.DIRT), 64));
-        this.inv.setInventorySlotContents(6, new ItemStack(Item.getItemFromBlock(Blocks.DIRT), 64));
-        this.inv.setInventorySlotContents(7, new ItemStack(Item.getItemFromBlock(Blocks.DIRT), 64));
-
+        for (int i = 0; i < Blocks.blocks.size(); i++) {
+            this.inv.setInventorySlotContents(i, new ItemStack(Blocks.getItemBlock(i), 64));
+        }
 
         super.init(game);
     }
@@ -42,7 +40,7 @@ public class EntityPlayer extends Entity {
 
     @Override
     public void update() {
-        ya += 1.8F * 0.62F / 64F;
+        //ya += 1.8F * 0.62F / 64F;
 
         if (Keyboard.isKeyDown(Keyboard.KEY_Z)) {
             ya -= speed;

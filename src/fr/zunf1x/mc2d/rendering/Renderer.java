@@ -130,13 +130,13 @@ public class Renderer {
         glEnd();
     }
 
-    public static void drawGuiInventory(double x, double y, double u, double v, double width, double height) {
+    public static void drawGuiInventory(double x, double y, double u, double v, double width, double height, double tWidth, double tHeight) {
         glBegin(GL_QUADS);
         glColor4f(1, 1, 1, 1);
         glTexCoord2d(u / 256F, v / 256F); glVertex2d(x, y);
-        glTexCoord2d((u + width) / 256F, v / 256F); glVertex2d(x + width, y);
-        glTexCoord2d((u + width) / 256F, (v + height) / 256F); glVertex2d(x + width, y + height);
-        glTexCoord2d(u / 256F, (v + height) / 256F); glVertex2d(x, y + height);
+        glTexCoord2d((u + tWidth) / 256F, v / 256F); glVertex2d(x + width, y);
+        glTexCoord2d((u + tWidth) / 256F, (v + tHeight) / 256F); glVertex2d(x + width, y + height);
+        glTexCoord2d(u / 256F, (v + tHeight) / 256F); glVertex2d(x, y + height);
         glEnd();
     }
 }

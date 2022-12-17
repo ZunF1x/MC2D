@@ -9,7 +9,7 @@ import fr.zunf1x.mc2d.game.level.world.features.WorldGeneratorOres;
 
 public abstract class World {
 
-    private boolean rain = false;
+    public boolean rain = true;
 
     private final int size;
     private final Chunk[] chunks;
@@ -19,7 +19,7 @@ public abstract class World {
 
     private final WorldGenerator gen;
 
-    private int rainPhases;
+    public int rainTimer;
 
     public World(int size, Game game, WorldProvider worldProvider) {
         this.worldProvider = worldProvider;
@@ -30,10 +30,8 @@ public abstract class World {
 
         this.game = game;
 
-        this.rainPhases = this.getWorldProvider().getWorldSeededRandom().nextInt(20);
+        this.rainTimer = 43200;
     }
-
-    private int i = 0;
 
     public void update() {
         Game game = Start.getInstance().getGame();
@@ -41,17 +39,12 @@ public abstract class World {
         int playerChunkX = (int) (playerX / 16F);
         final int factor = 16;
 
-        i++;
+        this.rainTimer--;
 
-        if (i % 2500 == 0) {
-            System.out.println(this.rainPhases);
+        if (rainTimer == 0) {
+            this.rain = !this.rain;
 
-            if (rainPhases <= 0) {
-                this.rain = !this.rain;
-                this.rainPhases = this.getWorldProvider().getWorldSeededRandom().nextInt(25);
-            } else {
-                this.rainPhases -= 1;
-            }
+            this.rainTimer = 43200;
         }
 
         for (int i = 0; i <= factor; i++) {
@@ -116,6 +109,16 @@ public abstract class World {
         int xx = x / 16;
 
         this.getChunk(xx).removeBlock(x % 16, y);
+    }
+
+    public void removeBlock(int x, int y, Block toReplace) {
+        int xx = x / 16;
+
+        if (getChunk(xx) == null) return;
+
+        if (getBlock(x, y) != null && getBlock(x, y).getBlock() == toReplace) {
+            this.getChunk(xx).removeBlock(x % 16, y);
+        }
     }
 
     public void addBlock(int x, int y, Block block, boolean halfSide, boolean halfTop) {

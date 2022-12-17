@@ -19,7 +19,7 @@ public class InventoryPlayerGui extends GuiContainer {
     public void render() {
         INVENTORY.bind();
 
-        Renderer.drawGuiInventory(this.container.guiLeft, this.container.guiTop, 0, 0, this.container.xSize, this.container.ySize);
+        Renderer.drawGuiInventory(this.container.guiLeft, this.container.guiTop, 0, 0, this.container.xSize * 2, this.container.ySize * 2, this.container.xSize, this.container.ySize);
 
         INVENTORY.unbind();
 
