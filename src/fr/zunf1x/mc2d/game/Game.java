@@ -3,6 +3,8 @@ package fr.zunf1x.mc2d.game;
 import fr.zunf1x.mc2d.Start;
 import fr.zunf1x.mc2d.game.level.BlockPlacer;
 import fr.zunf1x.mc2d.game.level.blocks.*;
+import fr.zunf1x.mc2d.game.level.entities.particles.Particle;
+import fr.zunf1x.mc2d.game.level.entities.particles.ParticleSystem;
 import fr.zunf1x.mc2d.game.level.inventory.*;
 import fr.zunf1x.mc2d.game.level.inventory.inventories.crafting.RecipeRegistry;
 import fr.zunf1x.mc2d.game.level.inventory.items.Item;
@@ -21,6 +23,8 @@ import org.lwjgl.input.Mouse;
 import org.lwjgl.opengl.Display;
 import org.lwjgl.util.glu.GLU;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Random;
 
 import static org.lwjgl.opengl.GL11.*;
@@ -50,7 +54,7 @@ public class Game {
     }
 
     public void init() {
-        player = new EntityPlayer(new Vector2d(5480, 150));
+        player = new EntityPlayer(new Vector2d(1, 150));
         this.entityManager.addEntity(player);
 
         this.recipeRegistry = new RecipeRegistry();
@@ -100,6 +104,8 @@ public class Game {
     boolean flagY;
 
     int activeBlock;
+
+    boolean add = false;
 
     public void update() {
         activeBlock = (int) Mathf.clamp(activeBlock - Mouse.getDWheel() / 120F, 0, 8);
@@ -193,6 +199,7 @@ public class Game {
 
         while (Keyboard.next()) {
             if (Keyboard.getEventKeyState()) {
+                if (Keyboard.getEventKey() == Keyboard.KEY_R) this.add = !this.add;
                 if (Keyboard.getEventKey() == Keyboard.KEY_F3) this.debug = !this.debug;
                 if (Keyboard.getEventKey() == Keyboard.KEY_E){
                     if (isInventoryOpened()) {

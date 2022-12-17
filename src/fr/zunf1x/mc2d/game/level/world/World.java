@@ -40,7 +40,7 @@ public abstract class World {
             if (chunkToGenerate < 0 || chunkToGenerate >= size) continue;
 
             if (this.chunks[chunkToGenerate] == null) {
-                Chunk c = new Chunk(chunkToGenerate, this).generateChunk();
+                Chunk c = new Chunk(chunkToGenerate, game, this).generateChunk();
                 c.generateGrid();
                 this.chunks[chunkToGenerate] = c;
                 gen.generate(this.getWorldProvider().getWorldSeededRandom(), chunkToGenerate, this);

@@ -1,7 +1,9 @@
 package fr.zunf1x.mc2d.game.level.world;
 
+import fr.zunf1x.mc2d.game.Game;
 import fr.zunf1x.mc2d.game.level.BlockPlacer;
 import fr.zunf1x.mc2d.game.level.blocks.*;
+import fr.zunf1x.mc2d.game.level.entities.particles.ParticleSystem;
 import fr.zunf1x.mc2d.game.level.world.features.Tree;
 import fr.zunf1x.mc2d.game.level.world.features.WorldGenerator;
 import fr.zunf1x.mc2d.game.level.world.features.WorldGeneratorOres;
@@ -29,6 +31,7 @@ public class Chunk {
 
     private Noise noise;
 
+    private Game game;
     private World world;
 
     public Color4f foliageColor;
@@ -40,17 +43,27 @@ public class Chunk {
     private FloatBuffer vertexBuffer;
     private FloatBuffer colorBuffer;
 
-    public Chunk(int x, World world) {
+    private List<ParticleSystem> p;
+
+    private boolean rain;
+
+    public Chunk(int x, Game game, World world) {
         this.blocks = new BlockPlacer[WIDTH][HEIGHT];
 
         this.trees = new ArrayList<>();
 
         this.x = x;
 
+        this.game = game;
         this.world = world;
         this.noise = this.world.getWorldProvider().getNoise();
 
+        this.p = new ArrayList<>();
+
         Random rand = this.world.getWorldProvider().getWorldSeededRandom();
+
+        this.rain = rand.nextBoolean(); // TODO: Adapt with world actual climat
+
         if (x - 1 >= 0 && this.world.getChunk(x - 1) != null) {
             Color4f c = this.world.getChunk(x - 1).foliageColor;
 
@@ -62,6 +75,14 @@ public class Chunk {
             this.foliageColor = new Color4f(0, g, b);
         } else {
             this.foliageColor = new Color4f(0, (float) Mathf.clamp(rand.nextFloat(), 0.25F, 0.75F), (float) Mathf.clamp(rand.nextFloat(), 0.0F, 0.15F));
+        }
+    }
+
+    public void addParticle() {
+        for (int i = 0; i < 16; i++) {
+            ParticleSystem ps = new ParticleSystem((x * 64 * 16) + (i * 64), 128 * 64, 4, null);
+            ps.init(game);
+            this.p.add(ps);
         }
     }
 
@@ -152,11 +173,30 @@ public class Chunk {
         colorBuffer.clear();
     }
 
+    int i = 0;
+
     public boolean grounded(int x, int y) {
         return getBlock(x, y) != null && getBlock(x, y - 1) == null;
     }
 
     public void update() {
+        i++;
+
+        if (rain) {
+            if (i % 3 == 0) {
+                addParticle();
+            }
+        }
+
+        for (int i = 0; i < p.size(); i++) {
+            ParticleSystem pa = this.p.get(i);
+            pa.update();
+
+            if (pa.particles.size() <= 0) {
+                this.p.remove(pa);
+            }
+        }
+
         for (int x = 0; x < Chunk.WIDTH; x++) {
             for (int y = 0; y < Chunk.HEIGHT; y++) {
                 BlockPlacer b = getBlock(x, y);
@@ -194,6 +234,11 @@ public class Chunk {
     }
 
     public void render(boolean debug, World world) {
+        for (int i = 0; i < p.size(); i++) {
+            ParticleSystem pa = this.p.get(i);
+            pa.render();
+        }
+
         for (int x = 0; x < Chunk.WIDTH; x++) {
             for (int y = 0; y < Chunk.HEIGHT; y++) {
                 BlockPlacer b = getBlock(x, y);

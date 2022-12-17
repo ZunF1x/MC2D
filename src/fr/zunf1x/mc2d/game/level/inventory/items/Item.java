@@ -1,5 +1,7 @@
 package fr.zunf1x.mc2d.game.level.inventory.items;
 
+import fr.zunf1x.mc2d.game.level.blocks.Block;
+import fr.zunf1x.mc2d.game.level.blocks.Blocks;
 import fr.zunf1x.mc2d.math.vectors.Vector2d;
 import fr.zunf1x.mc2d.rendering.Color4f;
 import fr.zunf1x.mc2d.rendering.Renderer;
@@ -15,6 +17,10 @@ public class Item {
 
     public int getTexture() {
         return texture;
+    }
+
+    public static Item getItemFromBlock(Block block) {
+        return Blocks.getItemBlock(block);
     }
 
     public void render(Vector2d loc) {
