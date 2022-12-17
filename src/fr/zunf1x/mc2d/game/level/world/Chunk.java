@@ -62,7 +62,7 @@ public class Chunk {
 
         Random rand = this.world.getWorldProvider().getWorldSeededRandom();
 
-        this.rain = rand.nextBoolean(); // TODO: Adapt with world actual climat
+        this.rain = false;
 
         if (x - 1 >= 0 && this.world.getChunk(x - 1) != null) {
             Color4f c = this.world.getChunk(x - 1).foliageColor;
@@ -80,7 +80,7 @@ public class Chunk {
 
     public void addParticle() {
         for (int i = 0; i < 16; i++) {
-            ParticleSystem ps = new ParticleSystem((x * 64 * 16) + (i * 64), 128 * 64, 4, null);
+            ParticleSystem ps = new ParticleSystem((x * 64 * 16) + (i * 64), 128 * 64, 3, null);
             ps.init(game);
             this.p.add(ps);
         }
@@ -179,8 +179,10 @@ public class Chunk {
         return getBlock(x, y) != null && getBlock(x, y - 1) == null;
     }
 
-    public void update() {
+    public void update(boolean worldRaining) {
         i++;
+
+        this.rain = worldRaining;
 
         if (rain) {
             if (i % 3 == 0) {

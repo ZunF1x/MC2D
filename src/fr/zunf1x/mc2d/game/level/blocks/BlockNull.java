@@ -14,7 +14,7 @@ public class BlockNull extends Block {
     }
 
     public void render(Vector2d loc, World world, Color4f grassColor, boolean halfSide, boolean halfTop) {
-        boolean open = !world.getBlock((int) loc.getX(), (int) loc.getY()).isCollide();
+        boolean open = world.getBlock((int) loc.getX(), (int) loc.getY()).isCollide();
 
         Texture.BLOCKS.bind();
 

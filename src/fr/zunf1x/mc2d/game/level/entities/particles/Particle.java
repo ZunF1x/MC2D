@@ -34,8 +34,7 @@ public class Particle {
     public Particle(Texture texture, int size, float speed, int lifeTime, int[] randomness) {}
 
     public void update() {
-        this.x += this.rx;
-        this.y += 0.7F;
+        this.y += 0.55F;
 
         if (y >= 255) {
             removed = true;

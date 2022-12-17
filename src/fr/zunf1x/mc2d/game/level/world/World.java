@@ -9,6 +9,8 @@ import fr.zunf1x.mc2d.game.level.world.features.WorldGeneratorOres;
 
 public abstract class World {
 
+    private boolean rain = false;
+
     private final int size;
     private final Chunk[] chunks;
 
@@ -16,6 +18,8 @@ public abstract class World {
     private final WorldProvider worldProvider;
 
     private final WorldGenerator gen;
+
+    private int rainPhases;
 
     public World(int size, Game game, WorldProvider worldProvider) {
         this.worldProvider = worldProvider;
@@ -25,13 +29,30 @@ public abstract class World {
         gen = new WorldGeneratorOres();
 
         this.game = game;
+
+        this.rainPhases = this.getWorldProvider().getWorldSeededRandom().nextInt(20);
     }
+
+    private int i = 0;
 
     public void update() {
         Game game = Start.getInstance().getGame();
         double playerX = game.player.getLocation().getX();
         int playerChunkX = (int) (playerX / 16F);
         final int factor = 16;
+
+        i++;
+
+        if (i % 2500 == 0) {
+            System.out.println(this.rainPhases);
+
+            if (rainPhases <= 0) {
+                this.rain = !this.rain;
+                this.rainPhases = this.getWorldProvider().getWorldSeededRandom().nextInt(25);
+            } else {
+                this.rainPhases -= 1;
+            }
+        }
 
         for (int i = 0; i <= factor; i++) {
             int f = i - factor / 2;
@@ -55,7 +76,7 @@ public abstract class World {
 
             if (xScroll > xx0 || xScroll + game.getWidth() / 64F < xx1) continue;
 
-            if (getChunk(x) != null) getChunk(x).update();
+            if (getChunk(x) != null) getChunk(x).update(this.rain);
         }
     }
 
