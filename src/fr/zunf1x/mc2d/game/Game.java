@@ -3,7 +3,6 @@ package fr.zunf1x.mc2d.game;
 import fr.zunf1x.mc2d.Start;
 import fr.zunf1x.mc2d.game.level.BlockPlacer;
 import fr.zunf1x.mc2d.game.level.blocks.*;
-import fr.zunf1x.mc2d.game.level.entities.particles.Particle;
 import fr.zunf1x.mc2d.game.level.inventory.*;
 import fr.zunf1x.mc2d.game.level.inventory.inventories.crafting.RecipeRegistry;
 import fr.zunf1x.mc2d.game.level.inventory.items.ItemBlock;
@@ -12,6 +11,7 @@ import fr.zunf1x.mc2d.game.level.world.World;
 import fr.zunf1x.mc2d.game.level.entities.EntityPlayer;
 import fr.zunf1x.mc2d.game.level.world.WorldOverworld;
 import fr.zunf1x.mc2d.game.level.world.WorldProvider;
+import fr.zunf1x.mc2d.game.level.world.environment.Skybox;
 import fr.zunf1x.mc2d.math.Mathf;
 import fr.zunf1x.mc2d.math.vectors.Vector2d;
 import fr.zunf1x.mc2d.rendering.Renderer;
@@ -43,14 +43,18 @@ public class Game {
 
     public RecipeRegistry recipeRegistry;
 
+    private Skybox skybox;
+
     public Game() {
         this.world = new WorldOverworld(32768, this, new WorldProvider(new Random().nextLong(), 20, 10));
 
         this.entityManager = new EntityManager(this);
+
+        skybox = new Skybox(0.3941176470588235F, 0.6529411764705882F, 1F);
     }
 
     public void init() {
-        player = new EntityPlayer(new Vector2d(8138, 192));
+        player = new EntityPlayer(new Vector2d(0, 165));
         this.entityManager.addEntity(player);
 
         this.recipeRegistry = new RecipeRegistry();
@@ -105,6 +109,8 @@ public class Game {
 
     public void update() {
         activeBlock = (int) Mathf.clamp(activeBlock - Mouse.getDWheel() / 120F, 0, 8);
+
+        this.skybox.updateSkybox();
 
         this.width = Start.getInstance().getWidth();
         this.height = Start.getInstance().getHeight();
@@ -168,11 +174,11 @@ public class Game {
                         if (this.world.getBlock(getMouseX(true) / 64, getMouseY(true) / 64) == null) {
                             ItemBlock ib = ((ItemBlock) this.player.inv.getStackInSlot(this.activeBlock).getItem());
                             this.world.addBlock(getMouseX(true) / 64, getMouseY(true) / 64, ib.block, mX > blockX + 0.50F, mY <= blockY + 0.50F);
-                            if (this.player.inv.getStackInSlot(this.activeBlock).getCount() > 1) {
+                            /*if (this.player.inv.getStackInSlot(this.activeBlock).getCount() > 1) {
                                 this.player.inv.getStackInSlot(this.activeBlock).shrink(1);
                             } else {
                                 this.player.inv.setInventorySlotContents(this.activeBlock, ItemStack.EMPTY);
-                            }
+                            }*/
                         }
                     }
                 }
@@ -318,6 +324,8 @@ public class Game {
 
         glScalef(64, 64, 0);
         glTranslated(xScroll, yScroll, 0);
+
+        this.skybox.renderSkybox();
 
         this.entityManager.render();
 

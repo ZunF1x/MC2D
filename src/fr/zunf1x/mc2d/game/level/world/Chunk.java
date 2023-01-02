@@ -28,7 +28,7 @@ public class Chunk {
 
     private BlockPlacer[][] blocks;
 
-    private int x;
+    public int x;
 
     private Noise noise;
 
@@ -78,20 +78,22 @@ public class Chunk {
         if (world.getChunk(x - 1) != null) {
             this.biomeLength = world.getChunk(x - 1).biomeLength + 1;
 
-            if (this.biomeLength <= this.chunkBiome.getBiomeLength()) {
-                this.chunkBiome = world.getChunk(x - 1).chunkBiome;
-            } else {
+            if (this.biomeLength >= this.chunkBiome.getBiomeLength()) {
                 this.biomeLength = 0;
+            } else {
+                this.chunkBiome = world.getChunk(x - 1).chunkBiome;
             }
         } else if (world.getChunk(x + 1) != null) {
             this.biomeLength = world.getChunk(x + 1).biomeLength + 1;
 
-            if (this.biomeLength <= this.chunkBiome.getBiomeLength()) {
-                this.chunkBiome = world.getChunk(x + 1).chunkBiome;
-            } else {
+            if (this.biomeLength >= this.chunkBiome.getBiomeLength()) {
                 this.biomeLength = 0;
+            } else {
+                this.chunkBiome = world.getChunk(x + 1).chunkBiome;
             }
         }
+
+        System.out.println(this.biomeLength + " / " + this.chunkBiome.getBiomeLength());
 
         if (x - 1 >= 0 && this.world.getChunk(x - 1) != null) {
             Color4f c = this.world.getChunk(x - 1).foliageColor;
@@ -114,9 +116,9 @@ public class Chunk {
             int rainTexture = 208 + rand.nextInt(5);
             int snowTexture = 192 + rand.nextInt(3);
 
-            Particle particle = new Particle(Color4f.WHITE, snowy ? snowTexture : rainTexture, new Vector2d(0, 5), snowy ? 1F : 1.3F, 0);
+            Particle particle = new Particle(Color4f.WHITE, snowy ? snowTexture : rainTexture, new Vector2d(0, 5), snowy ? 1F : 1.3F, 0, true);
 
-            ParticleSystem ps = new ParticleSystem((x * 64 * 16) + (i * 64), 154 * 64, 2, particle);
+            ParticleSystem ps = new ParticleSystem((x * 64 * 16) + (i * 64), 154 * 64, 2, particle, 56);
             ps.init(game);
             this.p.add(ps);
         }
@@ -343,7 +345,7 @@ public class Chunk {
 
         int xx = this.x * 16 + x;
 
-        this.blocks[x][y] = new BlockPlacer(new Vector2d(xx, y), b, this.world, this.world.game, halfSide, halfTop);
+        this.blocks[x][y] = new BlockPlacer(new Vector2d(xx, y), b, this, this.world.game, halfSide, halfTop);
     }
 
     public void setBlock(int x, int y, Block b) {
@@ -351,7 +353,7 @@ public class Chunk {
 
         int xx = this.x * 16 + x;
 
-        this.blocks[x][y] = new BlockPlacer(new Vector2d(xx, y), b, this.world, this.world.game, false, false);
+        this.blocks[x][y] = new BlockPlacer(new Vector2d(xx, y), b, this, this.world.game, false, false);
     }
 
     public BlockPlacer getBlock(int x, int y) {

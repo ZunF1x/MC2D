@@ -1,6 +1,7 @@
 package fr.zunf1x.mc2d;
 
 import fr.zunf1x.mc2d.game.Game;
+import fr.zunf1x.mc2d.math.Mathf;
 import fr.zunf1x.mc2d.rendering.Font;
 import fr.zunf1x.mc2d.rendering.Texture;
 import org.lwjgl.LWJGLException;
@@ -111,16 +112,10 @@ public class MC2D {
         this.game.update();
     }
 
-    float x = 128;
-    float y = 128;
-    float w = 12;
-    float h = 12;
-
     public void render() {
         glViewport(0, 0, this.width * scale, this.height * scale);
 
         glClear(GL_DEPTH_BUFFER_BIT | GL_COLOR_BUFFER_BIT);
-        glClearColor(0.3941176470588235F, 0.6529411764705882F, 1F, 1F);
 
         this.game.render();
     }

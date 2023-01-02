@@ -1,6 +1,7 @@
 package fr.zunf1x.mc2d.game.level.entities.particles;
 
 import fr.zunf1x.mc2d.game.Game;
+import fr.zunf1x.mc2d.rendering.Texture;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -14,23 +15,27 @@ public class ParticleSystem {
     private int num;
     private Particle p;
 
-    public ParticleSystem(double x, double y, int num, Particle p) {
+    private int rand;
+
+    public ParticleSystem(double x, double y, int num, Particle p, int rand) {
         this.x = x;
         this.y = y;
         this.num = num;
         this.p = p;
+
+        this.rand = rand;
     }
 
     public void init(Game game) {
-        for (int i = 0; i < this.particles.size(); i++) {
-            Particle p = particles.get(i);
-            p.init(game);
-        }
-
         Random rand = game.getWorld().getWorldProvider().getWorldSeededRandom();
 
         for (int i = 0; i < num; i++) {
-            particles.add(new Particle(p, x + rand.nextInt(56), y + rand.nextInt(56)));
+            particles.add(new Particle(p, x + rand.nextInt(this.rand), y + rand.nextInt(this.rand)));
+        }
+
+        for (int i = 0; i < this.particles.size(); i++) {
+            Particle p = particles.get(i);
+            p.init(game);
         }
     }
 
@@ -45,9 +50,11 @@ public class ParticleSystem {
     }
 
     public void render() {
+        Texture.PARTICLES.bind();
         for (int i = 0; i < this.particles.size(); i++) {
             Particle p = particles.get(i);
             p.render();
         }
+        Texture.PARTICLES.unbind();
     }
 }

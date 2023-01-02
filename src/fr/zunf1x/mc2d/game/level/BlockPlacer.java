@@ -5,6 +5,7 @@ import fr.zunf1x.mc2d.game.Game;
 import fr.zunf1x.mc2d.game.level.blocks.Block;
 import fr.zunf1x.mc2d.game.level.blocks.IGravity;
 import fr.zunf1x.mc2d.game.level.entities.EntityBlock;
+import fr.zunf1x.mc2d.game.level.world.Chunk;
 import fr.zunf1x.mc2d.game.level.world.World;
 import fr.zunf1x.mc2d.math.vectors.Vector2d;
 import fr.zunf1x.mc2d.rendering.Color4f;
@@ -22,16 +23,18 @@ public class BlockPlacer {
     private Color4f color;
 
     private World world;
+    private Chunk chunk;
     private Game game;
 
     public boolean halfSide, halfTop;
 
-    public BlockPlacer(Vector2d loc, Block block, World world, Game game, boolean halfSide, boolean halfTop) {
+    public BlockPlacer(Vector2d loc, Block block, Chunk chunk, Game game, boolean halfSide, boolean halfTop) {
         this.loc = loc;
         this.block = block;
 
         this.game = game;
-        this.world = world;
+        this.chunk = chunk;
+        this.world = this.chunk.world;
 
         this.halfSide = halfSide;
         this.halfTop = halfTop;
@@ -48,6 +51,8 @@ public class BlockPlacer {
                 this.world.removeBlock((int) Math.ceil(getLocation().getX()), (int) Math.floor(getLocation().getY()));
             }
         }
+
+        this.block.tick(this.loc, world, this.chunk.x, halfSide, halfTop);
     }
 
     public void render(Color4f grassColor, World world) {

@@ -40,7 +40,7 @@ public class EntityPlayer extends Entity {
 
     @Override
     public void update() {
-        //ya += 1.8F * 0.62F / 64F;
+        ya += 1.8F * 0.62F / 64F;
 
         if (Keyboard.isKeyDown(Keyboard.KEY_Z)) {
             ya -= speed;

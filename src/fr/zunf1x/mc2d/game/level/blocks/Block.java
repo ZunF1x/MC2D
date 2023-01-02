@@ -37,5 +37,9 @@ public abstract class Block {
         Texture.BLOCKS.unbind();
     }
 
+    public void tick(Vector2d loc, World world, int chunkX, boolean halfSide, boolean halfTop) {
+
+    }
+
     public void onBlockInteract(Game game, int x, int y) {}
 }

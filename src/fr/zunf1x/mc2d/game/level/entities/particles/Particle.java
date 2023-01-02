@@ -25,12 +25,15 @@ public class Particle {
 
     private int texture;
 
-    public Particle(Color4f color, int texture, Vector2d direction, float speed, int lifeTime) {
+    private boolean fall;
+
+    public Particle(Color4f color, int texture, Vector2d direction, float speed, int lifeTime, boolean fall) {
         this.color = color;
         this.texture = texture;
         this.direction = direction;
         this.speed = speed;
         this.lifeTime = lifeTime;
+        this.fall = fall;
     }
 
     public Particle(Particle p, double x, double y) {
@@ -42,6 +45,7 @@ public class Particle {
         this.direction = p.direction;
         this.speed = p.speed;
         this.lifeTime = p.lifeTime;
+        this.fall = p.fall;
     }
 
     public Particle(Color4f color, float speed, int lifeTime, int[] randomness) {}
@@ -59,9 +63,13 @@ public class Particle {
     public void update() {
         time++;
 
+        if (!fall) x += (rx / 64F + direction.getX() / 64F) * speed;
         y += ((ry / 64F) + (direction.getY() / 64F)) * speed;
 
-        if (y >= 255) this.removed = true;
+        if (lifeTime != 0) {
+            if (time >= lifeTime) this.removed = true;
+        }
+        else if (y >= 255) this.removed = true;
     }
 
     public void render() {

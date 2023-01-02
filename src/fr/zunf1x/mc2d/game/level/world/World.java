@@ -4,8 +4,13 @@ import fr.zunf1x.mc2d.Start;
 import fr.zunf1x.mc2d.game.Game;
 import fr.zunf1x.mc2d.game.level.BlockPlacer;
 import fr.zunf1x.mc2d.game.level.blocks.Block;
+import fr.zunf1x.mc2d.game.level.entities.particles.Particle;
+import fr.zunf1x.mc2d.game.level.entities.particles.ParticleSystem;
 import fr.zunf1x.mc2d.game.level.world.features.WorldGenerator;
 import fr.zunf1x.mc2d.game.level.world.features.WorldGeneratorOres;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public abstract class World {
 
@@ -21,6 +26,8 @@ public abstract class World {
 
     public int rainTimer;
 
+    public List<ParticleSystem> particles;
+
     public World(int size, Game game, WorldProvider worldProvider) {
         this.worldProvider = worldProvider;
         this.size = size;
@@ -28,9 +35,17 @@ public abstract class World {
 
         gen = new WorldGeneratorOres();
 
+        particles = new ArrayList<>();
+
         this.game = game;
 
         this.rainTimer = 43200;
+    }
+
+    public void addParticleSystem(double x, double y, int num, Particle p, int rand) {
+        ParticleSystem ps = new ParticleSystem(x, y, num, p, rand);
+        ps.init(this.game);
+        this.particles.add(ps);
     }
 
     public void update() {
@@ -40,6 +55,14 @@ public abstract class World {
         final int factor = 16;
 
         this.rainTimer--;
+
+        for (int i = 0; i < particles.size(); i++) {
+            particles.get(i).update();
+
+            if (particles.get(i).particles.size() <= 0) {
+                this.particles.remove(particles.get(i));
+            }
+        }
 
         if (rainTimer == 0) {
             this.rain = !this.rain;
@@ -92,6 +115,10 @@ public abstract class World {
             if (xScroll > xx0 || xScroll + game.getWidth() / 64F < xx1) continue;
 
             if (getChunk(x) != null) getChunk(x).render(debug, this);
+        }
+
+        for (int i = 0; i < particles.size(); i++) {
+            particles.get(i).render();
         }
     }
 
